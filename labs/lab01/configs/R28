@@ -22,4 +22,4 @@ conf t
   ip address 192.168.131.254 255.255.255.0
   no shutdown
   exit
-!
+ exit
