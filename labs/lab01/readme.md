@@ -135,7 +135,31 @@
 ###  Пример настройки на маршрутизаторе R28:
 
 ```
-
+conf t
+ interface Ethernet0/0
+  description "to ISP (R26)"
+  ip address 172.26.28.2 255.255.255.252
+  no shutdown
+  exit
+!
+ interface Ethernet0/1
+  description "to ISP (R25)"
+  ip address 172.25.28.2 255.255.255.252
+  no shutdown
+  exit
+!
+ interface Ethernet0/2.30
+  description "to LAN"
+  ip address 192.168.130.254 255.255.255.0
+  no shutdown
+  exit
+!
+ interface Ethernet0/2.31
+  description "to LAN"
+  ip address 192.168.131.254 255.255.255.0
+  no shutdown
+  exit
+ exit
 ```
 
 Все файлы изменений приведены [здесь](configs/)
