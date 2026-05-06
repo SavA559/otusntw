@@ -165,16 +165,22 @@ conf t
 !
  interface Ethernet0/2.30
   description "to LAN"
+  encapsulation dot1Q 130
   ip address 192.168.130.254 255.255.255.0
   no shutdown
   exit
 !
  interface Ethernet0/2.31
   description "to LAN"
+  encapsulation dot1Q 131
   ip address 192.168.131.254 255.255.255.0
   no shutdown
   exit
- exit
+!
+ interface Ethernet0/2
+  no shutdown
+  exit
+exit
 ```
 
 Все файлы изменений приведены [здесь](configs/)
