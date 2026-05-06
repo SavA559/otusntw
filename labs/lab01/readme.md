@@ -178,6 +178,10 @@ conf t
  interface Ethernet0/2
   no shutdown
   exit
+!
+ interface loopback 0
+ ip address 28.28.28.28 255.255.255.255
+ exit
 exit
 ```
 
