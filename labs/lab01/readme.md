@@ -167,7 +167,7 @@ conf t
   description to LAN
   encapsulation dot1Q 130
   ip address 192.168.130.254 255.255.255.0
-  exit
+  exit 
 !
  interface Ethernet0/2.31
   description to LAN
@@ -188,7 +188,39 @@ exit
 ###  Пример настройки на коммутаторе SW29:
 
 ```
-
+conf t
+interface Ethernet0/0
+ switchport access vlan 130
+ switchport mode access
+ switchport nonegotiate
+ no shutdown
+ exit
+!
+interface Ethernet0/1
+ switchport access vlan 131
+ switchport mode access
+ switchport nonegotiate
+ no shutdown
+ exit
+!
+interface Ethernet0/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ no shutdown
+ exit
+!
+interface Vlan130
+ ip address 192.168.130.253 255.255.255.0
+ no shutdown
+ exit
+!
+interface Vlan131
+ ip address 192.168.131.253 255.255.255.0
+ no shutdown
+ exit
+!
+ip default-gateway 192.168.130.254
+exit
 ```
 
 Все файлы изменений приведены [здесь](configs/)
