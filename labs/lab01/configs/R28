@@ -1,33 +1,22 @@
-conf t
- interface Ethernet0/0
-  description "to ISP (R26)"
-  ip address 172.26.28.2 255.255.255.252
-  no shutdown
-  exit
 !
- interface Ethernet0/1
-  description "to ISP (R25)"
-  ip address 172.25.28.2 255.255.255.252
-  no shutdown
-  exit
-!
- interface Ethernet0/2.30
-  description "to LAN"
-  encapsulation dot1Q 130
-  ip address 192.168.130.254 255.255.255.0
-  exit
-!
- interface Ethernet0/2.31
-  description "to LAN"
-  encapsulation dot1Q 131
-  ip address 192.168.131.254 255.255.255.0
-  exit
-!
- interface Ethernet0/2
-  no shutdown
-  exit
-!
- interface loopback 0
+interface Loopback0
  ip address 28.28.28.28 255.255.255.255
- exit
-exit
+!
+interface Ethernet0/0
+ description to "ISP (R26)"
+ ip address 172.26.28.2 255.255.255.252
+!         
+interface Ethernet0/1
+ description "to ISP (R25)"
+ ip address 172.25.28.2 255.255.255.252
+!
+interface Ethernet0/2.30
+ description "to LAN"
+ encapsulation dot1Q 130
+ ip address 192.168.130.254 255.255.255.0
+!
+interface Ethernet0/2.31
+ description "to LAN"
+ encapsulation dot1Q 131
+ ip address 192.168.131.254 255.255.255.0
+!
