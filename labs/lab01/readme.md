@@ -222,12 +222,12 @@ interface Vlan131
 ip default-gateway 192.168.130.254
 !
 ip routing
-ip dhcp pool vl130
+ip dhcp pool vid130
  network 192.168.130.0 255.255.255.0
  default-router 192.168.130.254
  exit
 !
-ip dhcp pool vl131
+ip dhcp pool vid131
  network 192.168.131.0 255.255.255.0
  default-router 192.168.131.254
  exit
