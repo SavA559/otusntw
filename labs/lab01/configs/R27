@@ -1,1 +1,5 @@
-
+!
+interface Ethernet0/0
+ description to ISP (R25)
+ ip address 172.25.27.2 255.255.255.252
+!
