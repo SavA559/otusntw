@@ -209,6 +209,8 @@ interface Ethernet0/1
  switchport access vlan 131
  switchport mode access
  switchport nonegotiate
+ spanning-tree portfast
+ spanning-tree bpduguard enable
  no shutdown
  exit
 !
