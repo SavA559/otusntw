@@ -220,6 +220,19 @@ interface Vlan131
  exit
 !
 ip default-gateway 192.168.130.254
+!
+ip routing
+ip dhcp pool vl130
+ network 192.168.130.0 255.255.255.0
+ default-router 192.168.130.254
+ exit
+!
+ip dhcp pool vl131
+ network 192.168.131.0 255.255.255.0
+ default-router 192.168.131.254
+ exit
+!
+ip dhcp excluded-address 192.168.130.253 192.168.130.254 192.168.131.253 192.168.131.254
 exit
 ```
 
