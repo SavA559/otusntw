@@ -1,1 +1,17 @@
-
+!
+interface Ethernet0/0
+ description to LAN
+ ip address 192.168.100.254 255.255.255.0
+!
+interface Ethernet0/1
+ description to R18
+ ip address 10.16.18.1 255.255.255.0
+!
+interface Ethernet0/2
+ description to LAN
+ ip address 192.168.108.254 255.255.255.0
+!
+interface Ethernet0/3
+ description to R32
+ ip address 10.16.32.1 255.255.255.0
+!
