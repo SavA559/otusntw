@@ -1,1 +1,17 @@
-
+!
+interface Ethernet0/0
+ description to R12
+ ip address 10.12.14.2 255.255.255.0
+!
+interface Ethernet0/1
+ description to R13
+ ip address 10.13.14.2 255.255.255.0
+!
+interface Ethernet0/2
+ description to ISP (R22)
+ ip address 172.14.22.1 255.255.255.252
+!
+interface Ethernet0/3
+ description to R19
+ ip address 10.14.19.1 255.255.255.0
+!
