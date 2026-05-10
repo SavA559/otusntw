@@ -1,4 +1,7 @@
 !
+interface Loopback0
+ ip address 25.25.25.25 255.255.255.255
+!
 interface Ethernet0/0
  description to R23
  ip address 10.23.25.2 255.255.255.0
