@@ -1,1 +1,20 @@
-
+!
+interface Loopback0
+ ip address 5.5.5.5 255.255.255.255
+!
+interface Ethernet0/0
+ description to LAN
+ ip address 192.168.107.253 255.255.255.0
+!
+interface Ethernet0/1
+ description to LAN
+ ip address 192.168.101.253 255.255.255.0
+!
+interface Ethernet1/0
+ description to R13
+ ip address 10.5.13.1 255.255.255.0
+!
+interface Ethernet1/1
+ description to R12
+ ip address 10.5.12.1 255.255.255.0
+!
