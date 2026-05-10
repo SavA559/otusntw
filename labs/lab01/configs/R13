@@ -1,4 +1,7 @@
 !
+interface Loopback0
+ ip address 13.13.13.13 255.255.255.255
+!
 interface Ethernet0/0
  description to SW5
  ip address 10.5.13.2 255.255.255.0
