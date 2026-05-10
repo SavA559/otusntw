@@ -1,4 +1,7 @@
 !
+interface Loopback0
+ ip address 32.32.32.32 255.255.255.255
+!
 interface Ethernet0/0
  description to R16
  ip address 10.16.32.2 255.255.255.0
