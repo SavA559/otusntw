@@ -1,4 +1,7 @@
 !
+interface Loopback0
+ ip address 24.24.24.24 255.255.255.255
+!
 interface Ethernet0/0
  description to ISP (R21)
  ip address 172.21.24.2 255.255.255.252
