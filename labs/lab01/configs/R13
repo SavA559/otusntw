@@ -1,1 +1,17 @@
-
+!
+interface Ethernet0/0
+ description to SW5
+ ip address 10.5.13.2 255.255.255.0
+!
+interface Ethernet0/1
+ description to SW4
+ ip address 10.4.13.2 255.255.255.0
+!
+interface Ethernet0/2
+ description to R15
+ ip address 10.13.15.1 255.255.255.0
+!
+interface Ethernet0/3
+ description to R14
+ ip address 10.13.14.1 255.255.255.0
+!
