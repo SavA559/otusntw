@@ -1,4 +1,7 @@
 !
+interface Loopback0
+ ip address 14.14.14.14 255.255.255.255
+!
 interface Ethernet0/0
  description to R12
  ip address 10.12.14.2 255.255.255.0
