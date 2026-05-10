@@ -1,4 +1,7 @@
 !
+interface Loopback0
+ ip address 21.21.21.21 255.255.255.255
+!
 interface Ethernet0/0
  description to ISP (R15)
  ip address 172.15.21.2 255.255.255.252
