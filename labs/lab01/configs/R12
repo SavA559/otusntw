@@ -1,4 +1,7 @@
 !
+interface Loopback0
+ ip address 12.12.12.12 255.255.255.255
+!
 interface Ethernet0/0
  description to SW4
  ip address 10.4.12.2 255.255.255.0
