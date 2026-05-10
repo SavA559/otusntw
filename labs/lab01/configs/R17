@@ -1,4 +1,7 @@
 !
+interface Loopback0
+ ip address 17.17.17.17 255.255.255.255
+!
 interface Ethernet0/0
  description to LAN
  ip address 192.168.108.253 255.255.255.0
