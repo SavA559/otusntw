@@ -2,19 +2,45 @@
 interface Loopback0
  ip address 4.4.4.4 255.255.255.255
 !
+interface Port-channel1
+ no switchport
+ ip address 10.4.5.1 255.255.255.0
+!
 interface Ethernet0/0
  description to LAN
+ no switchport
  ip address 192.168.101.254 255.255.255.0
-!         
+ duplex auto
+!
 interface Ethernet0/1
  description to LAN
+ no switchport
  ip address 192.168.107.254 255.255.255.0
+ duplex auto
+!
+interface Ethernet0/2
+ no switchport
+ no ip address
+ duplex auto
+ channel-protocol lacp
+ channel-group 1 mode active
+!
+interface Ethernet0/3
+ no switchport
+ no ip address
+ duplex auto
+ channel-protocol lacp
+ channel-group 1 mode active
 !
 interface Ethernet1/0
  description to R12
+ no switchport
  ip address 10.4.12.1 255.255.255.0
+ duplex auto
 !
 interface Ethernet1/1
  description to R13
+ no switchport
  ip address 10.4.13.1 255.255.255.0
+ duplex auto
 !
