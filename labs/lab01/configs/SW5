@@ -2,6 +2,11 @@
 interface Loopback0
  ip address 5.5.5.5 255.255.255.255
 !
+!
+interface Port-channel1
+ no switchport
+ ip address 10.4.5.2 255.255.255.0
+!
 interface Ethernet0/0
  description to LAN
  ip address 192.168.107.253 255.255.255.0
@@ -9,6 +14,20 @@ interface Ethernet0/0
 interface Ethernet0/1
  description to LAN
  ip address 192.168.101.253 255.255.255.0
+!
+interface Ethernet0/2
+ no switchport
+ no ip address
+ duplex auto
+ channel-protocol lacp
+ channel-group 1 mode passive
+!         
+interface Ethernet0/3
+ no switchport
+ no ip address
+ duplex auto
+ channel-protocol lacp
+ channel-group 1 mode passive
 !
 interface Ethernet1/0
  description to R13
