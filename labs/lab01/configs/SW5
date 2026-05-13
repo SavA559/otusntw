@@ -2,7 +2,6 @@
 interface Loopback0
  ip address 5.5.5.5 255.255.255.255
 !
-!
 interface Port-channel1
  no switchport
  ip address 10.4.5.2 255.255.255.0
