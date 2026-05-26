@@ -55,14 +55,16 @@ show ip policy
 ```
 !Создаем операцию - отслеживаем достижимость удаленного роутера
 ip sla 1
- icmp-echo 1.1.1.1 source-ip 80.91.170.14 num-packets 5
+  icmp-echo 1.1.1.1 source-ip 80.91.170.14   //ping до адреса 1.1.1.1
+  num-packets 5
   threshold 1000
   timeout 1500
   frequency 4
 ip sla schedule 1 life forever start-time now   //запускаем программу прямо сейчас и она будет работать пока мы ее не остановим
 !
 ip sla 2
- icmp-echo 2.2.2.1 source-ip 80.91.170.14 num-packets 5
+  icmp-echo 2.2.2.1 source-ip 80.91.170.14
+  num-packets 5
   threshold 1000
   timeout 1500
   frequency 4
