@@ -76,6 +76,14 @@ route-map PBR_LOAD_BALANCE permit 10
 route-map PBR_LOAD_BALANCE permit 20
  match ip address ACL_SUBNET_B
  set ip next-hop verify-availability 2.2.2.1 2 track 20
+!
+! Маршруты для ISP1 (основной с метрикой 1, резервный с метрикой 10)
+ip route 0.0.0.0 0.0.0.0 1.1.1.1 track 10
+ip route 0.0.0.0 0.0.0.0 2.2.2.1 10
+!
+! Маршруты для ISP2 (основной с метрикой 2, резервный с метрикой 20)
+ip route 0.0.0.0 0.0.0.0 2.2.2.1 track 20
+ip route 0.0.0.0 0.0.0.0 1.1.1.1 20
 ```
 
 ###  Просмотр настроек и результатов работы IP SLA
