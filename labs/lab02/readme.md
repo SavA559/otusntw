@@ -23,19 +23,21 @@
 
 ###  Пример настройки PBR
 ```
+!Создаем ACL для подсетей
 ip access-list extended ACL_SUBNET_A
  permit ip 192.168.10.0 0.0.0.255 any
 !
 ip access-list extended ACL_SUBNET_B
  permit ip 192.168.20.0 0.0.0.255 any
 !
+!Создаем route-map, которые перенаправляют одну подсеть на ISP1, а другую — на ISP2
 route-map PBR_LOAD_BALANCE permit 10
  match ip address ACL_SUBNET_A
- set ip next-hop verify-availability 1.1.1.1 1 track 10
+ set ip next-hop verify-availability 1.1.1.1 1
 !
 route-map PBR_LOAD_BALANCE permit 20
  match ip address ACL_SUBNET_B
- set ip next-hop verify-availability 2.2.2.1 2 track 20
+ set ip next-hop verify-availability 2.2.2.1 2
 !
 interface GigabitEthernet0/2
  ip policy route-map PBR_LOAD_BALANCE
@@ -51,12 +53,13 @@ show ip policy
 
 ###  3. Настройка отслеживания линка через технологию IP SLA.
 ```
+!Создаем операцию - отслеживаем достижимость удаленного роутера
 ip sla 1
  icmp-echo 1.1.1.1 source-ip 80.91.170.14 num-packets 5
   threshold 1000
   timeout 1500
   frequency 4
-ip sla schedule 1 life forever start-time now
+ip sla schedule 1 life forever start-time now   //запускаем программу прямо сейчас и она будет работать пока мы ее не остановим
 !
 ip sla 2
  icmp-echo 2.2.2.1 source-ip 80.91.170.14 num-packets 5
@@ -65,23 +68,25 @@ ip sla 2
   frequency 4
 ip sla schedule 2 life forever start-time now
 !
-track 10 ip sla 1 reachability
+track 10 ip sla 1 reachability   //номер объекта отслеживания, номер отслеживаемой операции IP SLA, доступность результата операции IP SLA
 track 20 ip sla 2 reachability
-  delay down 10 up 5
+  delay down 10 up 5   //трек перейдёт в состояние DOWN через 10с без ответов от IP SLA-теста, трек перейдёт в состояние UP с задержкой в 5с после получения ответа
 !
+!Для маршрута проверяется доступность следующего перехода 1.1.1.1 1 с использованием отслеживания track 10
 route-map PBR_LOAD_BALANCE permit 10
  match ip address ACL_SUBNET_A
  set ip next-hop verify-availability 1.1.1.1 1 track 10
 !
+!Для маршрута проверяется доступность следующего перехода 2.2.2.1 с использованием отслеживания track 20
 route-map PBR_LOAD_BALANCE permit 20
  match ip address ACL_SUBNET_B
  set ip next-hop verify-availability 2.2.2.1 2 track 20
 !
-! Маршруты для ISP1 (основной с метрикой 1, резервный с метрикой 10)
+! Основные и резервные маршруты
 ip route 0.0.0.0 0.0.0.0 1.1.1.1 track 10
 ip route 0.0.0.0 0.0.0.0 2.2.2.1 10
 !
-! Маршруты для ISP2 (основной с метрикой 2, резервный с метрикой 20)
+! Основные и резервные маршруты
 ip route 0.0.0.0 0.0.0.0 2.2.2.1 track 20
 ip route 0.0.0.0 0.0.0.0 1.1.1.1 20
 ```
