@@ -18,10 +18,10 @@
   - 1.3. Определяем next-hop адрес
   - 1.4. Применяем на входящем интерфейсе ip policy route-map
 
+
 ###  2. Распределение трафика между двумя линками с провайдером.
 
 ###  Пример настройки PBR
-
 ```
 ip access-list extended ACL_PBR_TO_R13
   permit ip 192.168.1.0 0.0.0.255 any
@@ -35,7 +35,22 @@ interface e0/0
   ip policy route-map PBR_TO_R13_AND_R5
 ```
 
+###  Просмотр настроек и результатов работы PBR
+```
+show access-lists
+show route-map
+show ip policy
+```
+
+
 ###  3. Настройка отслеживания линка через технологию IP SLA.
+
+###  Просмотр настроек и результатов работы IP SLA
+```
+sh run | s sla
+sh ip sla summary
+sh ip sla statistics
+```
 
 
 ###  4. Маршрут по-умолчанию для офиса Лабытнанги.
