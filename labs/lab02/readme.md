@@ -44,6 +44,33 @@ show ip policy
 
 
 ###  3. Настройка отслеживания линка через технологию IP SLA.
+```
+ip sla 1
+ icmp-echo 1.1.1.1 source-ip 80.91.170.14 num-packets 5
+  threshold 1000
+  timeout 1500
+  frequency 4
+ip sla schedule 1 life forever start-time now
+!
+ip sla 2
+ icmp-echo 2.2.2.1 source-ip 80.91.170.14 num-packets 5
+  threshold 1000
+  timeout 1500
+  frequency 4
+ip sla schedule 2 life forever start-time now
+!
+track 10 ip sla 1 reachability
+track 20 ip sla 2 reachability
+  delay down 10 up 5
+!
+route-map PBR_LOAD_BALANCE permit 10
+ match ip address ACL_SUBNET_A
+ set ip next-hop verify-availability 1.1.1.1 1 track 10
+
+route-map PBR_LOAD_BALANCE permit 20
+ match ip address ACL_SUBNET_B
+ set ip next-hop verify-availability 2.2.2.1 2 track 20
+```
 
 ###  Просмотр настроек и результатов работы IP SLA
 ```
