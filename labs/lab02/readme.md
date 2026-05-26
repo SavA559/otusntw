@@ -56,7 +56,6 @@ show ip policy
 !Создаем операцию - отслеживаем достижимость удаленного роутера
 ip sla 1
   icmp-echo 1.1.1.1 source-ip 80.91.170.14   //ping до адреса 1.1.1.1
-  num-packets 5
   threshold 1000
   timeout 1500
   frequency 4
@@ -64,15 +63,15 @@ ip sla schedule 1 life forever start-time now   //запускаем прогр�
 !
 ip sla 2
   icmp-echo 2.2.2.1 source-ip 80.91.170.14
-  num-packets 5
   threshold 1000
   timeout 1500
   frequency 4
 ip sla schedule 2 life forever start-time now
 !
 track 10 ip sla 1 reachability   //номер объекта отслеживания, номер отслеживаемой операции IP SLA, доступность результата операции IP SLA
-track 20 ip sla 2 reachability
   delay down 10 up 5   //трек перейдёт в состояние DOWN через 10с без ответов от IP SLA-теста, трек перейдёт в состояние UP с задержкой в 5с после получения ответа
+track 20 ip sla 2 reachability
+  delay down 10 up 5
 !
 !Для маршрута проверяется доступность следующего перехода 1.1.1.1 1 с использованием отслеживания track 10
 route-map PBR_LOAD_BALANCE permit 10
