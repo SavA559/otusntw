@@ -47,9 +47,9 @@ show ip policy
 
 ###  Просмотр настроек и результатов работы IP SLA
 ```
-sh run | s sla
-sh ip sla summary
-sh ip sla statistics
+show run | section sla
+show ip sla summary
+show ip sla statistics
 ```
 
 
