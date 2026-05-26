@@ -1,1 +1,9 @@
-
+!
+interface Loopback0
+ ip address 27.27.27.27 255.255.255.255
+!
+interface Ethernet0/0
+ description to ISP (R25)
+ ip address 172.25.27.2 255.255.255.252
+!
+ip route 0.0.0.0 0.0.0.0 172.25.27.1 name TO-ISP-R25
