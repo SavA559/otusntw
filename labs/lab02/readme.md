@@ -41,6 +41,7 @@ route-map PBR_LOAD_BALANCE permit 20
 !
 interface GigabitEthernet0/2
  ip policy route-map PBR_LOAD_BALANCE
+!
 ```
 
 ###  Просмотр настроек и результатов работы PBR
@@ -88,6 +89,7 @@ interface Ethernet0/2.30
 !
 interface Ethernet0/2.31
  ip policy route-map PBR-LOAD-BALANCE
+!
 ```
 
 ###  Просмотр настроек и результатов работы IP SLA
@@ -106,7 +108,9 @@ show ip sla statistics
 
 ### Пример настройки статического маршрута по-умолчанию:
 ```
+!
 ip route 0.0.0.0 0.0.0.0 172.25.27.1 1 name TO-ISP-R25
+!
 ```
 
 ### Просмотр настроенных статических маршрутов
