@@ -23,16 +23,22 @@
 
 ###  Пример настройки PBR
 ```
-ip access-list extended ACL_PBR_TO_R13
-  permit ip 192.168.1.0 0.0.0.255 any
-  deny ip any any
+ip access-list extended ACL_SUBNET_A
+ permit ip 192.168.10.0 0.0.0.255 any
 !
-route-map PBR_TO_R13_AND_R5 permit 10
-  match ip address ACL_PBR_TO_R13
-  set ip next-hop 10.1.1.1
+ip access-list extended ACL_SUBNET_B
+ permit ip 192.168.20.0 0.0.0.255 any
 !
-interface e0/0
-  ip policy route-map PBR_TO_R13_AND_R5
+route-map PBR_LOAD_BALANCE permit 10
+ match ip address ACL_SUBNET_A
+ set ip next-hop verify-availability 1.1.1.1 1 track 10
+!
+route-map PBR_LOAD_BALANCE permit 20
+ match ip address ACL_SUBNET_B
+ set ip next-hop verify-availability 2.2.2.1 2 track 20
+!
+interface GigabitEthernet0/2
+ ip policy route-map PBR_LOAD_BALANCE
 ```
 
 ###  Просмотр настроек и результатов работы PBR
@@ -66,7 +72,7 @@ track 20 ip sla 2 reachability
 route-map PBR_LOAD_BALANCE permit 10
  match ip address ACL_SUBNET_A
  set ip next-hop verify-availability 1.1.1.1 1 track 10
-
+!
 route-map PBR_LOAD_BALANCE permit 20
  match ip address ACL_SUBNET_B
  set ip next-hop verify-availability 2.2.2.1 2 track 20
