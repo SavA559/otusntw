@@ -53,16 +53,16 @@ show ip policy
 
 ###  3. Настройка отслеживания линка через технологию IP SLA.
 ```
-!Создаем операцию - отслеживаем достижимость удаленного роутера
+!На R28 создаем операцию - отслеживаем достижимость удаленного роутера
 ip sla 1
-  icmp-echo 1.1.1.1 source-ip 80.91.170.14   //ping до адреса 1.1.1.1
+  icmp-echo 172.26.28.1 source-interface e0/0   //ping до адреса 172.26.28.1
   threshold 1000
   timeout 1500
   frequency 4
 ip sla schedule 1 life forever start-time now   //запускаем программу прямо сейчас и она будет работать пока мы ее не остановим
 !
 ip sla 2
-  icmp-echo 2.2.2.1 source-ip 80.91.170.14
+  icmp-echo 172.25.28.1 source-interface e0/1
   threshold 1000
   timeout 1500
   frequency 4
@@ -73,23 +73,21 @@ track 10 ip sla 1 reachability   //номер объекта отслежива�
 track 20 ip sla 2 reachability
   delay down 10 up 5
 !
-!Для маршрута проверяется доступность следующего перехода 1.1.1.1 1 с использованием отслеживания track 10
-route-map PBR_LOAD_BALANCE permit 10
- match ip address ACL_SUBNET_A
- set ip next-hop verify-availability 1.1.1.1 1 track 10
+!Для маршрута проверяется доступность следующего перехода 172.26.28.1 с использованием отслеживания track 10
+route-map PBR-LOAD-BALANCE permit 10
+ match interface e0/2.30
+ set ip next-hop verify-availability 172.26.28.1 1 track 10
 !
-!Для маршрута проверяется доступность следующего перехода 2.2.2.1 с использованием отслеживания track 20
-route-map PBR_LOAD_BALANCE permit 20
- match ip address ACL_SUBNET_B
- set ip next-hop verify-availability 2.2.2.1 2 track 20
+!Для маршрута проверяется доступность следующего перехода 172.25.28.1 с использованием отслеживания track 20
+route-map PBR-LOAD-BALANCE permit 20
+ match interface e0/2.31
+ set ip next-hop verify-availability 172.25.28.1 2 track 20
 !
-! Основные и резервные маршруты
-ip route 0.0.0.0 0.0.0.0 1.1.1.1 track 10
-ip route 0.0.0.0 0.0.0.0 2.2.2.1 10
+interface Ethernet0/2.30
+ ip policy route-map PBR-LOAD-BALANCE
 !
-! Основные и резервные маршруты
-ip route 0.0.0.0 0.0.0.0 2.2.2.1 track 20
-ip route 0.0.0.0 0.0.0.0 1.1.1.1 20
+interface Ethernet0/2.31
+ ip policy route-map PBR-LOAD-BALANCE
 ```
 
 ###  Просмотр настроек и результатов работы IP SLA
