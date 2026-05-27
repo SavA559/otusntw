@@ -23,24 +23,27 @@
 
 ###  Пример настройки PBR на R18
 ```
-!Создаем ACL для подсетей
-ip access-list extended ACL_SUBNET_A
- permit ip 192.168.10.0 0.0.0.255 any
+!Создаем ACL для 2-х подсетей
+ip access-list extended ACL_SUBNET_100
+ permit ip 192.168.100.0 0.0.0.255 any
 !
-ip access-list extended ACL_SUBNET_B
- permit ip 192.168.20.0 0.0.0.255 any
+ip access-list extended ACL_SUBNET_108
+ permit ip 192.168.108.0 0.0.0.255 any
 !
-!Создаем route-map, которые перенаправляют одну подсеть на ISP1, а другую — на ISP2
+!Создаем route-map, которые перенаправляют одну подсеть на первый линк с ISP, а другую — на второй линк
 route-map PBR_LOAD_BALANCE permit 10
- match ip address ACL_SUBNET_A
- set ip next-hop verify-availability 1.1.1.1 1
+ match ip address ACL_SUBNET_100
+ set ip next-hop 172.18.26.2
 !
 route-map PBR_LOAD_BALANCE permit 20
- match ip address ACL_SUBNET_B
- set ip next-hop verify-availability 2.2.2.1 2
+ match ip address ACL_SUBNET_108
+ set ip next-hop 172.18.24.2
 !
-interface GigabitEthernet0/2
- ip policy route-map PBR_LOAD_BALANCE
+interface Ethernet0/0
+ ip policy route-map PBR-LOAD-BALANCE
+!
+interface Ethernet0/1
+ ip policy route-map PBR-LOAD-BALANCE
 !
 ```
 
