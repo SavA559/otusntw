@@ -1,1 +1,36 @@
-
+!
+interface Loopback0
+ ip address 18.18.18.18 255.255.255.255
+!
+interface Ethernet0/0
+ description to R16
+ ip address 10.16.18.2 255.255.255.0
+ ip policy route-map PBR-LOAD-BALANCE
+!
+interface Ethernet0/1
+ description to R17
+ ip address 10.17.18.2 255.255.255.0
+ ip policy route-map PBR-LOAD-BALANCE
+!
+interface Ethernet0/2
+ description to ISP (R24)
+ ip address 172.18.24.1 255.255.255.252
+!
+interface Ethernet0/3
+ description to ISP (R26)
+ ip address 172.18.26.1 255.255.255.252
+!
+ip access-list extended ACL_SUBNET_100
+ permit ip 192.168.100.0 0.0.0.255 any
+!
+ip access-list extended ACL_SUBNET_108
+ permit ip 192.168.108.0 0.0.0.255 any
+!
+route-map PBR_LOAD_BALANCE permit 10
+ match ip address ACL_SUBNET_100
+ set ip next-hop 172.18.26.2
+!
+route-map PBR_LOAD_BALANCE permit 20
+ match ip address ACL_SUBNET_108
+ set ip next-hop 172.18.24.2
+!
