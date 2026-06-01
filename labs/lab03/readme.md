@@ -1,4 +1,4 @@
-<img width="1171" height="158" alt="image" src="https://github.com/user-attachments/assets/a506ac95-e072-4238-b4a0-3ff87a6c1f90" /><img width="603" height="158" alt="image" src="https://github.com/user-attachments/assets/98a8d2ee-0bca-4e01-af28-554980b1a25d" />#  __OSPF. Фильтрация__
+#  __OSPF. Фильтрация__
 
 ###  Задание:
 
