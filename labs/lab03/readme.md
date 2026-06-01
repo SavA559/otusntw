@@ -21,7 +21,7 @@ router ospf 1
  network 10.13.14.0 0.0.0.255 area 0
  network 10.14.19.0 0.0.0.255 area 101
 ! для передачи внешнего маршрута на ASBR роутере
- default-information-originate
+ default-information originate
 !
 ! статический маршрут по-умолчанию
 ip route 0.0.0.0 0.0.0.0 172.14.22.2 1 name TO-ISP-R22
@@ -37,7 +37,7 @@ ip route 0.0.0.0 0.0.0.0 172.14.22.2 1 name TO-ISP-R22
 router ospf 1
  router-id 1.1.1.12
  area 10 nssa
- area 10 nssa default-information-originate
+ area 10 nssa default-information originate
  network 10.12.14.0 0.0.0.255 area 0
  network 10.12.15.0 0.0.0.255 area 0
  network 10.4.12.0 0.0.0.255 area 10
