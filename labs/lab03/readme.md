@@ -18,8 +18,8 @@
 router ospf 1
  router-id 1.1.1.14
  // area 10 virtual-link 1.1.1.15
- network 10.12.14.0 0.0.0.255 area 10
- network 10.13.14.0 0.0.0.255 area 10
+ network 10.12.14.0 0.0.0.255 area 0
+ network 10.13.14.0 0.0.0.255 area 0
  network 10.14.19.0 0.0.0.255 area 101
 !
 ! для передачи внешнего маршрута на ASBR роутере
