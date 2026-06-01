@@ -21,7 +21,6 @@ router ospf 1
  network 10.12.14.0 0.0.0.255 area 0
  network 10.13.14.0 0.0.0.255 area 0
  network 10.14.19.0 0.0.0.255 area 101
-!
 ! для передачи внешнего маршрута на ASBR роутере
 redistribute static subnets
 !
