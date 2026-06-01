@@ -42,8 +42,8 @@ router ospf 1
  area 10 nssa default-information-originate
  network 10.12.14.0 0.0.0.255 area 0
  network 10.12.15.0 0.0.0.255 area 0
- network 10.4.12.0 0.0.0.255 area 101
- network 10.5.12.0 0.0.0.255 area 101
+ network 10.4.12.0 0.0.0.255 area 10
+ network 10.5.12.0 0.0.0.255 area 10
 !
 ```
 
