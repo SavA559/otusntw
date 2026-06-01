@@ -1,4 +1,4 @@
-#  __OSPF. Фильтрация__
+<img width="1171" height="158" alt="image" src="https://github.com/user-attachments/assets/a506ac95-e072-4238-b4a0-3ff87a6c1f90" /><img width="603" height="158" alt="image" src="https://github.com/user-attachments/assets/98a8d2ee-0bca-4e01-af28-554980b1a25d" />#  __OSPF. Фильтрация__
 
 ###  Задание:
 
@@ -11,6 +11,24 @@
 ###  Решение:
 
 ###  1. Настройка маршрутизаторов R14-R15 в зоне 0.
+
+###  Пример настройки OSPF на R14:
+```
+!
+router ospf 1
+ router-id 1.1.1.14
+ // area 10 virtual-link 1.1.1.15
+ network 10.12.14.0 0.0.0.255 area 10
+ network 10.13.14.0 0.0.0.255 area 10
+ network 10.14.19.0 0.0.0.255 area 101
+!
+! для передачи внешнего маршрута на ASBR роутере
+redistribute static subnets
+!
+! статический маршрут по-умолчанию
+ip route 0.0.0.0 0.0.0.0 172.14.22.2 1 name TO-ISP-R22
+!
+```
 
 
 ###  2. Настройка маршрутизаторов R12-R13 в зоне 10, с получением дополнительно маршрута по умолчанию.
