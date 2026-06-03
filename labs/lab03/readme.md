@@ -52,7 +52,7 @@ Totally NSSA - в дополнение к блокированию External LSA 
 !
 router ospf 1
  router-id 1.1.1.19
- area 101 nssa
+ area 101 nssa   //area 1 nssa no-summary – настраивается только на ABR R14
  network 10.14.19.0 0.0.0.255 area 101
 !
 ```
