@@ -51,7 +51,7 @@ Totally NSSA - в дополнение к блокированию External LSA 
 !
 router ospf 1
  router-id 1.1.1.19
- area 101 nssa no-summary
+ area 101 nssa default-information originate no-summary
  network 10.14.19.0 0.0.0.255 area 101
 !
 ```
