@@ -72,13 +72,8 @@ area 102 filter-list prefix NO-ZONE in
 ```
 
 ###  Пример настройки OSPF на R20:
+
 ```
-! Создаем префикс-лист для зоны 101
-ip prefix-list NO-ZONE seq 5 permit 10.14.19.0/24 ge 24 le 24
-! Создаем RM - блокируем совпадения, остальное разрешаем
-route-map FILTER-OSPF deny 10
- match ip address prefix-list NO-ZONE
-route-map FILTER-OSPF permit 20
 !
 router ospf 1
  router-id 1.1.1.20
