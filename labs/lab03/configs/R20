@@ -1,1 +1,12 @@
-
+!
+interface Loopback0
+ ip address 20.20.20.20 255.255.255.255
+!
+interface Ethernet0/0
+ description to R15
+ ip address 10.15.20.2 255.255.255.0
+!         
+router ospf 1
+ router-id 1.1.1.20
+ network 10.15.20.0 0.0.0.255 area 102
+!
