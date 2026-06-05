@@ -1,1 +1,30 @@
-
+!
+interface Loopback0
+ ip address 14.14.14.14 255.255.255.255
+!
+interface Ethernet0/0
+ description to R12
+ ip address 10.12.14.2 255.255.255.0
+!
+interface Ethernet0/1
+ description to R13
+ ip address 10.13.14.2 255.255.255.0
+!
+interface Ethernet0/2
+ description to ISP (R22)
+ ip address 172.14.22.1 255.255.255.252
+!
+interface Ethernet0/3
+ description to R19
+ ip address 10.14.19.1 255.255.255.0
+!
+router ospf 1
+ router-id 1.1.1.14
+ area 101 nssa no-summary
+ network 10.12.14.0 0.0.0.255 area 0
+ network 10.13.14.0 0.0.0.255 area 0
+ network 10.14.19.0 0.0.0.255 area 101
+ default-information originate
+!
+ip route 0.0.0.0 0.0.0.0 172.14.22.2 name TO-ISP-R22
+!
