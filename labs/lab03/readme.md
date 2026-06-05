@@ -67,7 +67,8 @@ ip prefix-list NO-ZONE seq 10 deny 10.14.19.0/24
 ip prefix-list NO-ZONE seq 20 permit 0.0.0.0/0 le 32
 !
 ! На входе в зону 102 применяем созданный prefix-list
-area 102 filter-list prefix NO-ZONE in
+router ospf 1
+ area 102 filter-list prefix NO-ZONE in
 !
 ```
 
