@@ -63,7 +63,7 @@ router ospf 1
 Т.к. Type 3 LSA создаются ABR, фильтрациию настраиваем на ABR-роутере R15:
 ```
 ! Создаем prefix-list с запрещением подсети зоны 101 и разрешением всех остальных
-ip prefix-list NO-ZONE seq 10 deny 10.14.19.0/24 ge 24 le 24
+ip prefix-list NO-ZONE seq 10 deny 10.14.19.0/24
 ip prefix-list NO-ZONE seq 20 permit 0.0.0.0/0 le 32
 !
 ! На входе в зону 102 применяем созданный prefix-list
