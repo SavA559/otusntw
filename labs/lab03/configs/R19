@@ -1,1 +1,13 @@
-
+!
+interface Loopback0
+ ip address 19.19.19.19 255.255.255.255
+!
+interface Ethernet0/0
+ description to R14
+ ip address 10.14.19.2 255.255.255.0
+!
+router ospf 1
+ router-id 1.1.1.19
+ area 101 nssa
+ network 10.14.19.0 0.0.0.255 area 101
+!
