@@ -10,13 +10,38 @@
 
 ###  Решение:
 
-###  1. Настройка IS-IS в ISP Триада.
+###  Настройка IS-IS в ISP Триада.
 
 ###  Пример настройки IS-IS на роутере R23:
 ```
 !
-
+router isis
+ metric-style wide
+ net 49.2222.1111.1111.1111.00
+!
+interface Ethernet0/1
+ ip router isis
+!
+interface Ethernet0/2
+ ip router isis
 !
 ```
+
+###  Пример настройки IS-IS на роутере R24:
+```
+!
+router isis 24
+ metric-style wide
+ net 49.0024.1111.1111.1111.00
+ is-type level-2
+!
+interface Ethernet0/1
+ ip router isis 24
+!
+interface Ethernet0/2
+ ip router isis 24
+!
+```
+
 
 Все файлы изменений приведены [здесь](configs/)
