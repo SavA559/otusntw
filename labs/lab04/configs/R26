@@ -1,1 +1,26 @@
-
+!
+interface Loopback0
+ ip address 26.26.26.26 255.255.255.255
+!
+interface Ethernet0/0
+ description to R24
+ ip address 10.24.26.2 255.255.255.0
+ ip router isis 
+!
+interface Ethernet0/1
+ description to ISP (R28)
+ ip address 172.26.28.1 255.255.255.252
+!
+interface Ethernet0/2
+ ip address 10.25.26.2 255.255.255.0
+ ip router isis 
+!
+interface Ethernet0/3
+ description to ISP (R18)
+ ip address 172.18.26.2 255.255.255.252
+!
+router isis
+ net 49.0026.0260.2602.6026.00
+ is-type level-2-only
+ metric-style wide
+!
