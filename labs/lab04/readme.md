@@ -17,7 +17,7 @@
 !
 router isis
  metric-style wide
- net 49.2222.1111.1111.1111.00
+ net 49.2222.0230.2302.3023.00
 !
 interface Ethernet0/1
  ip router isis
@@ -32,7 +32,7 @@ interface Ethernet0/2
 !
 router isis 24
  metric-style wide
- net 49.0024.1111.1111.1111.00
+ net 49.0024.0240.2402.4024.00
  is-type level-2
 !
 interface Ethernet0/1
