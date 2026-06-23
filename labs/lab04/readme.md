@@ -43,5 +43,13 @@ interface Ethernet0/2
 !
 ```
 
+### Команды для проверки работы IS-IS
+```
+show isis neighbors
+show isis database
+show isis topology
+show ip route isis
+```
+
 
 Все файлы изменений приведены [здесь](configs/)
