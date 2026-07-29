@@ -20,6 +20,9 @@ router eigrp 1
  network 192.168.1.0 0.0.0.255
  network 10.0.0.0 0.255.255.255
 !
+! Чтобы R32 получал только маршрут по умолчанию настроим суммирование маршрутов на интерфейсе передающего роутера
+! передающий маршрутизатор уже должен иметь маршрут ip route 0.0.0.0 0.0.0.0 команду redistribute static или network 0.0.0.0.
+eigrp stub
 ```
 
 
@@ -29,6 +32,7 @@ show ip eigrp neighbors
 show ip eigrp topology
 show ip route eigrp
 show ip protocols
+show running-config | section router eigrp
 ```
 
 
