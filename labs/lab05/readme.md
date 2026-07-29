@@ -22,7 +22,7 @@ router eigrp 1
 ```
 
 
-### Команды для проверки работы IS-IS
+### Команды для проверки работы EIGRP
 ```
 show ip eigrp neighbors
 ```
