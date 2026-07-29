@@ -14,8 +14,14 @@
 ###  Пример настройки EIGRP на роутере R32
 ```
 !
+router eigrp 1
+ no auto-summary
+ network 192.168.1.0 0.0.0.255
+ network 10.0.0.0 0.255.255.255
 !
 ```
 
+
+show ip eigrp neighbors
 
 Все файлы изменений приведены [здесь](configs/)
