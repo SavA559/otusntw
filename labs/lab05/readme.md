@@ -13,7 +13,8 @@
 
 ###  Пример настройки EIGRP на роутере R32
 ```
-!
+! Номер автономной системы должен быть одинаковым на всех роутерах
+! Объявление сетей
 router eigrp 1
  no auto-summary
  network 192.168.1.0 0.0.0.255
@@ -25,7 +26,9 @@ router eigrp 1
 ### Команды для проверки работы EIGRP
 ```
 show ip eigrp neighbors
+show ip eigrp topology
 show ip route eigrp
+show ip protocols
 ```
 
 
