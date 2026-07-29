@@ -13,12 +13,21 @@
 
 ###  Пример настройки EIGRP на роутере R32
 ```
-! Номер автономной системы должен быть одинаковым на всех роутерах
-! Объявление сетей
-router eigrp 1
- no auto-summary
- network 192.168.1.0 0.0.0.255
- network 10.0.0.0 0.255.255.255
+! Создаем именованный процесс EIGRP Named-Mode
+router eigrp SPB
+address-family ipv4 unicast autonomous-system 100
+  ! Настройки для конкретных интерфейсов (вместо привычного 'interface Gi0/0')
+af-interface GigabitEthernet0/0
+   hello-interval 5
+   hold-time 15
+exit-address-family
+! Глобальная настройка для интерфейсов (например, делаем все пассивными)
+af-interface default
+  passive-interface
+exit-address-family
+! Активация сетей
+network 192.168.1.0 0.0.0.255
+network 10.0.0.0 0.0.0.3
 !
 ! Чтобы R32 получал только маршрут по умолчанию настроим суммирование маршрутов на интерфейсе передающего роутера
 ! передающий маршрутизатор уже должен иметь маршрут ip route 0.0.0.0 0.0.0.0 команду redistribute static или network 0.0.0.0.
