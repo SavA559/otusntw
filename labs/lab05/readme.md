@@ -22,6 +22,10 @@ router eigrp 1
 ```
 
 
+### Команды для проверки работы IS-IS
+```
 show ip eigrp neighbors
+```
+
 
 Все файлы изменений приведены [здесь](configs/)
