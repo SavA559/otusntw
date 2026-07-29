@@ -25,6 +25,7 @@ router eigrp 1
 ### Команды для проверки работы EIGRP
 ```
 show ip eigrp neighbors
+show ip route eigrp
 ```
 
 
