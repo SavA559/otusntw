@@ -20,7 +20,7 @@
 
 ### Команды для проверки работы BGP
 ```
-show bgp ipv4 unicast
+show bgp ipv4 unicast - выводит всю таблицу BGP (Loc-RIB) для IPv4 unicast
 ```
 
 
