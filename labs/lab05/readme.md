@@ -17,9 +17,9 @@
 ! Создаем именованный процесс
 router eigrp SPB-EIGRP
 address-family ipv4 unicast autonomous-system 100
-exit-address-family
 ! Включаем EIGRP на интерфейсах в этой сети (на линке между роутерами)
 network 10.16.32.0 0.0.0.255
+exit-address-family
 !
 ```
 
