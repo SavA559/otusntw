@@ -13,25 +13,15 @@
 
 ###  Пример настройки EIGRP на роутере R32
 ```
-! Создаем именованный процесс EIGRP Named-Mode
-router eigrp SPB
+! Чтобы настроить EIGRP на маршрутизаторе, вам нужно выбрать один из двух вариантов конфигурации:
+! Named Mode или Classic Mode (старый, через номера процессов)
+! Создаем именованный процесс
+router eigrp SPB-EIGRP
 address-family ipv4 unicast autonomous-system 100
-  ! Настройки для конкретных интерфейсов (вместо привычного 'interface Gi0/0')
-af-interface GigabitEthernet0/0
-   hello-interval 5
-   hold-time 15
 exit-address-family
-! Глобальная настройка для интерфейсов (например, делаем все пассивными)
-af-interface default
-  passive-interface
-exit-address-family
-! Активация сетей
-network 192.168.1.0 0.0.0.255
-network 10.0.0.0 0.0.0.3
+! Включаем EIGRP на интерфейсах в этой сети (на линке между роутерами)
+network 10.16.32.0 0.0.0.255
 !
-! Чтобы R32 получал только маршрут по умолчанию настроим суммирование маршрутов на интерфейсе передающего роутера
-! передающий маршрутизатор уже должен иметь маршрут ip route 0.0.0.0 0.0.0.0 команду redistribute static или network 0.0.0.0.
-eigrp stub
 ```
 
 
