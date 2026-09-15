@@ -27,8 +27,28 @@ router bgp 1001
 ###  2. Настройка iBGP в провайдере Триада с использованием Route Reflector:
 ###  Пример настройки iBGP на роутере R23
 ```
+router bgp 520
+! Создаём группу соседей AS520, Все соседи находятся в AS520, Соединение будет устанавливаться с Loopback
+neighbor AS520 peer-group
+neighbor AS520 remote-as 520
+neighbor AS520 update-source Loopback0
+! В качестве RR будет выступать R23
+neighbor AS520 route-reflector-client
+neighbor 24.24.24.24 peer-group AS520
+neighbor 25.25.25.25 peer-group AS520
+neighbor 26.26.26.26 peer-group AS520
+neighbor 172.22.23.1 remote-as 101
 
 ```
+
+###  Пример настройки iBGP на роутере R24
+```
+router bgp 520
+neighbor 23.23.23.23 remote-as 520
+neighbor 23.23.23.23 update-source Loopback0
+
+```
+
 
 
 ### Команды для проверки работы BGP
