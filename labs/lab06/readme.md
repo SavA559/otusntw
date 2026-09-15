@@ -53,6 +53,36 @@ router bgp 301
 !
 ```
 
+###  3. Настройка eBGP между Ламас и Триада:
+
+###  Пример настройки eBGP на роутере R24
+```
+
+```
+
+###  4. Настройка eBGP между офисом СПБ и провайдером Триада:
+
+###  Пример настройки eBGP на роутере R18
+```
+
+```
+
+###  5. Организовать IP доступность между пограничным роутерами офисами Москва и СПБ:
+
+###  Результаты выполнения команд ping с двух роутеров МСК до роутера СПБ R18
+```
+R14>ping 172.18.24.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 172.18.24.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/1 ms
+
+R15>ping 172.18.24.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 172.18.24.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/1 ms
+```
 
 
 ### Команды для проверки работы BGP
