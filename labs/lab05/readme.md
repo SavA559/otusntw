@@ -40,6 +40,11 @@ address-family ipv4 unicast autonomous-system 100
  network 192.168.108.0 0.0.0.255
 exit-address-family
 !
+!
+! Чтобы R32 мог увидеть этот маршрут, он должен быть сгенерирован и запущен в процесс EIGRP на граничном роутеров
+//ip route 0.0.0.0 0.0.0.0 <IP_провайдера>
+//router eigrp 100
+//redistribute static
 ```
 
 
