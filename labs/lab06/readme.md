@@ -22,6 +22,18 @@ router bgp 1001
  neighbor 172.14.22.2 remote-as 101
 ! Конфигурация с обратной стороны пиринга (на R22) должна быть симметрична
 ```
+###  Пример настройки eBGP на роутере R22
+```
+!
+router bgp 101
+ bgp log-neighbor-changes
+ network 172.14.22.0 mask 255.255.255.252
+ network 172.21.22.0 mask 255.255.255.252
+ network 172.22.23.0 mask 255.255.255.252
+ neighbor 172.14.22.1 remote-as 1001
+ neighbor 172.21.22.1 remote-as 301
+!
+```
 
 
 ### Команды для проверки работы BGP
