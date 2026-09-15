@@ -1,50 +1,38 @@
 !
 interface Loopback0
- ip address 24.24.24.24 255.255.255.255
+ ip address 18.18.18.18 255.255.255.255
 !
 interface Ethernet0/0
- description to ISP (R21)
- ip address 172.21.24.2 255.255.255.252
+ description to R16
+ ip address 10.16.18.2 255.255.255.0
+ ip policy route-map PBR-LOAD-BALANCE
 !
 interface Ethernet0/1
- description to R26
- ip address 10.24.26.1 255.255.255.0
- ip router isis 24
+ description to R17
+ ip address 10.17.18.2 255.255.255.0
+ ip policy route-map PBR-LOAD-BALANCE
 !
 interface Ethernet0/2
- description to R23
- ip address 10.23.24.2 255.255.255.0
- ip router isis 24
+ description to ISP (R24)
+ ip address 172.18.24.1 255.255.255.252
 !
 interface Ethernet0/3
- description to ISP (R18)
- ip address 172.18.24.2 255.255.255.252
+ description to ISP (R26)
+ ip address 172.18.26.1 255.255.255.252
 !
-interface Ethernet1/0
- no ip address
- shutdown
 !
-interface Ethernet1/1
- no ip address
- shutdown 
+router eigrp SPB-EIGRP
+ !
+ address-family ipv4 unicast autonomous-system 100
+  !
+  topology base
+  exit-af-topology
+  network 10.16.18.0 0.0.0.255
+  network 10.17.18.0 0.0.0.255
+ exit-address-family
 !
-interface Ethernet1/2
- no ip address
- shutdown
-!
-interface Ethernet1/3
- no ip address
- shutdown
-!
-router isis 24
- net 49.0024.0240.2402.4024.00
- is-type level-2-only
- metric-style wide
-!
-router bgp 520
+router bgp 2042
  bgp log-neighbor-changes
  network 172.18.24.0 mask 255.255.255.252
- network 172.21.24.0 mask 255.255.255.252
- neighbor 172.18.24.1 remote-as 2042
- neighbor 172.21.24.1 remote-as 301
+ neighbor 172.18.24.2 remote-as 520
 !
