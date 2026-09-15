@@ -24,7 +24,7 @@ exit-address-family
 !
 ```
 
-###  Пример настройки EIGRP на роутере R18
+###  Пример настройки EIGRP на роутере R16
 ```
 !
 router eigrp SPB-EIGRP
