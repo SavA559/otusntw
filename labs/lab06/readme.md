@@ -57,7 +57,14 @@ router bgp 301
 
 ###  Пример настройки eBGP на роутере R24
 ```
-
+!
+router bgp 520
+ bgp log-neighbor-changes
+ network 172.18.24.0 mask 255.255.255.252
+ network 172.21.24.0 mask 255.255.255.252
+ neighbor 172.18.24.1 remote-as 2042
+ neighbor 172.21.24.1 remote-as 301
+!
 ```
 
 ###  4. Настройка eBGP между офисом СПБ и провайдером Триада:
