@@ -23,6 +23,7 @@
 show ip bgp neighbors - отображения информации о соседних (peers) маршрутизаторах в рамках протокола BGP
 show ip bgp - можно посмотреть какие сети известны BGP
 show bgp ipv4 unicast - выводит всю таблицу BGP для IPv4 unicast
+show running-config | section bgp
 ```
 
 
