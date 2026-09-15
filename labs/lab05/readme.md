@@ -31,7 +31,7 @@ exit-address-family
 router eigrp SPB-EIGRP
 address-family ipv4 unicast autonomous-system 100
 ! В Named Mode настройки конкретного интерфейса задаются прямо внутри конфигурации EIGRP в разделе:
- af-interface interface Ethernet0/3
+ af-interface Ethernet0/3
  summary-address 0.0.0.0 0.0.0.0
 !
  network 10.16.18.0 0.0.0.255
