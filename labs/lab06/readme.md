@@ -42,7 +42,14 @@ router bgp 101
 ###  Пример настройки eBGP на роутере R21
 ```
 !
-
+router bgp 301
+ bgp log-neighbor-changes
+ network 172.15.21.0 mask 255.255.255.252
+ network 172.21.22.0 mask 255.255.255.252
+ network 172.21.24.0 mask 255.255.255.252
+ neighbor 172.15.21.1 remote-as 1001
+ neighbor 172.21.22.2 remote-as 101
+ neighbor 172.21.24.2 remote-as 520
 !
 ```
 
