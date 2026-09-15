@@ -19,23 +19,26 @@ router eigrp SPB-EIGRP
 ! Активируем IPv4 и задаем номер AS (должен совпадать у соседей)
 address-family ipv4 unicast autonomous-system 100
 ! Включаем EIGRP на интерфейсах в этой сети (на линке между роутерами)
-network 10.16.32.0 0.0.0.255
+ network 10.16.32.0 0.0.0.255
 exit-address-family
 !
 ```
 
 ###  Пример настройки EIGRP на роутере R16
 ```
-!
+! Чтобы R32 получал только маршрут по умолчанию (0.0.0.0/0) и отсекал все остальные специфические маршруты,
+! на R16 на интерфейсе который смотрит в сторону R32 настраивается ручная суммаризация
 router eigrp SPB-EIGRP
- !
- address-family ipv4 unicast autonomous-system 100
-  !
-  topology base
-  exit-af-topology
-  network 10.16.18.0 0.0.0.255
-  network 10.17.18.0 0.0.0.255
- exit-address-family
+address-family ipv4 unicast autonomous-system 100
+! В Named Mode настройки конкретного интерфейса задаются прямо внутри конфигурации EIGRP в разделе:
+ af-interface interface Ethernet0/3
+ summary-address 0.0.0.0 0.0.0.0
+!
+ network 10.16.18.0 0.0.0.255
+ network 10.16.32.0 0.0.0.255
+ network 192.168.100.0 0.0.0.255
+ network 192.168.108.0 0.0.0.255
+exit-address-family
 !
 ```
 
