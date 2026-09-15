@@ -38,7 +38,6 @@ neighbor 24.24.24.24 peer-group AS520
 neighbor 25.25.25.25 peer-group AS520
 neighbor 26.26.26.26 peer-group AS520
 neighbor 172.22.23.1 remote-as 101
-
 ```
 
 ###  Пример настройки iBGP на роутере R24
@@ -46,7 +45,7 @@ neighbor 172.22.23.1 remote-as 101
 router bgp 520
 neighbor 23.23.23.23 remote-as 520
 neighbor 23.23.23.23 update-source Loopback0
-
+neighbor 172.21.24.1 remote-as 301
 ```
 
 
