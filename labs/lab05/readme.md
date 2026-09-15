@@ -27,10 +27,11 @@ exit-address-family
 
 ### Команды для проверки работы EIGRP
 ```
-show ip eigrp neighbors
-show ip eigrp topology
-show ip route eigrp
-show ip protocols
+show ip eigrp interfaces ! Показывает на каких интерфейсах сейчас активирован протокол
+show ip eigrp neighbors ! Показывает установленные соглашения с соседними роутерами
+show ip eigrp topology ! Показывает содержимое таблицы топологии протокола маршрутизации EIGRP
+show ip route eigrp ! Выводит только те маршруты, которые роутер узнал от своих соседей (в таблице они будут с пометкой D)
+show ip protocols ! Отображения параметров и текущего состояния всех активных динамических протоколов маршрутизации, настроенных на устройстве
 show running-config | section router eigrp
 ```
 
