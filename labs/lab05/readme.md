@@ -24,6 +24,20 @@ exit-address-family
 !
 ```
 
+###  Пример настройки EIGRP на роутере R18
+!
+router eigrp SPB-EIGRP
+ !
+ address-family ipv4 unicast autonomous-system 100
+  !
+  topology base
+  exit-af-topology
+  network 10.16.18.0 0.0.0.255
+  network 10.17.18.0 0.0.0.255
+ exit-address-family
+!
+```
+
 
 ### Команды для проверки работы EIGRP
 ```
