@@ -28,7 +28,7 @@ router bgp 1001
 ###  Пример настройки iBGP на роутере R23
 ```
 router bgp 520
-! Создаём группу соседей AS520, Все соседи находятся в AS520, Соединение будет устанавливаться с Loopback
+! Создаём группу соседей AS520, Все соседи находятся в AS520, Соединение будет устанавливаться с Loopback-интерфейсов
 neighbor AS520 peer-group
 neighbor AS520 remote-as 520
 neighbor AS520 update-source Loopback0
