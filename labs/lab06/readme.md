@@ -27,9 +27,11 @@ router bgp 1001
 !
 router bgp 101
  bgp log-neighbor-changes
+! Анонсирование своих сетей
  network 172.14.22.0 mask 255.255.255.252
  network 172.21.22.0 mask 255.255.255.252
  network 172.22.23.0 mask 255.255.255.252
+! поднимаем пиринг
  neighbor 172.14.22.1 remote-as 1001
  neighbor 172.21.22.1 remote-as 301
 !
