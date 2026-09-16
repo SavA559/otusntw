@@ -103,9 +103,17 @@ router bgp 1001
 ###  4. Настройка офиса СПБ так, чтобы трафик до любого офиса распределялся по двум линкам одновременно:
 ###  Пример настройки iBGP на роутере R18
 ```
-
+router bgp 2042
+ bgp log-neighbor-changes
+ neighbor 172.18.24.2 remote-as 520
+ neighbor 172.18.26.2 remote-as 520
+ !
+ address-family ipv4
+  neighbor 172.18.24.2 activate
+  neighbor 172.18.26.2 activate
+  maximum-paths 2                    ! Разрешает использовать до 2-х маршрутов одновременно
+ exit-address-family
 ```
-
 
 
 ### Команды для проверки работы BGP
