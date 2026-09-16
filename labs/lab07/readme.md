@@ -111,7 +111,8 @@ router bgp 2042
  address-family ipv4
   neighbor 172.18.24.2 activate
   neighbor 172.18.26.2 activate
-  maximum-paths 2                    ! Разрешает использовать до 2-х маршрутов одновременно
+  maximum-paths 2
+! Разрешает использовать до 2-х маршрутов одновременно
  exit-address-family
 ```
 
