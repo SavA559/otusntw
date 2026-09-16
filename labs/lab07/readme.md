@@ -74,7 +74,7 @@ router bgp 1001
  neighbor 172.15.21.2 route-map TO-MAIN-ISP out
 
 ! Сосед iBGP R14: второй роутер Мск
- neighbor 14.14.14.14 remote-as 65000
+ neighbor 14.14.14.14 remote-as 1001
  neighbor 14.14.14.14 next-hop-self
 ```
 
