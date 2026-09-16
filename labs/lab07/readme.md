@@ -58,7 +58,7 @@ router bgp 520
 ###  Пример настройки iBGP на роутере R15 (приоритетный провайдер)
 ```
 ! Повышаем Local Preference для входящего трафика до 150 и анонсируем свою сеть без изменений
-ip prefix-list NET-MSK permit --------------203.0.113.0/24
+ip prefix-list NET-MSK permit 192.168.101.0/24
 route-map TO-MAIN-ISP permit 10
  match ip address prefix-list NET-MSK
 ! route-map для входящих маршрутов от провайдера (LP = 150)
@@ -67,7 +67,7 @@ route-map FROM-MAIN-ISP permit 10
 !
 router bgp 1001
  bgp log-neighbor-changes
- network -------------------203.0.113.0 mask 255.255.255.0
+ network 192.168.101.0 mask 255.255.255.0
 ! Сосед eBGP Ламас R21: Приоритетный провайдер
  neighbor 172.15.21.2 remote-as 301
  neighbor 172.15.21.2 route-map FROM-MAIN-ISP in
@@ -81,7 +81,7 @@ router bgp 1001
 ###  Пример настройки iBGP на роутере R14 (резервный провайдер)
 ```
 ! Оставляем дефолтный LP=100 для входящих маршрутов, а для своей сети при отправке в сторону провайдера делаем AS-Path Prepend (удлиняем путь на 3 повторения своей AS)
-ip prefix-list NET-MSK permit ----------------203.0.113.0/24
+ip prefix-list NET-MSK permit 192.168.101.0/24
 ! route-map для резервного провайдера (делаем prepend своей AS)
 route-map TO-BACKUP-ISP permit 10
  match ip address prefix-list NET-MSK
@@ -89,7 +89,7 @@ route-map TO-BACKUP-ISP permit 10
 !
 router bgp 1001
  bgp log-neighbor-changes
- network ---------------203.0.113.0 mask 255.255.255.0
+ network 192.168.101.0 mask 255.255.255.0
 ! Сосед eBGP Киторн R22: Резервный провайдер
  neighbor 172.14.22.2 remote-as 101
  neighbor 172.14.22.2 route-map TO-BACKUP-ISP out
