@@ -72,9 +72,32 @@ router bgp 1001
  neighbor 172.15.21.2 remote-as 301
  neighbor 172.15.21.2 route-map FROM-MAIN-ISP in
  neighbor 172.15.21.2 route-map TO-MAIN-ISP out
+
 ! Сосед iBGP R14: второй роутер Мск
  neighbor 14.14.14.14 remote-as 65000
  neighbor 14.14.14.14 next-hop-self
+```
+
+###  Пример настройки iBGP на роутере R14 (резервный провайдер)
+```
+! Оставляем дефолтный LP=100 для входящих маршрутов, а для своей сети при отправке в сторону провайдера делаем AS-Path Prepend (удлиняем путь на 3 повторения своей AS)
+ip prefix-list NET-MSK permit ----------------203.0.113.0/24
+! route-map для резервного провайдера (делаем prepend своей AS)
+route-map TO-BACKUP-ISP permit 10
+ match ip address prefix-list NET-MSK
+ set as-path prepend 1001 1001 1001
+!
+router bgp 1001
+ bgp log-neighbor-changes
+ network ---------------203.0.113.0 mask 255.255.255.0
+! Сосед eBGP Киторн R22: Резервный провайдер
+ neighbor 172.14.22.2 remote-as 101
+ neighbor 172.14.22.2 route-map TO-BACKUP-ISP out
+! Входящую карту делать не обязательно, по умолчанию Local Pref будет 100
+ 
+! Сосед iBGP R15: первый маршрутизатор Мск
+ neighbor 15.15.15.15 remote-as 1001
+ neighbor 15.15.15.15 next-hop-self
 ```
 
 ###  4. Настройка офиса СПБ так, чтобы трафик до любого офиса распределялся по двум линкам одновременно:
