@@ -55,9 +55,26 @@ router bgp 520
 ```
 
 ###  3. Настройка офиса Москва так, чтобы приоритетным провайдером стал Ламас:
-###  Пример настройки iBGP на роутере R
+###  Пример настройки iBGP на роутере R15 (приоритетный провайдер)
 ```
-
+! Повышаем Local Preference для входящего трафика до 150 и анонсируем свою сеть без изменений
+ip prefix-list NET-MSK permit --------------203.0.113.0/24
+route-map TO-MAIN-ISP permit 10
+ match ip address prefix-list NET-MSK
+! route-map для входящих маршрутов от провайдера (LP = 150)
+route-map FROM-MAIN-ISP permit 10
+ set local-preference 150
+!
+router bgp 1001
+ bgp log-neighbor-changes
+ network -------------------203.0.113.0 mask 255.255.255.0
+! Сосед eBGP Ламас R21: Приоритетный провайдер
+ neighbor 172.15.21.2 remote-as 301
+ neighbor 172.15.21.2 route-map FROM-MAIN-ISP in
+ neighbor 172.15.21.2 route-map TO-MAIN-ISP out
+! Сосед iBGP R14: второй роутер Мск
+ neighbor 14.14.14.14 remote-as 65000
+ neighbor 14.14.14.14 next-hop-self
 ```
 
 ###  4. Настройка офиса СПБ так, чтобы трафик до любого офиса распределялся по двум линкам одновременно:
