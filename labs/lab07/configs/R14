@@ -1,1 +1,44 @@
-
+!
+interface Loopback0
+ ip address 14.14.14.14 255.255.255.255
+!
+interface Ethernet0/0
+ description to R12
+ ip address 10.12.14.2 255.255.255.0
+!
+interface Ethernet0/1
+ description to R13
+ ip address 10.13.14.2 255.255.255.0
+!
+interface Ethernet0/2
+ description to ISP (R22)
+ ip address 172.14.22.1 255.255.255.252
+!
+interface Ethernet0/3
+ description to R19
+ ip address 10.14.19.1 255.255.255.0
+!
+router ospf 1
+ router-id 1.1.1.14
+ area 101 nssa no-summary
+ network 10.12.14.0 0.0.0.255 area 0
+ network 10.13.14.0 0.0.0.255 area 0
+ network 10.14.19.0 0.0.0.255 area 101
+ network 14.14.14.14 0.0.0.0 area 0
+ default-information originate
+!
+router bgp 1001
+ bgp log-neighbor-changes
+ network 101.0.0.0 mask 255.255.255.0
+ neighbor 15.15.15.15 remote-as 1001
+ neighbor 15.15.15.15 update-source Loopback0
+ neighbor 15.15.15.15 next-hop-self
+ neighbor 172.14.22.2 remote-as 101
+ neighbor 172.14.22.2 route-map TO-BACKUP-ISP out
+!
+ip prefix-list NET-MSK seq 5 permit 101.0.0.0/24
+!
+route-map TO-BACKUP-ISP permit 10
+ match ip address prefix-list NET-MSK
+ set as-path prepend 1001 1001 1001
+!
