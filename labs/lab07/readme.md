@@ -32,8 +32,9 @@ router bgp 520
  neighbor AS520 peer-group
  neighbor AS520 remote-as 520
  neighbor AS520 update-source Loopback0
-! В качестве RR будет выступать R23
+! В качестве RR будет выступать данный роутер R23
  neighbor AS520 route-reflector-client
+! Настраиваем всех соседей вручную
  neighbor 24.24.24.24 peer-group AS520
  neighbor 25.25.25.25 peer-group AS520
  neighbor 26.26.26.26 peer-group AS520
