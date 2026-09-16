@@ -95,7 +95,7 @@ router bgp 1001
  neighbor 172.14.22.2 route-map TO-BACKUP-ISP out
 ! Входящую карту делать не обязательно, по умолчанию Local Pref будет 100
  
-! Сосед iBGP R15: первый маршрутизатор Мск
+! Сосед iBGP R15: первый роутер Мск
  neighbor 15.15.15.15 remote-as 1001
  neighbor 15.15.15.15 next-hop-self
 ```
