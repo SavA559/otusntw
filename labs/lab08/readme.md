@@ -16,13 +16,12 @@
 ! Создаем Filter-List, который разрешает ТОЛЬКО локальные маршруты (должны отправлять наружу только свои собственные префиксы).
 ip as-path access-list 10 permit ^$
 ! Создаем RM для исходящих анонсов. Запрещаем анонсировать полученные от одного ISP маршруты в сторону другого ISP
-route-map BGP_OUT permit 10
+route-map BGP-OUT permit 10
  match as-path 10
 
 ! Применяем RM на исходящие сессии к провайдерам
-router bgp [Ваша_AS]
- neighbor [IP_Провайдера_1] route-map BGP_OUT out
- neighbor [IP_Провайдера_2] route-map BGP_OUT out
+router bgp 1001
+ neighbor 172.14.22.2 route-map BGP-OUT out
 !
 ```
 
@@ -30,15 +29,16 @@ router bgp [Ваша_AS]
 ###  Пример настройки фильтрации на роутере R18
 ```
 ! Создаем PL разрешенных префиксов (свои собственные).
-ip prefix-list PL_MY_NETS permit 192.0.2.0/24
-ip prefix-list PL_MY_NETS permit 198.51.100.0/22 le 24
-
-route-map RM_BGP_OUT_PREFIX permit 10
- match ip address prefix-list PL_MY_NETS
+ip prefix-list PL-MY-NETS permit 192.0.2.0/24
+ip prefix-list PL-MY-NETS permit 198.51.100.0/22 le 24
+!
+route-map RM-BGP-OUT-PREFIX permit 10
+ match ip address prefix-list PL-MY-NETS
 
 ! Применяем RM на соседа
-router bgp [Ваша_AS]
- neighbor [IP_Провайдера_1] route-map RM_BGP_OUT_PREFIX out
+router bgp 2042
+ neighbor 172.18.24.2 route-map RM-BGP-OUT-PREFIX out
+ neighbor 172.18.26.2 route-map RM-BGP-OUT-PREFIX out
 ```
 
 ###  3. Настройка провайдера Киторн так, чтобы в офис Москва отдавался только маршрут по умолчанию:
