@@ -29,6 +29,23 @@ router bgp [Ваша_AS]
 ###  2. Настройка фильтрации в офисе СПБ так, чтобы не появилось транзитного трафика(Prefix-list):
 ###  Пример настройки фильтрации на роутере R18
 ```
+! Создаем PL разрешенных префиксов (свои собственные).
+ip prefix-list PL_MY_NETS permit 192.0.2.0/24
+ip prefix-list PL_MY_NETS permit 198.51.100.0/22 le 24
 
+route-map RM_BGP_OUT_PREFIX permit 10
+ match ip address prefix-list PL_MY_NETS
+
+! Применяем RM на соседа
+router bgp [Ваша_AS]
+ neighbor [IP_Провайдера_1] route-map RM_BGP_OUT_PREFIX out
 ```
 
+
+
+### Команды для проверки работы BGP
+```
+show ip bgp summary - отображает краткую сводку о состоянии соединений с BGP-соседями
+show ip bgp neighbors - отображения информации о соседних (peers) маршрутизаторах в рамках протокола BGP
+show running-config | section bgp
+```
