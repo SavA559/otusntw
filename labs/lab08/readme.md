@@ -62,6 +62,17 @@ router bgp ---
 ###  4. Настройка провайдера Ламас так, чтобы в офис Москва отдавался только маршрут по умолчанию и префикс офиса СПБ:
 ###  Пример настройки фильтрации на роутере R18
 ```
+ip prefix-list CLIENT-OUT seq 10 permit 0.0.0.0/0
+ip prefix-list CLIENT-OUT seq 20 permit 192.168.10.0/24
+ip prefix-list CLIENT-OUT seq 30 deny 0.0.0.0/0 le 32
+!
+route-map RM-BGP-OUT permit 10
+ match ip address prefix-list CLIENT-OUT
+!
+router bgp 65000
+ neighbor 10.0.0.2 remote-as 65001
+ neighbor 192.168.1.2 default-originate
+ neighbor 10.0.0.2 route-map RM-BGP-OUT out
 ```
 
 
