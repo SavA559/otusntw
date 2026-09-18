@@ -29,8 +29,7 @@ router bgp 1001
 ###  Пример настройки фильтрации на роутере R18
 ```
 ! Создаем PL разрешенных префиксов (свои собственные).
-ip prefix-list PL-MY-NETS permit 192.0.2.0/24
-ip prefix-list PL-MY-NETS permit 198.51.100.0/22 le 24
+ip prefix-list PL-MY-NETS permit 142.0.0.0/24
 !
 route-map RM-BGP-OUT-PREFIX permit 10
  match ip address prefix-list PL-MY-NETS
