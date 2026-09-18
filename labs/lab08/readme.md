@@ -41,7 +41,7 @@ router bgp 2042
 ```
 
 ###  3. Настройка провайдера Киторн так, чтобы в офис Москва отдавался только маршрут по умолчанию:
-###  Пример настройки фильтрации на роутере R18
+###  Пример настройки фильтрации на роутере R22
 ```
 ! Создаем PL разрешающий только маршрут по умолчанию
 ip prefix-list ONLY-DEFAULT permit 0.0.0.0/0
@@ -49,12 +49,12 @@ ip prefix-list ONLY-DEFAULT permit 0.0.0.0/0
 route-map FILTER-OUT-DEFAULT permit 10
  match ip address prefix-list ONLY-DEFAULT
 
-router bgp ---
- neighbor 192.168.1.2 remote-as ----
+router bgp 101
+ neighbor 172.14.22.1 remote-as 1001
 ! Генерация маршрута по умолчанию
- neighbor 192.168.1.2 default-originate
+ neighbor 172.14.22.1 default-originate
 ! Применяем настройки к BGP-соседу
- neighbor 192.168.1.2 route-map FILTER-OUT-DEFAULT out
+ neighbor 172.14.22.1 route-map FILTER-OUT-DEFAULT out
 !
 ```
 
