@@ -59,19 +59,19 @@ router bgp 101
 ```
 
 ###  4. Настройка провайдера Ламас так, чтобы в офис Москва отдавался только маршрут по умолчанию и префикс офиса СПБ:
-###  Пример настройки фильтрации на роутере R18
+###  Пример настройки фильтрации на роутере R21
 ```
-ip prefix-list CLIENT-OUT seq 10 permit 0.0.0.0/0
-ip prefix-list CLIENT-OUT seq 20 permit 192.168.10.0/24
-ip prefix-list CLIENT-OUT seq 30 deny 0.0.0.0/0 le 32
+ip prefix-list BGP-OUT seq 10 permit 0.0.0.0/0
+ip prefix-list BGP-OUT seq 20 permit 142.0.0.0/24
+ip prefix-list BGP-OUT seq 30 deny 0.0.0.0/0 le 32
 !
 route-map RM-BGP-OUT permit 10
- match ip address prefix-list CLIENT-OUT
+ match ip address prefix-list BGP-OUT
 !
-router bgp 65000
- neighbor 10.0.0.2 remote-as 65001
- neighbor 192.168.1.2 default-originate
- neighbor 10.0.0.2 route-map RM-BGP-OUT out
+router bgp 301
+ neighbor 172.15.21.1 remote-as 301
+ neighbor 172.15.21.1 default-originate
+ neighbor 172.15.21.1 route-map RM-BGP-OUT out
 ```
 
 
