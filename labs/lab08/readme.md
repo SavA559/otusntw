@@ -16,12 +16,12 @@
 ! Создаем Filter-List, который разрешает ТОЛЬКО локальные маршруты (должны отправлять наружу только свои собственные префиксы).
 ip as-path access-list 10 permit ^$
 ! Создаем RM для исходящих анонсов. Запрещаем анонсировать полученные от одного ISP маршруты в сторону другого ISP
-route-map BGP-OUT permit 10
+route-map TO-BACKUP-ISP permit 5
  match as-path 10
 
 ! Применяем RM на исходящие сессии к провайдерам
 router bgp 1001
- neighbor 172.14.22.2 route-map BGP-OUT out
+ neighbor 172.14.22.2 route-map TO-BACKUP-ISP out
 !
 ```
 
