@@ -69,7 +69,7 @@ route-map RM-BGP-OUT permit 10
  match ip address prefix-list BGP-OUT
 !
 router bgp 301
- neighbor 172.15.21.1 remote-as 301
+ neighbor 172.15.21.1 remote-as 1001
  neighbor 172.15.21.1 default-originate
  neighbor 172.15.21.1 route-map RM-BGP-OUT out
 ```
