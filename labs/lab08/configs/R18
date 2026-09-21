@@ -1,4 +1,4 @@
-
+!
 interface Loopback0
  ip address 18.18.18.18 255.255.255.255
 !
