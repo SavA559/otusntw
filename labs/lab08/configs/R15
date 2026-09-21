@@ -37,6 +37,8 @@ router bgp 1001
  neighbor 172.15.21.2 route-map FROM-MAIN-ISP in
  neighbor 172.15.21.2 route-map TO-MAIN-ISP out
 !
+ip as-path access-list 10 permit ^$
+!
 ip prefix-list NET-MSK seq 5 permit 101.0.0.0/24
 !
 ip prefix-list NO-ZONE seq 10 deny 10.14.19.0/24
@@ -44,6 +46,9 @@ ip prefix-list NO-ZONE seq 20 permit 0.0.0.0/0 le 32
 !
 route-map FROM-MAIN-ISP permit 10
  set local-preference 150
+!
+route-map TO-MAIN-ISP permit 5
+ match as-path 10
 !
 route-map TO-MAIN-ISP permit 10
  match ip address prefix-list NET-MSK
