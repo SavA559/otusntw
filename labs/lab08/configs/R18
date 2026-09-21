@@ -38,6 +38,13 @@ router bgp 2042
   network 172.18.26.0 mask 255.255.255.252
   neighbor 172.18.24.2 activate
   neighbor 172.18.26.2 activate
+  neighbor 172.18.24.2 route-map RM-BGP-OUT-PREFIX out
+  neighbor 172.18.26.2 route-map RM-BGP-OUT-PREFIX out
   maximum-paths 2
  exit-address-family
+!
+ip prefix-list PL-MY-NETS permit 142.0.0.0/24
+!
+route-map RM-BGP-OUT-PREFIX permit 10
+ match ip address prefix-list PL-MY-NETS
 !
