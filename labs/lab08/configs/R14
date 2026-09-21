@@ -36,7 +36,12 @@ router bgp 1001
  neighbor 172.14.22.2 remote-as 101
  neighbor 172.14.22.2 route-map TO-BACKUP-ISP out
 !
+ip as-path access-list 10 permit ^$
+!
 ip prefix-list NET-MSK seq 5 permit 101.0.0.0/24
+!
+route-map TO-BACKUP-ISP permit 5
+ match as-path 10
 !
 route-map TO-BACKUP-ISP permit 10
  match ip address prefix-list NET-MSK
