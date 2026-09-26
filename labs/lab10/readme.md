@@ -26,7 +26,7 @@ access-list 18 permit 192.168.96.0 0.0.15.255
 ! Создаем пул из 5 публичных адресов, указывая стартовый и конечный адрес
 ip nat pool POOL-NAT 142.0.0.1 142.0.0.5 netmask 255.255.255.0
 !Связываем ACL и пул, включая PAT (за счет ключевого слова overload)
-ip nat inside source list 100 pool POOL-NAT overload
+ip nat inside source list 18 pool POOL-NAT overload
 
 ! Маркируем интерфейсы
 interface e0/0
