@@ -65,8 +65,24 @@ ip nat outside
 ```
 
 ###  4. Настройка NAT так, чтобы R19 был доступен с любого узла для удаленного управления:
-###  Пример настройки NAT на роутере R19
+###  Пример настройки NAT на роутере R14
 ```
+! Доступ по SSH порт 22
+ip nat inside source static tcp 10.14.19.2 22 101.0.0.119 2222 extendable
+
+! Маркируем интерфейсы подключенные к локальной сети и к ISP
+interface e0/0
+ip nat inside
+!
+interface e0/1
+ip nat inside
+!
+interface e0/3
+ip nat inside
+!
+interface e0/2
+ip nat outside
+!
 ```
 
 ###  5. Настройка статический NAT(PAT) для офиса Чокурдах:
