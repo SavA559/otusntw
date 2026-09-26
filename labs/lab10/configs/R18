@@ -1,1 +1,67 @@
-
+!
+interface Loopback0
+ ip address 18.18.18.18 255.255.255.255
+!
+interface Ethernet0/0
+ description to R16
+ ip address 10.16.18.2 255.255.255.0
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface Ethernet0/1
+ description to R17
+ ip address 10.17.18.2 255.255.255.0
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface Ethernet0/2
+ description to ISP (R24)
+ ip address 172.18.24.1 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+!
+interface Ethernet0/3
+ description to ISP (R26)
+ ip address 172.18.26.1 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+!
+router eigrp SPB-EIGRP
+ !
+ address-family ipv4 unicast autonomous-system 100
+  !
+  topology base
+  exit-af-topology
+  network 10.16.18.0 0.0.0.255
+  network 10.17.18.0 0.0.0.255
+ exit-address-family
+!
+router bgp 2042
+ bgp log-neighbor-changes
+ neighbor 172.18.24.2 remote-as 520
+ neighbor 172.18.26.2 remote-as 520
+ !
+ address-family ipv4
+  network 142.0.0.0 mask 255.255.255.0
+  network 172.18.24.0 mask 255.255.255.252
+  network 172.18.26.0 mask 255.255.255.252
+  neighbor 172.18.24.2 activate
+  neighbor 172.18.24.2 route-map RM-BGP-OUT-PREFIX out
+  neighbor 172.18.26.2 activate
+  neighbor 172.18.26.2 route-map RM-BGP-OUT-PREFIX out
+  maximum-paths 2
+ exit-address-family
+!
+no ip http server
+no ip http secure-server
+ip nat pool POOL-NAT 142.0.0.1 142.0.0.5 netmask 255.255.255.0
+ip nat inside source list 18 pool POOL-NAT overload
+ip route 142.0.0.0 255.255.255.0 Null0
+!
+ip prefix-list PL-MY-NETS seq 5 permit 142.0.0.0/24
+!
+route-map RM-BGP-OUT-PREFIX permit 10
+ match ip address prefix-list PL-MY-NETS
+!
+access-list 18 permit 192.168.96.0 0.0.15.255
+!
