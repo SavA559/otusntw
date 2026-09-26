@@ -28,7 +28,7 @@ ip nat pool POOL-NAT 142.0.0.1 142.0.0.5 netmask 255.255.255.0
 !Связываем ACL и пул, включая PAT (за счет ключевого слова overload)
 ip nat inside source list 18 pool POOL-NAT overload
 
-! Маркируем интерфейсы
+! Маркируем интерфейсы подключенные к локальной сети и к ISP
 interface e0/0
  ip nat inside
 !
