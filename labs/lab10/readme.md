@@ -47,7 +47,7 @@ interface e0/3
 ###  Пример настройки NAT на роутере R15
 ```
 ! Ссоздаем трансляцию
-ip nat inside source static 10.15.20.2 101.0.0.20
+ip nat inside source static 10.15.20.2 101.0.0.120
 
 ! Маркируем интерфейсы подключенные к локальной сети и к ISP
 interface e0/0
@@ -73,7 +73,7 @@ ip nat outside
 ###  Пример настройки NAT на роутере R28
 ```
 ! Ссоздаем трансляцию
-ip nat inside source static tcp 172.25.28.2 80 192.168.130.130 80
+ip nat inside source static tcp  192.168.130.130 80 172.25.28.2 80
 
 ! Маркируем интерфейсы подключенные к локальной сети и к ISP
 interface e0/2
