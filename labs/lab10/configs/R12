@@ -1,7 +1,7 @@
 !
 clock timezone MSK 3 0
 !
-ip dhcp excluded-address 192.168.101.253 192.168.101.254
+ip dhcp excluded-address 192.168.101.254
 !
 ip dhcp pool ONE
  network 192.168.101.0 255.255.255.0
