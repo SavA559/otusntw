@@ -44,8 +44,24 @@ interface e0/3
 ```
 
 ###  4. Настройка статического NAT для R20:
-###  Пример настройки NAT на роутере R20
+###  Пример настройки NAT на роутере R15
 ```
+! Ссоздаем трансляцию
+ip nat inside source static 10.15.20.2 101.0.0.20
+
+! Маркируем интерфейсы подключенные к локальной сети и к ISP
+interface e0/0
+ip nat inside
+!
+interface e0/1
+ip nat inside
+!
+interface e0/3
+ip nat inside
+!
+interface e0/2
+ip nat outside
+!
 ```
 
 ###  4. Настройка NAT так, чтобы R19 был доступен с любого узла для удаленного управления:
