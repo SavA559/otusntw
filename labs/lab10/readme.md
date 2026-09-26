@@ -44,7 +44,7 @@ ip dhcp excluded-address 192.168.101.254
 clock timezone MSK 3 0
 ! Включение роутера в качестве NTP-сервера
 ntp master 3
-! Обновление часов роутера
+! Обновление аппаратных часов роутера
 ntp update-calendar
 !
 
