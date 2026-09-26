@@ -38,7 +38,7 @@ interface e0/1
 interface e0/2
  ip nat outside
 !
-interface e0/2
+interface e0/3
  ip nat outside
 !
 ```
