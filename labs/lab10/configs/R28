@@ -50,7 +50,7 @@ ip sla 2
  frequency 4
 ip sla schedule 2 life forever start-time now
 !
-ip nat inside source static tcp 172.25.28.2 80 192.168.130.130 80
+ip nat inside source static tcp 192.168.130.130 80 172.25.28.2 80
 !
 route-map PBR-LOAD-BALANCE permit 10
  match interface Ethernet0/2.30
