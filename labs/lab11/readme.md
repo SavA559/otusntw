@@ -36,7 +36,24 @@ ip address 10.100.0.1 255.255.255.0
 ```
 
 ###  2. Настройка DMVMN между Москва и Чокурдах, Лабытнанги:
-###  Пример настройки DMVMN на роутере R27
+###  Пример настройки DMVMN на роутере R15 (HUB)
+```
+interface tunnel100
+! Настраиваем многоточечный туннель mGRE
+tunnel mode gre multipoint
+ip address 10.64.0.1 255.255.255.0
+tunnel source e0/2
+ip mtu 1400
+ip tcp adjust-mss 1360
+! Для динамического добавления spoke в список рассылки multicast по протоколу NHRP
+ip nhrp map multicast dynamic
+! Идентификатор сети задаем
+ip nhrp network-id 100
+! Включаем отправку NHRP-сообщений перенаправления для реализации Phase3 технологии DMVPN
+ip nhrp redirect
+!
+```
+###  Пример настройки DMVMN на роутере R27 (spoke)
 ```
 ```
 
