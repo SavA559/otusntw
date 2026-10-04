@@ -18,8 +18,8 @@
 interface tunnel0
 ip address 10.10.10.1 255.255.255.0
  ! Уменьшаем MTU и MSS для избежания фрагментации пакетов
- ip mtu 1400
- ip tcp adjust-mss 1360
+ ip mtu 1400              !L2 заголовок
+ ip tcp adjust-mss 1360   !L4 заголовок
  ! Указываем внешние адреса маршрутизаторов
  tunnel source 172.15.21.1
  tunnel destination 172.18.24.1
