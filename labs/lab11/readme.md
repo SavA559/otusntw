@@ -11,21 +11,27 @@
 ###  1. Настройка GRE между офисами Москва и С.-Петербург:
 ###  Пример настройки GRE на роутере R18
 ```
-```
-###  Пример настройки GRE на роутере R15
-```
-! Создаем интерфейс туннеля
 interface tunnel0
 ! Режим инкапсуляции GRE поверх протокола IP
 tunnel mode gre ip
-ip address 10.100.0.1 255.255.255.0
+ip address 10.100.0.2 255.255.255.0
  ! Уменьшаем MTU и MSS для избежания фрагментации пакетов
- ip mtu 1400              !На интерфейсе тунеля (Ethernet MTU - 1500 байт)
- ip tcp adjust-mss 1360   !L4
- ! Указываем внешние адреса маршрутизаторов
+ ip mtu 1400              !На интерфейсе туннеля (Ethernet MTU - 1500 байт)
+ ip tcp adjust-mss 1360   !L4 заголовок
+ ! Указываем внешние интерфейс и адрес маршрутизаторов
+ tunnel source e0/2
+ tunnel destination 172.15.21.1
+```
+###  Пример настройки GRE на роутере R15
+```
+!
+interface tunnel0
+tunnel mode gre ip
+ip address 10.100.0.1 255.255.255.0
+ ip mtu 1400              
+ ip tcp adjust-mss 1360   
  tunnel source e0/2
  tunnel destination 172.18.24.1
-exit
 !
 ```
 
