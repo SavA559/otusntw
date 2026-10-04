@@ -55,11 +55,28 @@ ip nhrp redirect
 ```
 ###  Пример настройки DMVMN на роутере R27 (spoke)
 ```
+!
+interface tunnel 100
+ip address 10.64.0.2 255.255.255.0
+tunnel source e0/0
+tunnel destination 172.15.21.1
+ip mtu 1400
+ip tcp adjust-mss 1360
+ip nhrp network-id 100
+! Маппинг мультикаст рассылок в адрес хаба
+ip nhrp map multicast 172.15.21.1
+! Указываем туннельный адрес NHS
+ip nhrp nhs 10.64.0.1
+! Создаем маппинг для этого туннельного адреса в реальный
+ip nhrp map 10.64.0.1 172.15.21.1
+!
 ```
 
 
 ### Команды для проверки
 ```
+show ip nhrp - выводит текущий кэш протокола NHRP
+show dmvpn - используется для проверки текущего состояния и статистики DMVPN
 ```
 
 Все файлы изменений приведены [здесь](configs/)
