@@ -126,5 +126,4 @@ show bgp ipv4 unicast - выводит всю таблицу BGP для IPv4 uni
 show running-config | section bgp
 ```
 
-
 Все файлы изменений приведены [здесь](configs/)
