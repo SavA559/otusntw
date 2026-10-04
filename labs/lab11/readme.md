@@ -20,7 +20,7 @@ interface tunnel0
 tunnel mode gre ip
 ip address 10.100.0.1 255.255.255.0
  ! Уменьшаем MTU и MSS для избежания фрагментации пакетов
- ip mtu 1400              !На интерфейсе тунеля
+ ip mtu 1400              !На интерфейсе тунеля (Ethernet MTU - 1500 байт)
  ip tcp adjust-mss 1360   !L4
  ! Указываем внешние адреса маршрутизаторов
  tunnel source e0/2
