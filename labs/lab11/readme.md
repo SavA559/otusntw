@@ -59,7 +59,7 @@ ip nhrp redirect
 interface tunnel 100
 ip address 10.64.0.2 255.255.255.0
 tunnel source e0/0
-tunnel destination 172.15.21.1
+tunnel mode gre multipoint  !  tunnel destination 172.15.21.1
 ip mtu 1400
 ip tcp adjust-mss 1360
 ip nhrp network-id 100
