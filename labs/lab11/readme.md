@@ -69,6 +69,8 @@ ip nhrp map multicast 172.15.21.1
 ip nhrp nhs 10.64.0.1
 ! Создаем маппинг для этого туннельного адреса в реальный
 ip nhrp map 10.64.0.1 172.15.21.1
+! для реализации Phase3 технологии DMVPN
+ip nhrp shortcut
 !
 ```
 
