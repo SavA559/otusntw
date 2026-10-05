@@ -15,10 +15,10 @@
 ! MPLS(LDP) настраивается на всех устройствах глобально и на физических интерфейсах PtP
 ! Для работы MPLS необходимо включить CEF 
 ip cef
-mpls ip
 ! Задаем протокол распределения меток LDP
 mpls label protocol ldp
 ! Включение MPLS на глобальном уровне и указание Router-ID
+mpls ip
 mpls ldp router-id Loopback0 
 ! Включение MPLS и LDP на конкретных интерфейсах смотрящих на соседние роутеры
 interface Ethernet 0/0 
