@@ -17,6 +17,7 @@
 ! Для работы MPLS необходимо включить CEF 
 ip cef
 mpls ip
+! Задаем протокол распределения меток LDP
 mpls label protocol ldp
 ! Включение MPLS на глобальном уровне и указание Router-ID
 mpls ldp router-id Loopback0 
