@@ -38,12 +38,8 @@ ip cef
 mpls label protocol ldp
 mpls ip
 mpls ldp router-id Loopback0 
-interface Ethernet 0/0 
- mpls ip 
 interface Ethernet 0/1 
  mpls ip
-interface Ethernet 0/2 
- mpls ip 
 interface Ethernet 0/3 
  mpls ip
 ```
