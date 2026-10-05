@@ -9,7 +9,7 @@
 ###  Решение:
 
 ###  1. Настройка BGP free core в офисе Москвы:
-###  Пример настройки MPLS и LDP на роутере R
+###  Пример настройки MPLS и LDP на роутере R13
 ```
 ! Перед включением LDP на интерфейсах должен работать IGP и все роутеры должны видеть Loopback-адреса друг друга
 ! MPLS(LDP) настраивается на всех устройствах глобально и на физических интерфейсах PtP
@@ -21,14 +21,18 @@ mpls label protocol ldp
 ! Включение MPLS на глобальном уровне и указание Router-ID
 mpls ldp router-id Loopback0 
 ! Включение MPLS и LDP на конкретных интерфейсах смотрящих на соседние роутеры
-interface FastEthernet 0/0 
+interface Ethernet 0/0 
  mpls ip 
-interface FastEthernet 0/1 
+interface Ethernet 0/1 
+ mpls ip
+interface Ethernet 0/2 
+ mpls ip 
+interface Ethernet 0/3 
  mpls ip
 ```
 
 ###  2. Настройка BGP free core в офисе СПБ:
-###  Пример настройки MPLS и LDP на роутере R
+###  Пример настройки MPLS и LDP на роутере R16
 ```
 
 ```
