@@ -37,6 +37,7 @@ interface FastEthernet 0/1
 show mpls ldp neighbor - Посмотреть статус LDP-сессий и соседей
 show mpls ldp bindings - Проверить таблицу привязки меток (LIB)
 show mpls forwarding-table - Посмотреть таблицу коммутации меток (LFIB)
+show ip cef - просмотр содержимого таблицы FIB
 ```
 
 Все файлы изменений приведены [здесь](configs/)
