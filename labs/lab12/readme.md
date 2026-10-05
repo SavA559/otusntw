@@ -15,7 +15,6 @@
 ! Включаем MPLS на глобальном уровне и на интерфейсах точка-точка на всех маршрутизаторах
 ! Для работы MPLS необходимо включить CEF 
 ip cef 
-! 
 mpls label protocol ldp
 ! Включение MPLS на глобальном уровне и указание Router-ID
 mpls ldp router-id Loopback0 
