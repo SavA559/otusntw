@@ -22,7 +22,7 @@ crypto ikev2 proposal PHASE1
 crypto ikev2 policy IKEV2
  proposal PHASE1
 !
-! Настройка Phase 1.2. Создание и настройка профиля протокола IKEv2 (объединяет в себе все настройки безопасности для конкретной VPN-сессии)
+! Настройка Phase 1.2. Создание и настройка профиля протокола IKEv2 (объединяет в себе все настройки безопасности для VPN-сессии)
 crypto ikev2 profile PROFILE1
  match address local interface ---------Ethernet0/0   ! Привязка к интерфейсу или IP-адресу (откуда)
  match identity remote address -------------200.3.0.9 255.255.255.255   ! IP-адрес соседа (куда)
