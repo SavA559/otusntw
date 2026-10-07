@@ -9,9 +9,10 @@ interface Tunnel100
  ip nhrp map 10.64.0.1 172.15.21.1
  ip nhrp network-id 100
  ip nhrp nhs 10.64.0.1
+ ip nhrp shortcut
  ip tcp adjust-mss 1360
  tunnel source Ethernet0/0
- tunnel destination 172.15.21.1
+ tunnel mode gre multipoint
 !
 interface Ethernet0/0
  description to ISP (R25)
