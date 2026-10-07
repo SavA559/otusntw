@@ -26,8 +26,8 @@ crypto ikev2 policy IKEV2
 !
 ! Настройка Phase 1.2. Создание и настройка профиля протокола IKEv2 (объединяет в себе все настройки безопасности для конкретной VPN-сессии)
 crypto ikev2 profile PROFILE1
- match address local interface Ethernet0/0   ! Привязка к интерфейсу или IP-адресу (откуда)
- match identity remote address 200.3.0.9 255.255.255.255   ! Белый IP-адрес соседа (куда)
+ match address local interface ---------Ethernet0/0   ! Привязка к интерфейсу или IP-адресу (откуда)
+ match identity remote address -------------200.3.0.9 255.255.255.255   ! IP-адрес соседа (куда)
  authentication remote pre-share key MYSECRET   ! Метод проверки PSK
  authentication local pre-share key MYSECRET
 !
