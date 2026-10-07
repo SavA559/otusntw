@@ -43,7 +43,7 @@ crypto ikev2 profile IKEV2-PROF
 crypto ipsec transform-set TS-AES256 esp-aes 256 esp-sha256-hmac 
  mode transport
 !
-! Создаем криптографического профиль, который связывает настройки безопасности IPsec SA с VTI
+! Создаем криптографического профиль, который свяжет настройки безопасности IPsec SA с VTI
 crypto ipsec profile IPSEC-PROF
  set transform-set TS-AES256
  set ikev2-profile IKEV2-PROF
