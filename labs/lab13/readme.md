@@ -15,6 +15,43 @@
 ```
 ```
 
+###  2. Настройка DMVPN поверх IPSec между Москва и Чокурдах, Лабытнанги:
+###  Пример настройки IPSec на роутере R (Route based)
+```
+!
+crypto ikev2 proposal IKEV2-PROP 
+ encryption aes-cbc-256
+ integrity sha256
+ group 14
+!
+crypto ikev2 policy IKEV2-POL 
+ proposal IKEV2-PROP
+! 
+crypto ikev2 keyring DMVPN-KEYS
+  peer ANY-SPOKE
+  address 0.0.0.0 0.0.0.0
+  pre-shared-key cisco123
+!
+crypto ikev2 profile IKEV2-PROF
+ match identity remote address 0.0.0.0
+ authentication local pre-share
+ authentication remote pre-share
+ keyring local DMVPN-KEYS
+! 
+! 
+crypto ipsec transform-set TS-AES256 esp-aes 256 esp-sha256-hmac 
+ mode transport
+! 
+crypto ipsec profile IPSEC-PROF
+ set transform-set TS-AES256
+ set ikev2-profile IKEV2-PROF
+!
+! 
+interface Tunnel0
+ tunnel protection ipsec profile IPSEC-PROF
+!
+```
+
 
 ### Команды для проверки
 ```
