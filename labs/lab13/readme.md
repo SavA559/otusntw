@@ -18,6 +18,11 @@
 
 ### Команды для проверки
 ```
+sho crypto ikev2 sa [detailed] - отображение текущего состояния Security Associations протокола IKEv2
+sho crypto ikev2 session - состояние сессий или туннелей IKEv2
+sh crypto ipsec sa - для диагностики и вывода информации о Security Associations во второй фазе протокола IPsec
+sh crypto ipsec sa detail - для проверки состояния и глубокой диагностики установленных IPsec Security Associations
+sh crypto ipsec profile - для отображения настроек профилей IPsec
 ```
 
 Все файлы изменений приведены [здесь](configs/)
