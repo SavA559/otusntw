@@ -44,6 +44,18 @@ tunnel source Loopback0
 tunnel destination ---------------200.3.0.9
 tunnel protection ipsec profile IPSEC_PROFILE
 !
+interface tunnel0
+! Режим инкапсуляции GRE поверх протокола IP
+tunnel mode gre ip
+ip address 10.100.0.2 255.255.255.0
+ ! Уменьшаем MTU и MSS для избежания фрагментации пакетов
+ ip mtu 1400              !На интерфейсе туннеля (Ethernet MTU - 1500 байт)
+ ip tcp adjust-mss 1360   !L4 заголовок
+ ! Указываем внешние интерфейс и адрес маршрутизаторов
+ tunnel source e0/2
+ tunnel destination 172.15.21.1
+! Автоматическое шифрование всего трафика, проходящий через виртуальный туннельный интерфейс GRE, без использования Traffic Selectors (Crypto ACL)
+ tunnel protection ipsec profile IPSEC_PROFILE
 ```
 
 ###  2. Настройка DMVPN поверх IPSec между Москва и Чокурдах, Лабытнанги:
