@@ -16,7 +16,7 @@
 ```
 
 ###  2. Настройка DMVPN поверх IPSec между Москва и Чокурдах, Лабытнанги:
-###  Пример настройки IPSec на роутере R (Route based)
+###  Пример настройки IPSec на роутере R27 (Route based)
 ```
 !
 crypto ikev2 proposal IKEV2-PROP 
@@ -49,7 +49,7 @@ crypto ipsec profile IPSEC-PROF
  set ikev2-profile IKEV2-PROF
 !
 ! Автоматическое шифрование всего трафика, проходящий через виртуальный туннельный интерфейс
-interface Tunnel0
+interface Tunnel100
  tunnel protection ipsec profile IPSEC-PROF
 !
 ```
