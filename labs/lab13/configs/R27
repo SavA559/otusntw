@@ -1,25 +1,4 @@
 !
-interface Loopback0
- ip address 27.27.27.27 255.255.255.255
-!
-interface Tunnel100
- ip address 10.64.0.2 255.255.255.0
- ip mtu 1400
- ip nhrp map multicast 172.15.21.1
- ip nhrp map 10.64.0.1 172.15.21.1
- ip nhrp network-id 100
- ip nhrp nhs 10.64.0.1
- ip nhrp shortcut
- ip tcp adjust-mss 1360
- tunnel source Ethernet0/0
- tunnel mode gre multipoint
- tunnel protection ipsec profile IPSEC-PROF
-!
-interface Ethernet0/0
- description to ISP (R25)
- ip address 172.25.27.2 255.255.255.252
-!
-!
 crypto ikev2 proposal IKEV2-PROP 
  encryption aes-cbc-256   ! Encryption algorithm 
  integrity sha256   ! Hash algorithm
@@ -45,4 +24,25 @@ crypto ipsec transform-set TS-AES256 esp-aes 256 esp-sha256-hmac
 crypto ipsec profile IPSEC-PROF
  set transform-set TS-AES256
  set ikev2-profile IKEV2-PROF
+!
+!
+interface Loopback0
+ ip address 27.27.27.27 255.255.255.255
+!
+interface Tunnel100
+ ip address 10.64.0.2 255.255.255.0
+ ip mtu 1400
+ ip nhrp map multicast 172.15.21.1
+ ip nhrp map 10.64.0.1 172.15.21.1
+ ip nhrp network-id 100
+ ip nhrp nhs 10.64.0.1
+ ip nhrp shortcut
+ ip tcp adjust-mss 1360
+ tunnel source Ethernet0/0
+ tunnel mode gre multipoint
+ tunnel protection ipsec profile IPSEC-PROF
+!
+interface Ethernet0/0
+ description to ISP (R25)
+ ip address 172.25.27.2 255.255.255.252
 !
