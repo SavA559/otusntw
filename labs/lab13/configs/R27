@@ -13,8 +13,36 @@ interface Tunnel100
  ip tcp adjust-mss 1360
  tunnel source Ethernet0/0
  tunnel mode gre multipoint
+ tunnel protection ipsec profile IPSEC-PROF
 !
 interface Ethernet0/0
  description to ISP (R25)
  ip address 172.25.27.2 255.255.255.252
+!
+!
+crypto ikev2 proposal IKEV2-PROP 
+ encryption aes-cbc-256   ! Encryption algorithm 
+ integrity sha256   ! Hash algorithm
+ group 14   ! Diffie-Hellman Group
+!
+crypto ikev2 policy IKEV2-POL 
+ proposal IKEV2-PROP
+!
+crypto ikev2 keyring DMVPN-KEYS
+  peer ANY-SPOKE
+  address 0.0.0.0 0.0.0.0   
+  pre-shared-key cisco123  
+!
+crypto ikev2 profile IKEV2-PROF
+ match identity remote address 0.0.0.0   
+ authentication local pre-share  
+ authentication remote pre-share
+ keyring local DMVPN-KEYS    
+! 
+crypto ipsec transform-set TS-AES256 esp-aes 256 esp-sha256-hmac 
+ mode transport
+!
+crypto ipsec profile IPSEC-PROF
+ set transform-set TS-AES256
+ set ikev2-profile IKEV2-PROF
 !
