@@ -34,7 +34,7 @@ crypto ikev2 keyring DMVPN-KEYS
   pre-shared-key cisco123
 !
 crypto ikev2 profile IKEV2-PROF
- match identity remote address 0.0.0.0   ! Белый IP-адрес соседа (куда)
+ match identity remote address 0.0.0.0   ! IP-адрес соседей (куда)
  authentication local pre-share   ! Метод проверки - PSK
  authentication remote pre-share
  keyring local DMVPN-KEYS    ! Привязка созданной связки ключей
