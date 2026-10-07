@@ -8,7 +8,7 @@ interface Tunnel0
  ip tcp adjust-mss 1360
  tunnel source Ethernet0/2
  tunnel destination 172.15.21.1
- tunnel protection ipsec profile IPSEC_PROFILE
+ tunnel protection ipsec profile IPSEC-PROFILE
 !
 interface Ethernet0/0
  description to R16
@@ -91,10 +91,10 @@ crypto ikev2 profile PROFILE1
  authentication remote pre-share key MYSECRET   
  authentication local pre-share key MYSECRET
 !
-crypto ipsec transform-set IPSEC_TS esp-aes esp-md5-hmac
+crypto ipsec transform-set IPSEC-TS esp-aes esp-md5-hmac
  mode tunnel
 !
-crypto ipsec profile IPSEC_PROFILE
-set transform-set IPSEC_TS
+crypto ipsec profile IPSEC-PROFILE
+set transform-set IPSEC-TS
 set ikev2-profile PROFILE1
 !
