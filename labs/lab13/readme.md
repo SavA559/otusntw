@@ -38,11 +38,6 @@ crypto ipsec profile IPSEC_PROFILE
 set transform-set IPSEC_TS
 set ikev2-profile PROFILE1
 !
-interface Tunnel0
-ip address ----------192.168.10.2 255.255.255.240
-tunnel source Loopback0
-tunnel destination ---------------200.3.0.9
-tunnel protection ipsec profile IPSEC_PROFILE
 !
 interface tunnel0
 ! Режим инкапсуляции GRE поверх протокола IP
