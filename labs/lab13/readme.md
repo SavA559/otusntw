@@ -39,7 +39,7 @@ set transform-set IPSEC_TS
 set ikev2-profile PROFILE1
 !
 !
-interface tunnel0
+interface Tunnel0
 ! Режим инкапсуляции GRE поверх протокола IP
 tunnel mode gre ip
 ip address 10.100.0.2 255.255.255.0
@@ -51,6 +51,7 @@ ip address 10.100.0.2 255.255.255.0
  tunnel destination 172.15.21.1
 ! Автоматическое шифрование всего трафика, проходящий через виртуальный туннельный интерфейс GRE, без использования Traffic Selectors (Crypto ACL)
  tunnel protection ipsec profile IPSEC_PROFILE
+!
 ```
 
 ###  2. Настройка DMVPN поверх IPSec между Москва и Чокурдах, Лабытнанги:
