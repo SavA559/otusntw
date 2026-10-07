@@ -1,4 +1,29 @@
 !
+ip cef
+!
+mpls label protocol ldp
+!
+crypto ikev2 proposal PHASE1 
+ encryption aes-cbc-128
+ integrity md5
+ group 2
+!
+crypto ikev2 policy IKEV2 
+ proposal PHASE1
+!
+crypto ikev2 profile PROFILE1
+ match address local interface Ethernet0/2
+ match identity remote address 172.15.21.1 255.255.255.252 
+ authentication remote pre-share key MYSECRET
+ authentication local pre-share key MYSECRET
+!
+crypto ipsec transform-set IPSEC-TS esp-aes esp-md5-hmac 
+ mode tunnel
+!
+crypto ipsec profile IPSEC-PROFILE
+ set transform-set IPSEC-TS 
+ set ikev2-profile PROFILE1
+!
 interface Loopback0
  ip address 18.18.18.18 255.255.255.255
 !
@@ -75,26 +100,4 @@ route-map RM-BGP-OUT-PREFIX permit 10
  match ip address prefix-list PL-MY-NETS
 !
 access-list 18 permit 192.168.96.0 0.0.15.255
-!
-!
-crypto ikev2 proposal PHASE1
- encryption aes-cbc-128   
- integrity md5 
- group 2
-!
-crypto ikev2 policy IKEV2
- proposal PHASE1
-!
-crypto ikev2 profile PROFILE1
- match address local interface Ethernet0/2   
- match identity remote address 172.15.21.1 255.255.255.252   
- authentication remote pre-share key MYSECRET   
- authentication local pre-share key MYSECRET
-!
-crypto ipsec transform-set IPSEC-TS esp-aes esp-md5-hmac
- mode tunnel
-!
-crypto ipsec profile IPSEC-PROFILE
-set transform-set IPSEC-TS
-set ikev2-profile PROFILE1
 !
