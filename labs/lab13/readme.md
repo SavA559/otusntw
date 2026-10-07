@@ -18,12 +18,14 @@
 ###  2. Настройка DMVPN поверх IPSec между Москва и Чокурдах, Лабытнанги:
 ###  Пример настройки IPSec на роутере R27 (Route based)
 ```
-!
+! Настройка Phase 1 (IKE SA). Для фсех IPSec SA одна настройка
+! Создаем IKEv2 Proposal
 crypto ikev2 proposal IKEV2-PROP 
- encryption aes-cbc-256
- integrity sha256
- group 14
+ encryption aes-cbc-256   ! Encryption algorithm 
+ integrity sha256   ! Hash algorithm
+ group 14   ! Diffie-Hellman Group
 !
+! Привязываем Proposal к политике IKEv2
 crypto ikev2 policy IKEV2-POL 
  proposal IKEV2-PROP
 !
@@ -31,8 +33,9 @@ crypto ikev2 policy IKEV2-POL
 crypto ikev2 keyring DMVPN-KEYS
   peer ANY-SPOKE
   address 0.0.0.0 0.0.0.0   ! Привязка к IP-адресам (откуда)
-  pre-shared-key cisco123
+  pre-shared-key cisco123   ! Ключ в открытом виде
 !
+! Настройка Phase 1.2. Создание и настройка профиля протокола IKEv2 (объединяет в себе все настройки безопасности для VPN-сессии)
 crypto ikev2 profile IKEV2-PROF
  match identity remote address 0.0.0.0   ! IP-адрес соседей (куда)
  authentication local pre-share   ! Метод проверки - PSK
