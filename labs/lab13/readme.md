@@ -30,12 +30,12 @@ crypto ikev2 profile PROFILE1
  authentication local pre-share key MYSECRET
 !
 ! Настройка Phase 2 (IPSec SA). Задаем комбинацию протоколов безопасности, Encryption, Hashing и Mode tunnel, которые будут защищать IPsec-трафик внутри VPN-туннеля
-crypto ipsec transform-set IPSEC_TS esp-aes esp-md5-hmac
+crypto ipsec transform-set IPSEC-TS esp-aes esp-md5-hmac
  mode tunnel
 !
 ! Создаем криптографического профиль, который свяжет настройки безопасности IPsec SA с VTI
-crypto ipsec profile IPSEC_PROFILE
-set transform-set IPSEC_TS
+crypto ipsec profile IPSEC-PROFILE
+set transform-set IPSEC-TS
 set ikev2-profile PROFILE1
 !
 !
@@ -50,7 +50,7 @@ ip address 10.100.0.2 255.255.255.0
  tunnel source e0/2
  tunnel destination 172.15.21.1
 ! Автоматическое шифрование всего трафика, проходящий через виртуальный туннельный интерфейс GRE, без использования Traffic Selectors (Crypto ACL)
- tunnel protection ipsec profile IPSEC_PROFILE
+ tunnel protection ipsec profile IPSEC-PROFILE
 !
 ```
 
