@@ -125,8 +125,23 @@ address-family ipv6 unicast
 ```
 
 ###  6. Настройка iBGP IPv6 unicast в офисе Москва между маршрутизаторами R14 и R15:
-###  Пример настройки iBGP на роутере R
+###  Пример настройки iBGP на роутере R15
 ```
+! Чтобы iBGP сессия поднялась через Loopback, между R14 и R15 настроена связность с помощью IGP
+! Входим в режим конфигурации BGP
+router bgp 1001
+ bgp router-id 15.15.15.15
+ no bgp default ipv4-unicast
+!
+! Объявляем iBGP соседа и параметры подключения
+ neighbor 2001:db8::14 remote-as 1001
+ neighbor 2001:db8::14 update-source Loopback0
+!
+!Активируем соседа в семействе адресов IPv6 unicast
+ address-family ipv6 unicast
+  neighbor 2001:db8::14 activate
+exit-address-family
+!
 ```
 
 ###  7. Настройка iBGP IPv6 unicast в провайдере Триада, с использованием RR:
