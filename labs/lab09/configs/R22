@@ -1,1 +1,58 @@
-
+!
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+interface Loopback0
+ ip address 22.22.22.22 255.255.255.255
+!
+interface Ethernet0/0
+ description to ISP (R14)
+ ip address 172.14.22.2 255.255.255.252
+ ipv6 address 2001:DB8:1422::2/64
+!
+interface Ethernet0/1
+ description to ISP (R21)
+ ip address 172.21.22.2 255.255.255.252
+ ipv6 address 2001:DB8:2122::2/64
+!
+interface Ethernet0/2
+ description to ISP (R23)
+ ip address 172.22.23.1 255.255.255.252
+ ipv6 address 2001:DB8:2223::1/64
+!
+router bgp 101
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 2001:DB8:1422::1 remote-as 1001
+ neighbor 2001:DB8:2122::1 remote-as 301
+ neighbor 2001:DB8:2223::2 remote-as 520
+ neighbor 172.14.22.1 remote-as 1001
+ neighbor 172.21.22.1 remote-as 301
+ neighbor 172.22.23.2 remote-as 520
+ !
+ address-family ipv4
+  network 172.14.22.0 mask 255.255.255.252
+  network 172.21.22.0 mask 255.255.255.252
+  network 172.22.23.0 mask 255.255.255.252
+  neighbor 172.14.22.1 activate
+  neighbor 172.14.22.1 default-originate
+  neighbor 172.14.22.1 route-map FILTER-OUT-DEFAULT out
+  neighbor 172.21.22.1 activate
+  neighbor 172.22.23.2 activate
+ exit-address-family
+ !
+ address-family ipv6
+  network 2001:DB8:1422::/64
+  network 2001:DB8:2122::/64
+  network 2001:DB8:2223::/64
+  neighbor 2001:DB8:1422::1 activate
+  neighbor 2001:DB8:2122::1 activate
+  neighbor 2001:DB8:2223::2 activate
+ exit-address-family
+!
+ip prefix-list ONLY-DEFAULT seq 5 permit 0.0.0.0/0
+!
+route-map FILTER-OUT-DEFAULT permit 10
+ match ip address prefix-list ONLY-DEFAULT
+!
