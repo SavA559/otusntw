@@ -1,1 +1,100 @@
-
+!
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+crypto ikev2 proposal PHASE1 
+ encryption aes-cbc-128
+ integrity md5
+ group 2
+!
+crypto ikev2 policy IKEV2 
+ proposal PHASE1
+!
+crypto ikev2 profile PROFILE1
+ match address local interface Ethernet0/2
+ match identity remote address 172.15.21.1 255.255.255.252 
+ authentication remote pre-share key MYSECRET
+ authentication local pre-share key MYSECRET
+!
+crypto ipsec transform-set IPSEC-TS esp-aes esp-md5-hmac 
+ mode tunnel
+!
+crypto ipsec profile IPSEC-PROFILE
+ set transform-set IPSEC-TS 
+ set ikev2-profile PROFILE1
+!
+interface Loopback0
+ ip address 18.18.18.18 255.255.255.255
+!
+interface Tunnel0
+ ip address 10.100.0.2 255.255.255.0
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ tunnel source Ethernet0/2
+ tunnel destination 172.15.21.1
+ tunnel protection ipsec profile IPSEC-PROFILE
+!
+interface Ethernet0/0
+ description to R16
+ ip address 10.16.18.2 255.255.255.0
+ ip nat inside
+ ip virtual-reassembly in
+ mpls ip
+!
+interface Ethernet0/1
+ description to R17
+ ip address 10.17.18.2 255.255.255.0
+ ip nat inside
+ ip virtual-reassembly in
+ mpls ip
+!
+interface Ethernet0/2
+ description to ISP (R24)
+ ip address 172.18.24.1 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+ ipv6 address 2001:DB8:1824::1/64
+!
+interface Ethernet0/3
+ description to ISP (R26)
+ ip address 172.18.26.1 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+ ipv6 address 2001:DB8:1826::1/64
+!
+router eigrp SPB-EIGRP
+ !
+ address-family ipv4 unicast autonomous-system 100
+  !
+  topology base
+  exit-af-topology
+  network 10.16.18.0 0.0.0.255
+  network 10.17.18.0 0.0.0.255
+  network 18.18.18.18 0.0.0.0
+ exit-address-family
+!
+router bgp 2042
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 2001:DB8:1824::2 remote-as 520
+ neighbor 2001:DB8:1826::2 remote-as 520
+ neighbor 172.18.24.2 remote-as 520
+ neighbor 172.18.26.2 remote-as 520
+ !
+ address-family ipv4
+  network 142.0.0.0 mask 255.255.255.0
+  network 172.18.24.0 mask 255.255.255.252
+  network 172.18.26.0 mask 255.255.255.252
+  neighbor 172.18.24.2 activate
+  neighbor 172.18.24.2 route-map RM-BGP-OUT-PREFIX out
+  neighbor 172.18.26.2 activate
+  neighbor 172.18.26.2 route-map RM-BGP-OUT-PREFIX out
+  maximum-paths 2
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:DB8:1824::2 activate
+  neighbor 2001:DB8:1826::2 activate
+ exit-address-family
+!
