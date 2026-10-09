@@ -28,10 +28,15 @@ router bgp 301
  no bgp default ipv4-unicast
 ! Объявление eBGP-соседа
 neighbor 2001:db8:1521::1 remote-as 1001
+neighbor 2001:db8:2124::2 remote-as 520
+neighbor 2001:db8:2122::2 remote-as 101
 ! Активация соседа для передачи маршрутов IPv6
 address-family ipv6 unicast
  neighbor 2001:db8:1521::2 activate
+ neighbor 2001:db8:2124::2 activate
+ neighbor 2001:db8:2122::2 activate
 ! Указание своей сети для анонса
+ network 2001:db8:1521::/64
  network 2001:db8:2124::/64
  network 2001:db8:2122::/64
 !
@@ -44,18 +49,24 @@ address-family ipv6 unicast
 ipv6 unicast-routing
 !
 interface Ethernet0/1
- ipv6 address 2001:db8:12::1/64
+ ipv6 address 2001:db8:2122::2/64
 !
 router bgp 101
  bgp router-id 22.22.22.22
  no bgp default ipv4-unicast
 !
-neighbor 2001:db8:12::2 remote-as 301
+neighbor 2001:db8:2122::1 remote-as 301
+neighbor 2001:db8:1422::1 remote-as 1001
+neighbor 2001:db8:2223::2 remote-as 520
 !
 address-family ipv6 unicast
- neighbor 2001:db8:12::2 activate
+ neighbor 2001:db8:2122::1 activate
+ neighbor 2001:db8:1422::1 activate
+ neighbor 2001:db8:2223::2 activate
 !
- network 2001:db8:a::/48
+ network 2001:db8:2122::/64
+ network 2001:db8:1422::/64
+ network 2001:db8:2223::/64
 !
 ```
 
@@ -66,18 +77,21 @@ address-family ipv6 unicast
 ipv6 unicast-routing
 !
 interface Ethernet0/0
- ipv6 address 2001:db8:12::1/64
+ ipv6 address 2001:db8:2124::2/64
 !
 router bgp 520
  bgp router-id 24.24.24.24
  no bgp default ipv4-unicast
 !
-neighbor 2001:db8:12::2 remote-as 301
+neighbor 2001:db8:2124::1 remote-as 301
+neighbor 2001:db8:1824::1 remote-as 2042
 !
 address-family ipv6 unicast
- neighbor 2001:db8:12::2 activate
+ neighbor 2001:db8:2124::1 activate
+ neighbor 2001:db8:1824::1 activate
 !
- network 2001:db8:a::/48
+ network 2001:db8:2124::/64
+ network 2001:db8:1824::/64
 !
 ```
 
@@ -110,18 +124,21 @@ address-family ipv6 unicast
 ipv6 unicast-routing
 !
 interface Ethernet0/2
- ipv6 address 2001:db8:12::1/64
+ ipv6 address 2001:db8:1824::1/64
+!
+interface Ethernet0/3
+ ipv6 address 2001:db8:1826::1/64
 !
 router bgp 2042
  bgp router-id 18.18.18.18
  no bgp default ipv4-unicast
 !
-neighbor 2001:db8:12::2 remote-as 520
+neighbor 2001:db8:1824::2 remote-as 520
+neighbor 2001:db8:1826::2 remote-as 520
 !
 address-family ipv6 unicast
- neighbor 2001:db8:12::2 activate
-!
- network 2001:db8:a::/48
+ neighbor 2001:db8:1824::2 activate
+ neighbor 2001:db8:1826::2 activate
 !
 ```
 
