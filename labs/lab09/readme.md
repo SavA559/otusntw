@@ -21,18 +21,19 @@ ipv6 unicast-routing
 !
 ! Настройка интерфейса
 interface Ethernet0/0
- ipv6 address 2001:db8:12::1/64
+ ipv6 address 2001:db8:1521::2/64
 !
 router bgp 301
  bgp router-id 21.21.21.21
  no bgp default ipv4-unicast
 ! Объявление eBGP-соседа
-neighbor 2001:db8:12::2 remote-as 1001
+neighbor 2001:db8:1521::1 remote-as 1001
 ! Активация соседа для передачи маршрутов IPv6
 address-family ipv6 unicast
- neighbor 2001:db8:12::2 activate
+ neighbor 2001:db8:1521::2 activate
 ! Указание своей сети для анонса
- network 2001:db8:a::/48
+ network 2001:db8:2124::/64
+ network 2001:db8:2122::/64
 !
 ```
 
