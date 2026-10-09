@@ -188,6 +188,7 @@ address-family ipv6 unicast
 ! Анонсируем собственную IPv6-сеть в BGP
   network 2001:db8:2::/64 
 exit-address-family
+!
 ```
 
 
