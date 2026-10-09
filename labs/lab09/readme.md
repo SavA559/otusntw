@@ -14,8 +14,27 @@
 ###  Решение:
 
 ###  1. Настройка eBGP IPv6 unicast между офисом Москва и двумя провайдерами - Киторн и Ламас:
-###  Пример настройки eBGP на роутере R
+###  Пример настройки eBGP на роутере R21 (Ламас)
 ```
+! Включение маршрутизации IPv6
+ipv6 unicast-routing
+!
+! Настройка интерфейса
+interface Ethernet0/0
+ ipv6 address 2001:db8:12::1/64
+!
+router bgp 301
+ bgp router-id 21.21.21.21
+!
+no bgp default ipv4-unicast
+! Объявление eBGP-соседа
+neighbor 2001:db8:12::2 remote-as 1001
+! Активация соседа для передачи маршрутов IPv6
+address-family ipv6 unicast
+ neighbor 2001:db8:12::2 activate
+! Указание своей сети для анонса
+ network 2001:db8:a::/48
+!
 ```
 
 ###  2. Настройка eBGP IPv6 unicast между провайдерами Киторн и Ламас:
