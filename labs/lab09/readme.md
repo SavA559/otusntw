@@ -25,8 +25,7 @@ interface Ethernet0/0
 !
 router bgp 301
  bgp router-id 21.21.21.21
-!
-no bgp default ipv4-unicast
+ no bgp default ipv4-unicast
 ! Объявление eBGP-соседа
 neighbor 2001:db8:12::2 remote-as 1001
 ! Активация соседа для передачи маршрутов IPv6
@@ -38,8 +37,25 @@ address-family ipv6 unicast
 ```
 
 ###  2. Настройка eBGP IPv6 unicast между провайдерами Киторн и Ламас:
-###  Пример настройки eBGP на роутере R
+###  Пример настройки eBGP на роутере R22 (Киторн)
 ```
+! 
+ipv6 unicast-routing
+!
+interface Ethernet0/1
+ ipv6 address 2001:db8:12::1/64
+!
+router bgp 101
+ bgp router-id 21.21.21.21
+ no bgp default ipv4-unicast
+!
+neighbor 2001:db8:12::2 remote-as 301
+!
+address-family ipv6 unicast
+ neighbor 2001:db8:12::2 activate
+!
+ network 2001:db8:a::/48
+!
 ```
 
 ###  3. Настройка eBGP IPv6 unicast между Ламас и Триада:
