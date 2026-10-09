@@ -102,9 +102,26 @@ address-family ipv6 unicast
 !
 ```
 
-###  5. Настройка IPv6 unicast связности между пограничными роутерами офисов Москва и С.-Петербург:
-###  Пример настройки eBGP на роутере R
+###  5. Настройка IPv6 unicast связности между пограничными роутерами офисов Москва и СПБ:
+###  Пример настройки eBGP на роутере R18 (СПБ)
 ```
+! 
+ipv6 unicast-routing
+!
+interface Ethernet0/2
+ ipv6 address 2001:db8:12::1/64
+!
+router bgp 2042
+ bgp router-id 18.18.18.18
+ no bgp default ipv4-unicast
+!
+neighbor 2001:db8:12::2 remote-as 520
+!
+address-family ipv6 unicast
+ neighbor 2001:db8:12::2 activate
+!
+ network 2001:db8:a::/48
+!
 ```
 
 ###  6. Настройка iBGP IPv6 unicast в офисе Москва между маршрутизаторами R14 и R15:
