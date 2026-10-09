@@ -1,1 +1,69 @@
-
+!
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+interface Loopback0
+ ip address 24.24.24.24 255.255.255.255
+ ip router isis 24
+ ipv6 address 2001:DB8::24/128
+!
+interface Ethernet0/0
+ description to ISP (R21)
+ ip address 172.21.24.2 255.255.255.252
+ ipv6 address 2001:DB8:2124::2/64
+!
+interface Ethernet0/1
+ description to R26
+ ip address 10.24.26.1 255.255.255.0
+ ip router isis 24
+ ipv6 address 2001:DB8:2426::1/64
+!
+interface Ethernet0/2
+ description to R23
+ ip address 10.23.24.2 255.255.255.0
+ ip router isis 24
+ ipv6 address 2001:DB8:2324::2/64
+!
+interface Ethernet0/3
+ description to ISP (R18)
+ ip address 172.18.24.2 255.255.255.252
+ ipv6 address 2001:DB8:1824::2/64
+!
+router bgp 520
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 23.23.23.23 remote-as 520
+ neighbor 23.23.23.23 update-source Loopback0
+ neighbor 2001:db8::23 remote-as 520
+ neighbor 2001:db8::23 update-source Loopback0
+ neighbor 2001:db8::25 remote-as 520
+ neighbor 2001:db8::25 update-source Loopback0
+ neighbor 2001:db8::26 remote-as 520
+ neighbor 2001:db8::26 update-source Loopback0
+ neighbor 2001:DB8:1824::1 remote-as 2042
+ neighbor 2001:DB8:2124::1 remote-as 301
+ neighbor 172.18.24.1 remote-as 2042
+ neighbor 172.21.24.1 remote-as 301
+ !
+ address-family ipv4
+  network 172.18.24.0 mask 255.255.255.252
+  network 172.21.24.0 mask 255.255.255.252
+  neighbor 23.23.23.23 activate
+  neighbor 172.18.24.1 activate
+  neighbor 172.21.24.1 activate
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:db8::23 activate
+  neighbor 2001:db8::23 route-reflector-client
+  neighbor 2001:db8::25 activate
+  neighbor 2001:db8::25 route-reflector-client
+  neighbor 2001:db8::26 activate
+  neighbor 2001:db8::26 route-reflector-client
+  network 2001:DB8:1824::/64
+  network 2001:DB8:2124::/64
+  neighbor 2001:DB8:1824::1 activate
+  neighbor 2001:DB8:2124::1 activate
+ exit-address-family
+!
