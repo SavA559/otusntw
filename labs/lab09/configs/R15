@@ -1,1 +1,40 @@
-
+!
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+interface Loopback0
+ ip address 15.15.15.15 255.255.255.255
+ ipv6 address 2001:DB8::15/128
+!
+interface Ethernet0/2
+ description to ISP (R21)
+ ip address 172.15.21.1 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+ ipv6 address 2001:DB8:1521::1/64
+!
+router bgp 1001
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 14.14.14.14 remote-as 1001
+ neighbor 14.14.14.14 update-source Loopback0
+ neighbor 2001:db8::14 remote-as 1001
+ neighbor 2001:db8::14 update-source Loopback0
+ neighbor 2001:DB8:1521::2 remote-as 301
+ neighbor 172.15.21.2 remote-as 301
+ !
+ address-family ipv4
+  network 101.0.0.0 mask 255.255.255.0
+  neighbor 14.14.14.14 activate
+  neighbor 14.14.14.14 next-hop-self
+  neighbor 172.15.21.2 activate
+  neighbor 172.15.21.2 route-map FROM-MAIN-ISP in
+  neighbor 172.15.21.2 route-map TO-MAIN-ISP out
+ exit-address-family
+ !
+ address-family ipv6
+  neighbor 2001:db8::14 activate
+  neighbor 2001:DB8:1521::2 activate
+ exit-address-family
+!
