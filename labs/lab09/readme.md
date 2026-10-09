@@ -176,23 +176,28 @@ router bgp 520
 ! Описываем iBGP-соседей по их IPv6 Loopback-адресам
  neighbor 2001:db8::23 remote-as 520
  neighbor 2001:db8::23 update-source Loopback0
-! 
  neighbor 2001:db8::25 remote-as 520
  neighbor 2001:db8::25 update-source Loopback0
-! 
  neighbor 2001:db8::26 remote-as 520
  neighbor 2001:db8::26 update-source Loopback0
+!
+ neighbor 2001:db8:1824::1 remote-as 2042
+ neighbor 2001:db8:2124::1 remote-as 301
 !
  address-family ipv6 unicast
 ! Активируем обмен IPv6-маршрутами и назначаем роутеры клиентами RR
   neighbor 2001:db8::23 activate
   neighbor 2001:db8::23 route-reflector-client
-!  
   neighbor 2001:db8::25 activate
   neighbor 2001:db8::25 route-reflector-client
-!  
   neighbor 2001:db8::26 activate
   neighbor 2001:db8::26 route-reflector-client
+!
+  neighbor 2001:db8:1824::1 activate
+  neighbor 2001:db8:2124::1 activate
+!
+  network 2001:db8:1824::/64
+  network 2001:db8:2124::/64
 exit-address-family
 !
 ```
@@ -204,11 +209,14 @@ router bgp 520
  no bgp default ipv4-unicast
  neighbor 2001:db8::24 remote-as 520
  neighbor 2001:db8::24 update-source Loopback0
+ neighbor 2001:db8:2223::1 remote-as 101
 !
 address-family ipv6 unicast
  neighbor 2001:db8::24 activate
-! Анонсируем собственную IPv6-сеть в BGP
-  network 2001:db8:2::/64 
+!
+ neighbor 2001:db8:2223::1 activate
+! 
+ network 2001:db8:2223::/64 
 exit-address-family
 !
 ```
