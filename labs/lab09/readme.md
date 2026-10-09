@@ -127,7 +127,7 @@ address-family ipv6 unicast
 ###  6. Настройка iBGP IPv6 unicast в офисе Москва между маршрутизаторами R14 и R15:
 ###  Пример настройки iBGP на роутере R15
 ```
-! Чтобы iBGP сессия поднялась через Loopback, между R14 и R15 настроена связность с помощью IGP
+! Чтобы iBGP сессия поднялась через Loopback, между R14 и R15 должна быть предварительно настроена связность
 ! Входим в режим конфигурации BGP
 router bgp 1001
  bgp router-id 15.15.15.15
@@ -145,8 +145,49 @@ exit-address-family
 ```
 
 ###  7. Настройка iBGP IPv6 unicast в провайдере Триада, с использованием RR:
-###  Пример настройки iBGP на роутере R
+###  Пример настройки iBGP на роутере R24 (Route Reflector)
 ```
+!
+router bgp 520
+ bgp router-id 24.24.24.24
+ no bgp default ipv4-unicast
+! Описываем iBGP-соседей по их IPv6 Loopback-адресам
+ neighbor 2001:db8::23 remote-as 520
+ neighbor 2001:db8::23 update-source Loopback0
+! 
+ neighbor 2001:db8::25 remote-as 520
+ neighbor 2001:db8::25 update-source Loopback0
+! 
+ neighbor 2001:db8::26 remote-as 520
+ neighbor 2001:db8::26 update-source Loopback0
+!
+ address-family ipv6 unicast
+! Активируем обмен IPv6-маршрутами и назначаем роутеры клиентами RR
+  neighbor 2001:db8::23 activate
+  neighbor 2001:db8::23 route-reflector-client
+!  
+  neighbor 2001:db8::25 activate
+  neighbor 2001:db8::25 route-reflector-client
+!  
+  neighbor 2001:db8::26 activate
+  neighbor 2001:db8::26 route-reflector-client
+ exit-address-family
+!
+```
+###  Пример настройки iBGP на роутере R23 (RR-клиент)
+```
+!
+router bgp 520
+ bgp router-id 23.23.23.23
+ no bgp default ipv4-unicast
+ neighbor 2001:db8::24 remote-as 520
+ neighbor 2001:db8::24 update-source Loopback0
+!
+address-family ipv6 unicast
+ neighbor 2001:db8::24 activate
+! Анонсируем собственную IPv6-сеть в BGP
+  network 2001:db8:2::/64 
+exit-address-family
 ```
 
 
