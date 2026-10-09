@@ -46,7 +46,7 @@ interface Ethernet0/1
  ipv6 address 2001:db8:12::1/64
 !
 router bgp 101
- bgp router-id 21.21.21.21
+ bgp router-id 22.22.22.22
  no bgp default ipv4-unicast
 !
 neighbor 2001:db8:12::2 remote-as 301
@@ -59,13 +59,47 @@ address-family ipv6 unicast
 ```
 
 ###  3. Настройка eBGP IPv6 unicast между Ламас и Триада:
-###  Пример настройки eBGP на роутере R
+###  Пример настройки eBGP на роутере R24 (Триада)
 ```
+! 
+ipv6 unicast-routing
+!
+interface Ethernet0/0
+ ipv6 address 2001:db8:12::1/64
+!
+router bgp 520
+ bgp router-id 24.24.24.24
+ no bgp default ipv4-unicast
+!
+neighbor 2001:db8:12::2 remote-as 301
+!
+address-family ipv6 unicast
+ neighbor 2001:db8:12::2 activate
+!
+ network 2001:db8:a::/48
+!
 ```
 
-###  4. Настройка eBGP IPv6 unicast между офисом С.-Петербург и провайдером Триада:
-###  Пример настройки eBGP на роутере R
+###  4. Настройка eBGP IPv6 unicast между офисом СПБ и провайдером Триада:
+###  Пример настройки eBGP на роутере R26 (Триада)
 ```
+! 
+ipv6 unicast-routing
+!
+interface Ethernet0/3
+ ipv6 address 2001:db8:12::1/64
+!
+router bgp 520
+ bgp router-id 26.26.26.26
+ no bgp default ipv4-unicast
+!
+neighbor 2001:db8:12::2 remote-as 2042
+!
+address-family ipv6 unicast
+ neighbor 2001:db8:12::2 activate
+!
+ network 2001:db8:a::/48
+!
 ```
 
 ###  5. Настройка IPv6 unicast связности между пограничными роутерами офисов Москва и С.-Петербург:
