@@ -171,7 +171,7 @@ router bgp 520
 !  
   neighbor 2001:db8::26 activate
   neighbor 2001:db8::26 route-reflector-client
- exit-address-family
+exit-address-family
 !
 ```
 ###  Пример настройки iBGP на роутере R23 (RR-клиент)
