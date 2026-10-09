@@ -146,6 +146,10 @@ address-family ipv6 unicast
 ###  Пример настройки iBGP на роутере R15
 ```
 ! Чтобы iBGP сессия поднялась через Loopback, между R14 и R15 должна быть предварительно настроена связность
+interface Loopback0
+ ip address 15.15.15.15 255.255.255.255
+ ipv6 address 2001:DB8::15/128
+!
 ! Входим в режим конфигурации BGP
 router bgp 1001
  bgp router-id 15.15.15.15
