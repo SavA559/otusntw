@@ -14,4 +14,4 @@
 
 ###  1. Распределение адресного пространства
 
-- [Адресное пространство для проекта с использованием IPv4](https://github.com/SavA559/otusntw/blob/main/final/md/address.md)
+- [Адресное пространство для проекта с использованием IPv4](https://github.com/SavA559/otusntw/blob/main/final/md/addresses.md)
