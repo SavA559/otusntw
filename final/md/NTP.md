@@ -39,8 +39,8 @@ ntp update-calendar
 ! ntp server 172.5.13.2
 ! ntp update-calendar
 
-  [NTP server на PC-R1](../configs/R1#L125-L149)
-  [NTP server/client на ZL-R1](../configs/R1#L262-L298)
+[NTP server на PC-R1](../configs/R1#L125-L149)
+[NTP server/client на ZL-R1](../configs/R1#L262-L298)
 
 ### Команды для проверки
 ```
