@@ -16,7 +16,7 @@
 ![](scheme/base.png)
 
 ###  1. Распределение адресного пространства
- - [Адресное пространство для проекта с использованием IPv4](https://github.com/SavA559/otusntw/blob/main/final/md/addresses.md)
+ - [Адресное пространство для проекта](https://github.com/SavA559/otusntw/blob/main/final/md/addresses.md)
 
 ###  2. Статическая маршрутизация на основе политик
  - [PBR (Policy-based routing)](md/PBR.md)
