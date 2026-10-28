@@ -10,8 +10,16 @@
 4. Настроить протоколы маршрутизации (OSPF, EIGRP) внутри локальных сетей и поверх виртуальных каналов
 5. Настроить протокол маршрутизации BGP внутри автономной системы и между ними
 6. Настроить шифрование VPN соединений
-7. Настроить инфраструктурные сервисы (DHCP, NTP, NAT и т.п.)
+7. Настроить инфраструктурные сервисы (DHCP, NTP, NAT)
 
 ###  1. Распределение адресного пространства
+ - [Адресное пространство для проекта с использованием IPv4](https://github.com/SavA559/otusntw/blob/main/final/md/addresses.md)
 
-- [Адресное пространство для проекта с использованием IPv4](https://github.com/SavA559/otusntw/blob/main/final/md/addresses.md)
+
+
+###  7. Настройка инфраструктурных сервисов 
+ - [DHCP (Dynamic Host Configuration Protocol)](md/DHCP.md)
+ - [NTP (Network Time Protocol)](md/NTP.md)
+ - [NAT (Network Address Translation)](md/NAT.md)
+
+
