@@ -48,7 +48,7 @@ ntp update-calendar
 ```
 
 #### Файлы с настройками устройств
-[NTP server на PC-R1](../configs/R1#L125-L149)
+[NTP server на PC-R1](../configs/R1#L125-L149) ;
 [NTP server/client на ZL-R1](../configs/R1#L262-L298)
 
 #### Команды для проверки
