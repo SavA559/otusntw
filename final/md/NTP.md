@@ -1,3 +1,5 @@
+### NTP (Network Time Protocol)
+
 R является NTP stratum 1 - к нему подключаются граничные R, которые в свою очередь являются серверами для остальных устройств.
 
 ! Стандартный ACL№1: R будет отвечать на NTP-запросы только от конкретных хостов
@@ -37,8 +39,17 @@ ntp update-calendar
 ! ntp server 172.5.13.2
 ! ntp update-calendar
 
+  [NTP server на PC-R1](../configs/R1#L125-L149)
+  [NTP server/client на ZL-R1](../configs/R1#L262-L298)
 
+### Команды для проверки
+```
 show clock - отображает текущее время программных часов
 show clock detail - убедиться, что в качестве источника времени выбран NTP
 show ntp status - текущий статус синхронизации и стратум
 show ntp associations - детальную информацию о соединениях с NTP-серверами
+```
+
+###  Схема иерархии NTP 
+
+![](../scheme/ntp.png)
