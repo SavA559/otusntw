@@ -12,7 +12,7 @@
 ```
 
 #### Файлы с настройками устройств
-[NAT server на PC-R1](../configs/R1#L125-L149)
+[NAT server на PC-R1](../configs/R1#L125-L149) ;
 [DHCP server/client на ZL-R1](../configs/R1#L262-L298)
 
 #### Команды для проверки
