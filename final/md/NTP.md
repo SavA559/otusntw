@@ -2,6 +2,8 @@
 
 R является NTP stratum 1 - к нему подключаются граничные R, которые в свою очередь являются серверами для остальных устройств.
 
+####  Пример настройки на R15
+```
 ! Стандартный ACL№1: R будет отвечать на NTP-запросы только от конкретных хостов
 ip access-list standard 1
   remark "permit to NTP server access"
@@ -18,7 +20,9 @@ clock timezone MSK 3 0
 ntp master 1
 ! Обновление аппаратных часов роутера
 ntp update-calendar
-
+```
+####  Пример настройки на R15
+```
  ip access-list standard 1
   remark "permit to NTP server access"
   10 permit 99.99.128.1 0.0.0.0
@@ -33,11 +37,15 @@ ntp access-group ipv4 serve-only 2
 clock timezone MSK 3 0
 ntp master 2
 ntp update-calendar
+```
 
+####  Пример настройки на R15
+```
 ! На устройствах сети используем команду чтобы указать адреса NTP-серверов 
 ! ntp server 172.4.12.2
 ! ntp server 172.5.13.2
 ! ntp update-calendar
+```
 
 #### Все файлы изменений приведены
 [NTP server на PC-R1](../configs/R1#L125-L149)
