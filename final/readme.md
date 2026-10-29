@@ -31,7 +31,7 @@
 
 ###  5. Протокол маршрутизации BGP
  - [eBGP (Exterior Border Gateway Protocol)](md/BGP.md#ebgp-exterior-border-gateway-protocol)
- - [iBGP (Interior Border Gateway Protocol)](md/BGP.md#ibgp-interior-border-gateway-protocol)
+ - [iBGP (Interior Border Gateway Protocol)](md/BGP.md#пример-настройки-ibgp-и-ebgp-на-r1)
 
 ###  6. Шифрование VPN туннелей
   - [IPsec (Internet Protocol Security)](md/IPSec.md)
