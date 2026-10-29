@@ -37,15 +37,19 @@ ip access-list standard 2
   200 deny any
 ntp access-group ipv4 serve-only 2
 clock timezone MSK 3 0
-ntp master 3
+ntp source Ethernet0/1
+ntp master 2
 ntp update-calendar
+ntp server 172.1.15.1
 ```
 
 ####  Пример настройки NTP на R11
 ```
-! На устройствах сети используем команду чтобы указать адреса NTP-серверов 
-! ntp server 10.1.0.2
-! ntp update-calendar
+ntp source Ethernet0/1
+! На устройствах сети используем команду чтобы указать адреса NTP-серверов
+ntp server 10.1.0.2
+clock timezone MSK 3 0
+ntp update-calendar
 ```
 
 #### Файлы с настройками устройств
