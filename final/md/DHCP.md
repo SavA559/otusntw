@@ -76,4 +76,5 @@ show dhcp lease - Проверка аренды на клиенте-интерф
 #### Результат работы DHCP
 
 ![](../scheme/dhcp22.PNG)
+---
 ![](../scheme/dhcp23.PNG)
