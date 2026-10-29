@@ -52,7 +52,7 @@ ntp update-calendar
 [NTP server/client на R15](../configs/R15#L125-L149) ;
 [NTP client на R11](../configs/R11#L262-L298)
 
-#### Команды для проверки
+#### Команды для проверки работы NTP
 ```
 show clock - отображает текущее время программных часов
 show clock detail - убедиться, что в качестве источника времени выбран NTP
