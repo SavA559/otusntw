@@ -68,4 +68,4 @@ show ntp associations - детальную информацию о соедин�
 
 ![](../scheme/ntp15.PNG)
 ---
-![](../scheme/ntp11.PNG)
+![](../scheme/NTP11.PNG)
