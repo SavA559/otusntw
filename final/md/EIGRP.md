@@ -15,7 +15,7 @@
 [NAT server на PC-R1](../configs/R1#L125-L149) ;
 [DHCP server/client на ZL-R1](../configs/R1#L262-L298)
 
-#### Команды для проверки
+#### Команды для проверки работы EIGRP
 ```
 show ip eigrp interfaces ! Показывает на каких интерфейсах сейчас активирован протокол
 show ip eigrp neighbors ! Показывает установленные соглашения с соседними роутерами
@@ -25,6 +25,6 @@ show ip protocols ! Отображения параметров и текуще�
 show running-config | section router eigrp
 ```
 
-#### Схема DHCP 
+#### Результат работы EIGRP
 
 ![](../scheme/eigrp.png)
