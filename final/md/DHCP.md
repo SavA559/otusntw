@@ -21,6 +21,7 @@ show ip dhcp binding - Выводит список всех выданных IP-
 show ip dhcp pool - Показывает статус настроенных пулов адресов
 show ip dhcp server statistics - Отображает статистику отправленных и полученных DHCP-пакетов
 show ip dhcp conflict - Выводит список обнаруженных конфликтов IP-адресов
+show dhcp lease - Проверка аренды на клиенте-интерфейсе
 ```
 
 #### Схема DHCP 
