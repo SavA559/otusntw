@@ -36,6 +36,36 @@ router bgp 64511
   neighbor 4.4.4.4 next-hop-self
 ```
 
+####  Пример настройки BGP фильтрации на R3
+```
+! Создаем PL разрешающий только маршрут по умолчанию и префикс офиса Н.Новгород
+ip prefix-list BGP-OUT seq 10 permit 0.0.0.0/0
+ip prefix-list BGP-OUT seq 20 permit 142.0.0.0/24
+ip prefix-list BGP-OUT seq 30 deny 0.0.0.0/0 le 32
+! Создаем RM которая пропускает только эти маршруты
+route-map RM-BGP-OUT permit 10
+ match ip address prefix-list BGP-OUT
+!
+router bgp 64513
+ neighbor 172.3.21.2 remote-as 64502
+! Генерация маршрута по умолчанию
+ neighbor 172.3.21.2 default-originate
+! Применяем настройки к BGP-соседу Бор
+ neighbor 172.3.21.2 route-map RM-BGP-OUT out
+```
+
+####  Пример настройки BGP фильтрации на R15
+```
+! Настройка фильтрации в офисе Н.Новгород так, чтобы не появилось транзитного трафика
+! Создаем PL разрешенных префиксов (свои собственные).
+ip prefix-list PL-MY-NETS permit 101.0.0.0/24
+route-map RM-BGP-OUT-PREFIX permit 10
+ match ip address prefix-list PL-MY-NETS
+router bgp 64501
+ neighbor 172.1.15.2 route-map RM-BGP-OUT-PREFIX out
+ neighbor 172.2.15.2 route-map RM-BGP-OUT-PREFIX out
+```
+
 #### Файлы с настройками устройств
 [eBGP на R15](../configs/R15#L125-L149) ;
 [BGP на R1](../configs/R1#L262-L298)
