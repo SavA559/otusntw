@@ -3,17 +3,25 @@
 
 ####  Пример настройки на R15
 ```
-
+!  Запуск процесса BGP
+router bgp 64501
+ bgp log-neighbor-changes
+! Поднимаем пиринг
+ neighbor 172.1.15.1 remote-as 64511
+ neighbor 172.2.15.1 remote-as 64512
+! Конфигурации с обратной стороны пиринга (на R1, R2) должнs быть симметричны
 ```
 
-####  Пример настройки на R15
+####  Пример настройки на R21
 ```
-
+router bgp 64502
+ bgp log-neighbor-changes
+ neighbor 172.3.21.1 remote-as 64513
 ```
 
 #### Файлы с настройками устройств
-[NAT server на PC-R1](../configs/R1#L125-L149) ;
-[DHCP server/client на ZL-R1](../configs/R1#L262-L298)
+[BGP на R15](../configs/R15#L125-L149) ;
+[iBGP на R1](../configs/R1#L262-L298)
 
 #### Команды для проверки
 ```
@@ -27,6 +35,6 @@ clear ip bgp * soft - для обновления таблиц маршрути�
 show running-config | section bgp
 ```
 
-#### Схема DHCP 
+#### Результат работы BGP 
 
 ![](../scheme/bgp.png)
