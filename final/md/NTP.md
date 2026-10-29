@@ -66,4 +66,6 @@ show ntp associations - детальную информацию о соедин�
 
 ####  Результат работы NTP:
 
-![](../scheme/ntp.png)
+![](../scheme/ntp15.PNG)
+---
+![](../scheme/ntp11.PNG)
