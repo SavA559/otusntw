@@ -30,7 +30,7 @@
  - [EIGRP (Enhanced Interior Gateway Routing Protocol)](md/EIGRP.md)
 
 ###  5. Протокол маршрутизации BGP
- - [eBGP (Exterior Border Gateway Protocol)](md/BGP.md#ebgp-exterior-border-gateway-protocol)
+ - [eBGP (Exterior Border Gateway Protocol)](md/BGP.md)
  - [iBGP (Interior Border Gateway Protocol)](md/BGP.md#пример-настройки-ibgp-и-ebgp-на-r1)
 
 ###  6. Шифрование VPN туннелей
