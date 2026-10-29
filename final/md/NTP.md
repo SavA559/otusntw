@@ -33,7 +33,7 @@ ntp access-group ipv4 peer 1
 ! Включаем R15 в качестве NTP-сервера для центрального офиса Н.Новгород
 ip access-list standard 2
   remark "permit to NTP local server"
-  10 permit 99.99.144.3 0.0.0.0
+  10 permit 10.1.0.0 0.0.255.255
   200 deny any
 ntp access-group ipv4 serve-only 2
 clock timezone MSK 3 0
