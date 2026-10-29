@@ -44,7 +44,7 @@ ntp update-calendar
 ####  Пример настройки NTP на R11
 ```
 ! На устройствах сети используем команду чтобы указать адреса NTP-серверов 
-! ntp server 10.11.15.2
+! ntp server 10.1.0.2
 ! ntp update-calendar
 ```
 
