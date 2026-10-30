@@ -10,12 +10,12 @@ router eigrp BOR-EIGRP
 ! Активируем IPv4 и задаем ASN (должен совпадать у всех EIGRP-соседей)
  address-family ipv4 unicast autonomous-system 100
 ! EIGRP включается на интерфейсах которые попадают в указанные подсети (на линке между EIGRP-соседями)
-  network 192.168.1.0 0.0.0.255
-  network 10.0.0.0 0.0.0.3
+  network 10.2.0.0 0.0.0.3
+  network 10.2.0.4 0.0.0.3
  ! В Named Mode настройки конкретного интерфейса задаются прямо внутри конфигурации EIGRP в разделе:
-  af-interface Ethernet0/1
-   summary-address 0.0.0.0 0.0.0.0
-  exit-af-interface
+  -af-interface Ethernet0/1
+   -summary-address 0.0.0.0 0.0.0.0
+  -exit-af-interface
   af-interface Ethernet0/3
    passive-interface
   exit-af-interface
