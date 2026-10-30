@@ -15,7 +15,7 @@ tunnel mode gre ip
  tunnel destination 172.1.15.2
 ```
 
-####  Пример настройки на R15
+####  Пример настройки GRE на R15
 ```
 
 ```
