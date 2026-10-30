@@ -37,7 +37,7 @@
   - [IPsec (Internet Protocol Security)](md/IPSec.md)
 
 ###  7. Инфраструктурные сервисы 
- - [DHCP (Dynamic Host Configuration Protocol)](md/DHCP.md)
+ - [DHCP (Dynamic Host Configuration Protocol); HSRP (Hot Standby Router Protocol)](md/DHCP.md)
  - [NTP (Network Time Protocol)](md/NTP.md)
  - [NAT (Network Address Translation)](md/NAT.md)
 
