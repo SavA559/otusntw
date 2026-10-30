@@ -51,6 +51,11 @@ router ospf 1
  network 11.11.11.11 0.0.0.0 area 0
 ```
 
+####  Пример настройки OSPF на R21
+```
+
+```
+
 #### Файлы с настройками устройств
 [NAT server на PC-R1](../configs/R1#L125-L149) ;
 [DHCP server/client на ZL-R1](../configs/R1#L262-L298)
