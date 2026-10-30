@@ -63,7 +63,8 @@ show ip route ospf - Вывод таблицы маршрутизации, со�
 show ip ospf - Общая информация о процессе OSPF на данном маршрутизаторе
 show ip ospf database - База данных состояния каналов (LSDB)
 show ip ospf interface [имя_интерфейса] - Подробный статус конкретного интерфейса
-show run | sec ospf - вывод настроек конфига раздела ospf
+show run | sec ospf - вывод настроек конфига из раздела ospf
+clear ip ospf [process-id] process - используется для перезапуска процесса OSPF на маршрутизаторе.
 ```
 
 #### Схема DHCP 
