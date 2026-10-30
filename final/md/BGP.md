@@ -47,6 +47,7 @@ router bgp 64511
 ! для iBGP используем Loopback-интерфейсы для установки сессии
   neighbor 4.4.4.4 remote-as 64511
   neighbor 4.4.4.4 update-source Loopback0
+! Принудительное изменения атрибута Next-Hop в маршрутах, которые передаются iBGP-соседу
   neighbor 4.4.4.4 next-hop-self
 ```
 
