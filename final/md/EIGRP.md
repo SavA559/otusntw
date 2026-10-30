@@ -12,14 +12,29 @@ router eigrp BOR-EIGRP
 ! EIGRP включается на интерфейсах которые попадают в указанные подсети (на линке между EIGRP-соседями)
   network 10.2.0.0 0.0.0.3
   network 10.2.0.4 0.0.0.3
- ! В Named Mode настройки конкретного интерфейса задаются прямо внутри конфигурации EIGRP в разделе:
+! В Named Mode настройки конкретного интерфейса задаются прямо внутри конфигурации EIGRP в разделе:
+! Для одновременного применения настроек ко всем интерфейсам используется:
+  af-interface default
+   passive-interface
+  exit-af-interface
   -af-interface Ethernet0/1
    -summary-address 0.0.0.0 0.0.0.0
   -exit-af-interface
   af-interface Ethernet0/3
-   passive-interface
+   no shutdown
+   no passive-interface
   exit-af-interface
- no auto-summary
+  af-interface Tunnel0
+    no shutdown
+    no passive-interface
+! Вместо отправки в туннель нескольких мелких подсетей, роутер будет анонсировать соседней стороне один общий префикс
+    summary-address 50.50.96.0 255.255.248.0
+  exit-af-interface
+! Режим настройки параметров базовой топологии для конкретного Address Family
+  topology base
+   no auto-summary
+   redistribute ospf 64501 metric 1000 1000 255 127 1500
+  exit-af-topology
  exit-address-family
 !
 ```
