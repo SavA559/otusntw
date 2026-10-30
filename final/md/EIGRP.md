@@ -26,7 +26,7 @@ router eigrp BOR-EIGRP
     no shutdown
     no passive-interface
 ! Вместо отправки в туннель нескольких мелких подсетей, роутер будет анонсировать соседней стороне один общий префикс
-   summary-address 50.50.96.0 255.255.248.0
+   summary-address 10.2.0.0 255.255.0.0
   exit-af-interface
 ! Режим настройки параметров базовой топологии для конкретного Address Family
   topology base
