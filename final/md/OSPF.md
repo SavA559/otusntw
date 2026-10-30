@@ -1,5 +1,5 @@
 ### OSPF (Open Shortest Path First)
-
+Чтобы перенести маршруты из EIGRP в OSPF, зайдите в режим конфигурации протокола OSPF: redistribution eigrp 100 subnets
 
 ####  Пример настройки на R15
 ```
