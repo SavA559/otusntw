@@ -22,7 +22,7 @@ router bgp 64501
  bgp router-id 15.15.15.15
  bgp log-neighbor-changes
 ! Объявляем сети (должны существовать в таблице маршрутизации)
- network 101.0.0.0 mask 255.255.255.0
+ network 101.0.0.0 mask 255.255.255.128
 ! Поднимаем пиринг - настраиваем соседей (eBGP — другая AS)
  neighbor 172.1.15.1 remote-as 64511
  neighbor 172.2.15.1 remote-as 64512
