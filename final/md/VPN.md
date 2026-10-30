@@ -26,6 +26,7 @@ tunnel mode gre ip
 
 #### Команды для проверки
 ```
+show ip interface brief | include Tunnel0 - проверка включен ли интерфейс Tunnel0 административно и поднялся ли протокол
 show ip nhrp - выводит текущий кэш протокола NHRP
 show dmvpn - используется для проверки текущего состояния и статистики DMVPN
 ```
