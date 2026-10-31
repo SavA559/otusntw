@@ -1,4 +1,4 @@
-### NAT (Network Address Translation)
+### NAT (Network Address Translation), PAT (Port Address Translation)
 
 NAT(PAT) трансляция на R15, R43 осуществляется в адрес выделенных диапазонов AS64501. NAT трансляция на R31 осуществляться в пул из 5 адресов выделенного диапазона AS64501.<br>
 NAT(PAT) трансляция на R21 осуществляется в адрес AS64502.
