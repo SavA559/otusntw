@@ -30,7 +30,7 @@ router eigrp BOR-EIGRP
   topology base
    no auto-summary
 ! Редистрибуция (импорт) маршрутов из протокола OSPF в протокол EIGRP
-   redistribute ospf 64501 metric 1000 1000 255 127 1500
+   redistribute ospf 1 metric 1000 1000 255 127 1500
   exit-af-topology
  exit-address-family
 !
