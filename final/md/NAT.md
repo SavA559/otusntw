@@ -5,25 +5,21 @@ NAT (PAT) трансляция на R31 осуществляться в пул �
 ####  Пример настройки на R31
 ```
 ! Создаем список доступа для определения внутренней сети
-access-list 18 permit 192.168.96.0 0.0.15.255
+access-list 18 permit 10.2.120.0 0.0.3.255
 ! Создаем пул из 5 публичных адресов, указывая стартовый и конечный адрес
-ip nat pool POOL-NAT 142.0.0.1 142.0.0.5 netmask 255.255.255.0
-!Связываем ACL и пул, включая PAT
+ip nat pool POOL-NAT 102.0.0.1 102.0.0.254 netmask 255.255.255.0
+! Связываем ACL и пул, включая PAT (за счет ключевого слова overload)
 ip nat inside source list 18 pool POOL-NAT overload
-
+!
 ! Маркируем интерфейсы подключенные к локальной сети и к ISP
 interface e0/0
- ip nat inside
+ ip nat intside
 !
 interface e0/1
- ip nat inside
+ ip nat outside
 !
 interface e0/2
- ip nat outside
-!
-interface e0/3
- ip nat outside
-!
+ ip nat intside
 ```
 
 ####  Пример настройки на R15
