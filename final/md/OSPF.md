@@ -54,7 +54,32 @@ router ospf 1
 
 ####  Пример настройки OSPF на R21
 ```
-
+!
+router ospf 1
+ router-id 1.1.1.21
+ redistribute eigrp 100 subnets
+ network 10.100.0.0 0.0.0.255 area 0   ! подсеть Tunnel0 (через ISP1 до R15)
+ network 10.200.0.0 0.0.0.255 area 0   ! подсеть Tunnel1 (через ISP2 до R15)
+ network 21.21.21.21 0.0.0.0 area 0
+!
+interface Tunnel0
+ description GRE to R15 via ISP1
+ ip address 10.100.0.2 255.255.255.0
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ ip ospf cost 10   ! Основной канал через ISP1 (меньшая стоимость)
+ tunnel source Ethernet0/1
+ tunnel destination 172.1.15.2
+!
+interface Tunnel1
+ description GRE to R15 via ISP2
+ ip address 10.200.0.2 255.255.255.0
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ ip ospf cost 100   ! Резервный канал через ISP2 (высокая стоимость)
+ tunnel source Ethernet0/1
+ tunnel destination 172.2.15.2
+!
 ```
 
 #### Файлы с настройками устройств
