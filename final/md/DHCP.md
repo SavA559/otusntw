@@ -1,4 +1,4 @@
-### DHCP (Dynamic Host Configuration Protocol)
+### DHCP (Dynamic Host Configuration Protocol), HSRP (Hot Standby Router Protocol)
 
 DHCP сервис на маршрутизаторах в офисах Н.Новгород (R13-R14) и Бор (R22-R23) поднят с использованием протокола HSRP (Hot Standby Router Protocol), который позволяет объединить два или более маршрутизатора в виртуальную группу для обеспечения отказоустойчивости шлюза по умолчанию. По два DHCP-сервера раздают все доступные IP-адреса из настроенных пулов, кроме назначенных статически.
 
