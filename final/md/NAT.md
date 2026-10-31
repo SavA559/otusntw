@@ -1,9 +1,29 @@
 ### NAT (Network Address Translation)
 
+NAT (PAT) трансляция на R31 осуществляться в пул из 5 адресов AS64501. NAT(PAT) трансляция на R21 осуществляется в адрес AS64502.
 
-####  Пример настройки на R15
+####  Пример настройки на R31
 ```
+! Создаем список доступа для определения внутренней сети
+access-list 18 permit 192.168.96.0 0.0.15.255
+! Создаем пул из 5 публичных адресов, указывая стартовый и конечный адрес
+ip nat pool POOL-NAT 142.0.0.1 142.0.0.5 netmask 255.255.255.0
+!Связываем ACL и пул, включая PAT
+ip nat inside source list 18 pool POOL-NAT overload
 
+! Маркируем интерфейсы подключенные к локальной сети и к ISP
+interface e0/0
+ ip nat inside
+!
+interface e0/1
+ ip nat inside
+!
+interface e0/2
+ ip nat outside
+!
+interface e0/3
+ ip nat outside
+!
 ```
 
 ####  Пример настройки на R15
