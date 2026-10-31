@@ -13,13 +13,13 @@ ip nat inside source list 18 pool POOL-NAT overload
 !
 ! Маркируем интерфейсы подключенные к локальной сети и к ISP
 interface e0/0
- ip nat intside
+ ip nat inside
 !
 interface e0/1
  ip nat outside
 !
 interface e0/2
- ip nat intside
+ ip nat inside
 ```
 
 ####  Пример настройки на R15
