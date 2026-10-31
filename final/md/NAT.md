@@ -25,7 +25,7 @@ interface e0/2
 
 ####  Пример настройки NAT на R31
 ```
-access-list 18 permit 10.2.131.0 0.0.0.255
+access-list 18 permit 10.3.131.0 0.0.0.255
 ip nat pool POOL-NAT 101.0.0.193 101.0.0.197 netmask 255.255.255.192
 ip nat inside source list 18 pool POOL-NAT
 !
