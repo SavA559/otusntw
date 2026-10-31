@@ -25,8 +25,6 @@ router eigrp BOR-EIGRP
   af-interface Tunnel0
     no shutdown
     no passive-interface
-! Вместо отправки в туннель нескольких мелких подсетей, роутер будет анонсировать соседней стороне один общий префикс
-   summary-address 10.2.0.0 255.255.0.0
   exit-af-interface
 ! Режим настройки параметров базовой топологии для конкретного Address Family
   topology base
@@ -40,25 +38,7 @@ router eigrp BOR-EIGRP
 
 ####  Пример настройки на R
 ```
-! Чтобы R32 получал только маршрут по умолчанию (0.0.0.0/0) и отсекал все остальные специфические маршруты,
-! на R16 на интерфейсе который смотрит в сторону R32 настраивается ручная суммаризация
-router eigrp SPB-EIGRP
-address-family ipv4 unicast autonomous-system 100
-! В Named Mode настройки конкретного интерфейса задаются прямо внутри конфигурации EIGRP в разделе:
- af-interface Ethernet0/3
-  summary-address 0.0.0.0 0.0.0.0
- exit-af-interface 
-!
- network 10.16.18.0 0.0.0.255
- network 10.16.32.0 0.0.0.255
- network 192.168.100.0 0.0.0.255
- network 192.168.108.0 0.0.0.255
-exit-address-family
-!
-! Чтобы R32 мог увидеть этот маршрут, он должен быть сгенерирован и запущен в процесс EIGRP на граничном роутере
-//ip route 0.0.0.0 0.0.0.0 <IP_провайдера>
-//router eigrp 100
-//redistribute static
+
 ```
 
 #### Файлы с настройками устройств
