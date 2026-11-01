@@ -45,14 +45,65 @@ tunnel mode gre ip
 ---
 ### DMVPN
 Между R15, R31 и R43 поднят DMVPN в 3-ей фазе, где R15 - hub, а R31 и R43 - spoke.
+как настроить mGRE с одним hub и двумя spoke если у hub два входа в интернет (основной и резервный)
+На Hub создаются два туннельных интерфейса. Каждый интерфейс привязан к конкретному внешнему IP-адресу (tunnel source) через ключевое слово fallback или жесткую привязку (VRF/маршрутизацию).
+На каждом Spoke настраиваются два туннельных интерфейса, которые смотрят на разные внешние IP-адреса Hub.
 
 ####  Пример настройки DMVPN на R15
 ```
+! --- Настройка туннеля через Основного провайдера ---
+interface Tunnel10
+ ip address 10.0.0.1 255.255.255.0
+ no ip redirects
+ ip nhrp map multicast dynamic
+ ip nhrp network-id 10
+ tunnel source 1.1.1.1
+ tunnel mode gre multipoint
+ ! Рекомендуется настроить ключи, чтобы разделять туннели
+ tunnel key 10
+ 
+! --- Настройка туннеля через Резервного провайдера ---
+interface Tunnel20
+ ip address 10.0.20.1 255.255.255.0
+ no ip redirects
+ ip nhrp map multicast dynamic
+ ip nhrp network-id 20
+ tunnel source 2.2.2.2
+ tunnel mode gre multipoint
+ tunnel key 20
+```
 
+####  Пример настройки DMVPN на R31
+```
+! --- Туннель к Основному WAN Hub ---
+interface Tunnel10
+ ip address 10.0.0.11 255.255.255.0
+ no ip redirects
+ ! Регистрация на основном IP Hub
+ ip nhrp map 10.0.0.1 1.1.1.1
+ ip nhrp map multicast 1.1.1.1
+ ip nhrp nhs 10.0.0.1
+ ip nhrp network-id 10
+ tunnel source GigabitEthernet1  ! Внешний интерфейс Spoke
+ tunnel mode gre multipoint
+ tunnel key 10
+
+! --- Туннель к Резервному WAN Hub ---
+interface Tunnel20
+ ip address 10.0.20.11 255.255.255.0
+ no ip redirects
+ ! Регистрация на резервном IP Hub
+ ip nhrp map 10.0.20.1 2.2.2.2
+ ip nhrp map multicast 2.2.2.2
+ ip nhrp nhs 10.0.20.1
+ ip nhrp network-id 20
+ tunnel source GigabitEthernet1
+ tunnel mode gre multipoint
+ tunnel key 20
 ```
 
 #### Файлы с настройками устройств
-[DMVPN hub на R15](../configs/R15#L262-L298) ; [DMVPN на R43](../configs/R43#L262-L298)
+[DMVPN hub на R15](../configs/R15#L262-L298) ; [DMVPN на R31](../configs/R43#L262-L298)
 
 
 #### Команды для проверки туннелей
