@@ -12,7 +12,7 @@ Policy-based routing (PBR) - маршрутизация на основе опр
 ```
 ! Создаем ACL, который точно описывает нужный трафик (R15->R31, R15->R43)
 ip access-list extended PBR_TRAFFIC
- remark "PBR FROM R15 TO R31 THROUGH R3"
+ remark "PBR FROM R15 TO R31 AND R43 THROUGH R3"
  10 permit ip host 172.1.15.2 host 172.4.31.2
  20 permit ip host 172.1.15.2 host 172.2.43.2
  100 deny ip any any
@@ -24,7 +24,7 @@ route-map TO_SPECIFIC_ROUTER permit 10
 !
 ! На интерфейсе откуда трафик заходит в роутер применяем политику
 interface e0/1
- ip policy route-map PBRv4_TO_ETH00
+ ip policy route-map TO_SPECIFIC_ROUTER
 ```
 
 ####  Пример настройки на R4
