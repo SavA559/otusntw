@@ -20,7 +20,7 @@ ip route 1.1.1.1 255.255.255.255 192.168.14.1<br>
 ```
 ! Настройка фильтрации в офисе Н.Новгород так, чтобы не появилось транзитного трафика
 ! Создаем PL разрешенных префиксов (свои собственные - AS64501).
-ip prefix-list PL-MY-NETS permit 101.0.0.0/24
+ip prefix-list PL-MY-NETS permit 101.0.0.0/25
 route-map RM-BGP-OUT-PREFIX permit 10
  match ip address prefix-list PL-MY-NETS
 !
