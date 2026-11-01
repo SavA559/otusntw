@@ -41,12 +41,11 @@ tunnel mode gre ip
 [GRE на R21](../configs/R21#L125-L149) ; [GRE на R15](../configs/R15#L125-L149) <br>
 
 #### Результат поднятия GRE-туннелей между Н.Новгород и Бор
-![](../scheme/GRE23-12.PNG)
-<br>---
+![](../scheme/GRE23-12.PNG) <br>
+---
 ### DMVPN
 Между R15, R31 и R43 поднят DMVPN в 3-ей фазе, где R15 - hub, а R31 и R43 - spoke.
 
----
 ####  Пример настройки DMVPN на R15
 ```
 
