@@ -120,4 +120,4 @@ show running-config | section bgp
 
 #### Результат работы BGP 
 
-![](../scheme/bgp.png)
+![](../scheme/bgp21.PNG)
