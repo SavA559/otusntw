@@ -49,13 +49,10 @@ interface e0/1
 
 #### Команды для проверки настроек
 ```
-show access-lists
-show route-map
-show ip policy
-show ip route static
-show run | section sla
-show ip sla summary
-show ip sla statistics
+show access-lists - вывод содержимого всех настроенных списков контроля доступа
+show route-map - вывод конфигурации и статистики карт маршрутизации
+show ip policy - отображение настроенных политик маршрутизации и их привязки к интерфейсам
+show ip route static - отображения только статически настроенных маршрутов в таблице маршрутизации IPv4
 ```
 
 #### Схема DHCP 
