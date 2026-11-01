@@ -41,7 +41,7 @@ tunnel mode gre ip
 [GRE на R21](../configs/R21#L125-L149) ; [GRE на R15](../configs/R15#L125-L149) <br>
 
 #### Результат поднятия GRE-туннелей между Н.Новгород и Бор
-![](../scheme/gre23-12.PNG)
+![](../scheme/GRE23-12.PNG)
 
 
 ### DMVPN
