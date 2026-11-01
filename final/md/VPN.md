@@ -65,13 +65,16 @@ interface Tunnel10
  ip nhrp network-id 100
 ! Включаем отправку NHRP-сообщений перенаправления для реализации Phase3 технологии DMVPN
  ip nhrp redirect  ! Позволяет Spoke общаться напрямую (Spoke-to-Spoke)
+ ip ospf cost 10
+ ip ospf network broadcast   ! тип сети OSPF на туннельных интерфейсах
+ ip ospf priority 255  ! Hub гарантированно становится DR
  tunnel source Ethernet0/1
  tunnel mode gre multipoint   ! Настраиваем многоточечный туннель mGRE
  ip mtu 1400
  ip tcp adjust-mss 1360
  ip nhrp map multicast dynamic   ! Для динамического добавления spoke в список рассылки multicast по протоколу NHRP
  tunnel key 10
- 
+! 
 ! Настройка второго mGRE туннеля через резервного ISP2
 interface Tunnel20
  ip address 10.220.0.1 255.255.255.0
@@ -79,6 +82,9 @@ interface Tunnel20
  ip ipsec profile MP-PROFILE
  ip nhrp network-id 100
  ip nhrp redirect
+ ip ospf cost 100  ! Увеличиваем стоимость резервного туннеля
+ ip ospf network broadcast   ! тип сети OSPF на туннельных интерфейсах
+ ip ospf priority 255  ! Hub гарантированно становится DR
  tunnel source Ethernet0/3
  tunnel mode gre multipoint
  ip mtu 1400
@@ -104,6 +110,9 @@ interface Tunnel10
 ! Регистрация на Hub (IP туннеля Hub -> Внешний IP Hub)
  ip nhrp nhs 10.110.0.1 nbma 172.1.15.2 multicast
  ip nhrp shortcut   ! для реализации Phase3 технологии DMVPN
+ ip ospf cost 10
+ ip ospf network broadcast
+ ip ospf priority 0    ! Spoke никогда не станет DR/BDR
  tunnel source Ethernet0/1   ! Внешний интерфейс Spoke
  tunnel mode gre multipoint
  tunnel key 10
@@ -118,6 +127,9 @@ interface Tunnel20
 ! Регистрация на резервном IP Hub
  ip nhrp nhs 10.220.0.1 nbma 172.2.15.2 multicast
  ip nhrp shortcut
+ ip ospf cost 100  ! Увеличиваем стоимость резервного туннеля
+ ip ospf network broadcast
+ ip ospf priority 0    ! Spoke никогда не станет DR/BDR
  tunnel source Ethernet0/1 
  tunnel mode gre multipoint
  tunnel key 20
