@@ -29,7 +29,18 @@ interface e0/0
 
 ####  Пример настройки на R4
 ```
-
+!
+ip access-list extended PBR-TRAFFIC
+ remark "PBR FROM R31 TO R15 THROUGH R3"
+ 10 permit ip host 172.4.31.2 host 172.1.15.2
+ 100 deny ip any any
+!
+route-map TO-SPECIFIC-ROUTER permit 10
+ match ip address PBR-TRAFFIC
+ set ip next-hop 172.3.4.1
+!
+interface e0/1
+ ip policy route-map TO-SPECIFIC-ROUTER
 ```
 
 #### Файлы с настройками устройств
