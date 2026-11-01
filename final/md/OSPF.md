@@ -99,6 +99,10 @@ show run | sec ospf - вывод настроек конфига из разде
 clear ip ospf [process-id] process - используется для перезапуска процесса OSPF на маршрутизаторе.
 ```
 
-#### Схема DHCP 
+#### Результат работы OSPF 
 
-![](../scheme/ospf.png)
+![](../scheme/ospf16.png)
+---
+![](../scheme/ospf17.png)
+---
+![](../scheme/ospf31.png)
