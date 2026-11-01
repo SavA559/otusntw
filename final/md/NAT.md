@@ -38,8 +38,8 @@ interface e0/1
 ```
 
 #### Файлы с настройками устройств
-[NAT server на PC-R1](../configs/R1#L125-L149) ;
-[DHCP server/client на ZL-R1](../configs/R1#L262-L298)
+[NAT на R21](../configs/R21#L125-L149) ;
+[NAT на R31](../configs/R31#L262-L298)
 
 #### Команды для проверки работы NAT-трансляций
 ```
@@ -50,4 +50,6 @@ clear ip nat translation * — принудительный сброс дина�
 
 #### Результат работы NAT-трансляций
 
-![](../scheme/nat.png)
+![](../scheme/NAT21.PNG)
+---
+![](../scheme/NAT31.PNG)
