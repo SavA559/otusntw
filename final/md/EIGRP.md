@@ -75,4 +75,6 @@ show running-config | section router eigrp
 
 #### Результат работы EIGRP
 
-![](../scheme/eigrp23.PNG)
+![](../scheme/eigrp_fib.PNG)
+---
+![](../scheme/eigrp_ping.PNG)
