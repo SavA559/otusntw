@@ -116,3 +116,5 @@ show running-config | section bgp
 ![](../scheme/bgp3.PNG)
 ---
 ![](../scheme/bgp21.PNG)
+---
+![](../scheme/bgp1.PNG)
