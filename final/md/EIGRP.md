@@ -1,6 +1,6 @@
 ### EIGRP (Enhanced Interior Gateway Routing Protocol)
 
-Используется EIGRP Named Mode (Именованный режим) — это современный подход Cisco, который объединяет все настройки EIGRP (IPv4, параметры интерфейсов и адресацию) в одном общем блоке конфигурации. Нет необходимости переходить между глобальным режимом и настройкой конкретных интерфейсов — всё администрируется централизованно.<br>
+Для настройки используем EIGRP Named Mode (Именованный режим) — это современный подход Cisco, который объединяет все настройки EIGRP (IPv4, параметры интерфейсов и адресацию) в одном общем блоке конфигурации. Нет необходимости переходить между глобальным режимом и настройкой конкретных интерфейсов — всё администрируется централизованно.<br>
 В офисе Бор настроен EIGRP. Передача маршрутов между OSPF (Н.Новгород) и EIGRP (Бор) выполняется с помощью процедуры редистрибуции (перераспределения) на пограничном маршрутизаторе, который запущен в обеих зонах.
 
 ####  Пример настройки на R21
@@ -36,14 +36,32 @@ router eigrp BOR-EIGRP
 !
 ```
 
-####  Пример настройки на R
+####  Пример настройки на R23
 ```
-
+router eigrp BOR-EIGRP
+ !
+ address-family ipv4 unicast autonomous-system 100
+  !
+  af-interface default
+   passive-interface
+  exit-af-interface
+  !
+  af-interface Ethernet0/2
+   no passive-interface
+  exit-af-interface
+  !
+  topology base
+  exit-af-topology
+  network 10.2.0.0 0.0.0.3
+  network 10.2.121.0 0.0.0.255
+  network 10.2.122.0 0.0.0.255
+  network 23.23.23.23 0.0.0.0
+ exit-address-family
 ```
 
 #### Файлы с настройками устройств
-[NAT server на PC-R1](../configs/R1#L125-L149) ;
-[DHCP server/client на ZL-R1](../configs/R1#L262-L298)
+[EIGRP на R21](../configs/R21#L125-L149) ;
+[EIGRP на R23](../configs/R23#L262-L298)
 
 #### Команды для проверки работы EIGRP
 ```
@@ -57,4 +75,4 @@ show running-config | section router eigrp
 
 #### Результат работы EIGRP
 
-![](../scheme/eigrp.png)
+![](../scheme/eigrp23.PNG)
