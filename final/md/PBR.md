@@ -17,6 +17,12 @@
 
 #### Команды для проверки
 ```
+show access-lists
+show route-map
+show ip policy
+show run | section sla
+show ip sla summary
+show ip sla statistics
 ```
 
 #### Схема DHCP 
