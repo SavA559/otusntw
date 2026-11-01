@@ -101,8 +101,8 @@ clear ip ospf [process-id] process - используется для перез�
 
 #### Результат работы OSPF 
 
-![](../scheme/ospf16.png)
+![](../scheme/ospf16.PNG)
 ---
-![](../scheme/ospf17.png)
+![](../scheme/ospf17.PNG)
 ---
-![](../scheme/ospf31.png)
+![](../scheme/ospf31.PNG)
