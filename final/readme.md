@@ -22,8 +22,8 @@
  - [PBR (Policy-based routing)](md/PBR.md)
 
 ###  3. VPN туннели
- - [GRE (Generic Routing Encapsulation)](md/vpn.md)
- - [DMVPN (Dynamic Multipoint VPN)](md/vpn.md#DMVPN)
+ - [GRE (Generic Routing Encapsulation)](md/VPN.md)
+ - [DMVPN (Dynamic Multipoint VPN)](md/VPN.md#DMVPN)
 
 ###  4. Протоколы маршрутизации OSPF и EIGRP
  - [OSPF (Open Shortest Path First)](md/OSPF.md)
