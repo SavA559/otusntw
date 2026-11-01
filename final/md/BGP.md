@@ -95,11 +95,6 @@ router bgp 64513
  neighbor 172.3.21.2 route-map RM-BGP-OUT out
 ```
 
-####  Пример настройки BGP фильтрации на R15
-```
-
-```
-
 #### Файлы с настройками устройств
 [eBGP на R15](../configs/R15#L125-L149) ;
 [BGP на R1](../configs/R1#L262-L298)
@@ -118,4 +113,6 @@ show running-config | section bgp
 
 #### Результат работы BGP 
 
+![](../scheme/bgp3.PNG)
+---
 ![](../scheme/bgp21.PNG)
