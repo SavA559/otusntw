@@ -72,7 +72,7 @@ router bgp 64511
 ! ISP3 настроен так, чтобы в офис Бор отдавался только маршрут по умолчанию и префикс офиса Н.Новгород
 ! Создаем PL разрешающий только маршрут по умолчанию и префикс офиса Н.Новгород
 ip prefix-list BGP-OUT seq 10 permit 0.0.0.0/0
-ip prefix-list BGP-OUT seq 20 permit 142.0.0.0/24
+ip prefix-list BGP-OUT seq 20 permit 101.0.0.0/25
 ip prefix-list BGP-OUT seq 30 deny 0.0.0.0/0 le 32
 ! Создаем RM которая пропускает только эти маршруты
 route-map RM-BGP-OUT permit 10
