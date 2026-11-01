@@ -16,8 +16,14 @@ ip route 4.4.4.4 255.255.255.255 192.168.14.2<br>
 ip route 1.1.1.1 255.255.255.255 192.168.14.1<br>
 Настройка BGP для схемы Active/Backup ISP требует управления как исходящим, так и входящим трафиком. Исходящий трафик регулируем через Local Preference (локальный приоритет). Чем выше Local Preference, тем предпочтительнее маршрут внутри AS64501 (по умолчанию равен 100). Для настройки же Входящего трафика анонсируем префикс AS64501 (Н.Новгород) основному провайдеру без изменений. А резервному провайдеру анонсируете тот же префикс, но добавляем к нему свой AS64501 несколько раз (64501 64501 64501). Удаленные роутеры в Интернете видят длинный путь через ISP2 и выбирают более короткий путь через ISP1.
 
-####  Пример настройки eBGP на R15
+####  Пример настройки eBGP и фильтрации на R15
 ```
+! Настройка фильтрации в офисе Н.Новгород так, чтобы не появилось транзитного трафика
+! Создаем PL разрешенных префиксов (свои собственные - AS64501).
+ip prefix-list PL-MY-NETS permit 101.0.0.0/24
+route-map RM-BGP-OUT-PREFIX permit 10
+ match ip address prefix-list PL-MY-NETS
+!
 !  Запуск процесса BGP с указанием номера AS
 router bgp 64501
  bgp router-id 15.15.15.15
@@ -33,6 +39,10 @@ router bgp 64501
  neighbor 172.1.15.1 route-map PREF-ISP1 in
 ! Накладываем AS-Path Prepend для резервного провайдера на выходе
  neighbor 172.2.15.1 route-map PREPEND-ISP2 out
+!
+! Отсекаем транзитный трафик через Н.Новгород
+ neighbor 172.1.15.2 route-map RM-BGP-OUT-PREFIX out
+ neighbor 172.2.15.2 route-map RM-BGP-OUT-PREFIX out
 !
 ! RM для поднятия Local Pref от ISP1
 route-map PREF-ISP1 permit 10
@@ -88,14 +98,7 @@ router bgp 64513
 
 ####  Пример настройки BGP фильтрации на R15
 ```
-! Настройка фильтрации в офисе Н.Новгород так, чтобы не появилось транзитного трафика
-! Создаем PL разрешенных префиксов (свои собственные).
-ip prefix-list PL-MY-NETS permit 101.0.0.0/24
-route-map RM-BGP-OUT-PREFIX permit 10
- match ip address prefix-list PL-MY-NETS
-router bgp 64501
- neighbor 172.1.15.2 route-map RM-BGP-OUT-PREFIX out
- neighbor 172.2.15.2 route-map RM-BGP-OUT-PREFIX out
+
 ```
 
 #### Файлы с настройками устройств
