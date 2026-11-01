@@ -37,8 +37,6 @@ router bgp 64501
 !
 ! Отсекаем транзитный трафик через Н.Новгород
  neighbor 172.1.15.1 route-map RM-BGP-OUT-PREFIX out
- neighbor 172.2.15.1 route-map RM-BGP-OUT-PREFIX out
-!
 ! Увеличиваем Local-Pref для основного провайдера
  neighbor 172.1.15.1 route-map PREF-ISP1 in
 ! Накладываем AS-Path Prepend для резервного провайдера на выходе
