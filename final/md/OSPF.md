@@ -57,6 +57,7 @@ router ospf 1
 !
 router ospf 1
  router-id 1.1.1.21
+! Импортируем маршруты из EIGRP в OSPF с сохранением подсетей
  redistribute eigrp 100 subnets
  network 10.100.0.0 0.0.0.255 area 0   ! подсеть Tunnel0 (через ISP1 до R15)
  network 10.200.0.0 0.0.0.255 area 0   ! подсеть Tunnel1 (через ISP2 до R15)
@@ -83,8 +84,8 @@ interface Tunnel1
 ```
 
 #### Файлы с настройками устройств
-[NAT server на PC-R1](../configs/R1#L125-L149) ;
-[DHCP server/client на ZL-R1](../configs/R1#L262-L298)
+[OSPF на R15](../configs/R15#L125-L149) ;
+[OSPF на R21](../configs/R21#L262-L298)
 
 #### Команды для проверки
 ```
