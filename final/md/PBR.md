@@ -57,6 +57,6 @@ show ip route static - отображения только статически 
 
 #### Результат работы PBR 
 
-![](../scheme/pbr1.PNG)
+![](../scheme/pbr15.PNG)
 ---
 ![](../scheme/pbr4.PNG)
