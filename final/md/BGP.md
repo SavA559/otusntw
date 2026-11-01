@@ -35,14 +35,14 @@ router bgp 64501
  neighbor 172.2.15.1 remote-as 64512
 ! Конфигурации с обратной стороны пиринга (на R1, R2) должны быть симметричны
 !
+! Отсекаем транзитный трафик через Н.Новгород
+ neighbor 172.1.15.2 route-map RM-BGP-OUT-PREFIX out
+ neighbor 172.2.15.2 route-map RM-BGP-OUT-PREFIX out
+!
 ! Увеличиваем Local-Pref для основного провайдера
  neighbor 172.1.15.1 route-map PREF-ISP1 in
 ! Накладываем AS-Path Prepend для резервного провайдера на выходе
  neighbor 172.2.15.1 route-map PREPEND-ISP2 out
-!
-! Отсекаем транзитный трафик через Н.Новгород
- neighbor 172.1.15.2 route-map RM-BGP-OUT-PREFIX out
- neighbor 172.2.15.2 route-map RM-BGP-OUT-PREFIX out
 !
 ! RM для поднятия Local Pref от ISP1
 route-map PREF-ISP1 permit 10
