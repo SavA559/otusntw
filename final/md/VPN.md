@@ -3,8 +3,8 @@
 ### GRE
 Настройка двух GRE-туннелей между R15 (Н.Новгород) с двумя провайдерами и R21 (Бор) выполняется через создание двух независимых туннелей и разное назначение стоимости интерфейсов в OSPF для управления приоритетом каналов.
 
-| Network IPv6 | Site & Description                                                       |
-|--------------|--------------------------------------------------------------------------|
+| Network IPv4  | Description                                                             |
+|---------------|-------------------------------------------------------------------------|
 | 10.100.0.0/24 | Для GRE-туннеля между Бор (R21) и Н.Новгород (R15) через основного ISP1 |
 | 10.200.0.0/24 | Для GRE-туннеля между Бор (R21) и Н.Новгород (R15) через ISP2           |
 
@@ -46,60 +46,86 @@ tunnel mode gre ip
 ### DMVPN (Dynamic Multipoint Virtual Private Network)
 Между R15, R31 и R43 поднят DMVPN в 3-ей фазе, где R15 - hub, а R31 и R43 - spoke.
 как настроить mGRE с одним hub и двумя spoke если у hub два входа в интернет (основной и резервный)
-На Hub создаются два туннельных интерфейса. Каждый интерфейс привязан к конкретному внешнему IP-адресу (tunnel source) через ключевое слово fallback или жесткую привязку (VRF/маршрутизацию).
-На каждом Spoke настраиваются два туннельных интерфейса, которые смотрят на разные внешние IP-адреса Hub.
+
+Созданы два отдельных mGRE туннеля (по одному под каждого провайдера) и запущен OSPF поверх обоих для обеспечения отказоустойчивости и балансировки.
+На Hub два туннельных интерфейса. Каждый интерфейс привязан к конкретному внешнему IP-адресу (tunnel source) через ключевое слово fallback. На каждом Spoke настраиваются два туннельных интерфейса, которые смотрят на разные внешние IP-адреса Hub.
+
+| Network IPv4  | Description                                                            |
+|---------------|------------------------------------------------------------------------|
+| 10.110.0.0/24 | Для mGRE туннеля через основного ISP1 (Hub <> Spoke1, Spoke2)          |
+| 10.220.0.0/24 | Для mGRE туннеля через второго резервного ISP2 (Hub <> Spoke1, Spoke2) |
 
 ####  Пример настройки DMVPN на R15
 ```
-! --- Настройка туннеля через Основного провайдера ---
+! Настройка первого mGRE туннеля через основного ISP1
 interface Tunnel10
- ip address 10.0.0.1 255.255.255.0
+ ip address 10.110.0.1 255.255.255.0
  no ip redirects
- ip nhrp map multicast dynamic
- ip nhrp network-id 10
- tunnel source 1.1.1.1
- tunnel mode gre multipoint
- ! Рекомендуется настроить ключи, чтобы разделять туннели
+ ip ipsec profile MP-PROFILE  ! Для IPsec
+ ip nhrp network-id 100
+! Включаем отправку NHRP-сообщений перенаправления для реализации Phase3 технологии DMVPN
+ ip nhrp redirect  ! Позволяет Spoke общаться напрямую (Spoke-to-Spoke)
+ tunnel source Ethernet0/1
+ tunnel mode gre multipoint   ! Настраиваем многоточечный туннель mGRE
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ ip nhrp map multicast dynamic   ! Для динамического добавления spoke в список рассылки multicast по протоколу NHRP
  tunnel key 10
  
-! --- Настройка туннеля через Резервного провайдера ---
+! Настройка второго mGRE туннеля через резервного ISP2
 interface Tunnel20
- ip address 10.0.20.1 255.255.255.0
+ ip address 10.220.0.1 255.255.255.0
  no ip redirects
- ip nhrp map multicast dynamic
- ip nhrp network-id 20
- tunnel source 2.2.2.2
+ ip ipsec profile MP-PROFILE
+ ip nhrp network-id 100
+ ip nhrp redirect
+ tunnel source Ethernet0/3
  tunnel mode gre multipoint
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ ip nhrp map multicast dynamic
  tunnel key 20
+!
+! Доп.настройка раздела OSPF
+router ospf 1
+ network 10.110.0.0 0.0.0.255 area 0
+ network 10.220.0.0 0.0.0.255 area 0
 ```
 
 ####  Пример настройки DMVPN на R31
 ```
-! --- Туннель к Основному WAN Hub ---
+! Настройка mGRE туннеля к ISP1 (Hub)
 interface Tunnel10
- ip address 10.0.0.11 255.255.255.0
+ ip address 10.110.0.2 255.255.255.0
  no ip redirects
- ! Регистрация на основном IP Hub
- ip nhrp map 10.0.0.1 1.1.1.1
- ip nhrp map multicast 1.1.1.1
- ip nhrp nhs 10.0.0.1
- ip nhrp network-id 10
- tunnel source GigabitEthernet1  ! Внешний интерфейс Spoke
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ ip nhrp network-id 100
+! Регистрация на Hub (IP туннеля Hub -> Внешний IP Hub)
+ ip nhrp nhs 10.110.0.1 nbma 172.1.15.2 multicast
+ ip nhrp shortcut   ! для реализации Phase3 технологии DMVPN
+ tunnel source Ethernet0/1   ! Внешний интерфейс Spoke
  tunnel mode gre multipoint
  tunnel key 10
-
-! --- Туннель к Резервному WAN Hub ---
+!
+! Настройка mGRE туннеля к ISP2 (Hub)
 interface Tunnel20
- ip address 10.0.20.11 255.255.255.0
+ ip address 10.220.0.2 255.255.255.0
  no ip redirects
- ! Регистрация на резервном IP Hub
- ip nhrp map 10.0.20.1 2.2.2.2
- ip nhrp map multicast 2.2.2.2
- ip nhrp nhs 10.0.20.1
- ip nhrp network-id 20
- tunnel source GigabitEthernet1
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ ip nhrp network-id 100
+! Регистрация на резервном IP Hub
+ ip nhrp nhs 10.220.0.1 nbma 172.2.15.2 multicast
+ ip nhrp shortcut
+ tunnel source Ethernet0/1 
  tunnel mode gre multipoint
  tunnel key 20
+!
+! Доп.настройка раздела OSPF
+router ospf 1
+ network 10.110.0.0 0.0.0.255 area 0
+ network 10.220.0.0 0.0.0.255 area 0
 ```
 
 #### Файлы с настройками устройств
