@@ -44,8 +44,8 @@ interface e0/1
 ```
 
 #### Файлы с настройками устройств
-[NAT server на PC-R1](../configs/R1#L125-L149) ;
-[DHCP server/client на ZL-R1](../configs/R1#L262-L298)
+[PBR на R1](../configs/R1#L125-L149) ;
+[PBR на R4](../configs/R4#L262-L298)
 
 #### Команды для проверки настроек PBR
 ```
