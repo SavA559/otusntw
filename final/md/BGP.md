@@ -60,6 +60,7 @@ route-map PREPEND-ISP2 permit 10
 router bgp 64502
  bgp router-id 21.21.21.21
  bgp log-neighbor-changes
+ network 102.0.0.0 mask 255.255.255.0
  neighbor 172.3.21.1 remote-as 64513
 ```
 
