@@ -61,38 +61,37 @@ tunnel mode gre ip
 interface Tunnel10
  ip address 10.110.0.1 255.255.255.0
  no ip redirects
- ip ipsec profile MP-PROFILE  ! Для IPsec
- ip nhrp network-id 100
-! Включаем отправку NHRP-сообщений перенаправления для реализации Phase3 технологии DMVPN
- ip nhrp redirect  ! Позволяет Spoke общаться напрямую (Spoke-to-Spoke)
- ip ospf cost 10
- ip ospf network broadcast   ! тип сети OSPF на туннельных интерфейсах
- ip ospf priority 255  ! Hub гарантированно становится DR
- tunnel source Ethernet0/1
- tunnel mode gre multipoint   ! Настраиваем многоточечный туннель mGRE
  ip mtu 1400
  ip tcp adjust-mss 1360
  ip nhrp map multicast dynamic   ! Для динамического добавления spoke в список рассылки multicast по протоколу NHRP
+ ip nhrp network-id 100
+ ip nhrp redirect   ! Позволяет Spoke общаться напрямую (Spoke-to-Spoke)
+ ip ospf network broadcast   ! тип сети OSPF на туннельных интерфейсах
+ ip ospf priority 255   ! Hub гарантированно становится DR
+ ip ospf cost 10
+ tunnel source Ethernet0/1
+ tunnel mode gre multipoint   ! Настраиваем многоточечный туннель mGRE
+ ip ipsec profile MP-PROFILE  ! Для IPsec
  tunnel key 10
 ! 
 ! Настройка второго mGRE туннеля через резервного ISP2
 interface Tunnel20
  ip address 10.220.0.1 255.255.255.0
  no ip redirects
- ip ipsec profile MP-PROFILE
- ip nhrp network-id 100
- ip nhrp redirect
- ip ospf cost 100  ! Увеличиваем стоимость резервного туннеля
- ip ospf network broadcast   ! тип сети OSPF на туннельных интерфейсах
- ip ospf priority 255  ! Hub гарантированно становится DR
- tunnel source Ethernet0/3
- tunnel mode gre multipoint
  ip mtu 1400
  ip tcp adjust-mss 1360
  ip nhrp map multicast dynamic
+ ip nhrp network-id 100
+ ip nhrp redirect
+ ip ospf network broadcast   ! тип сети OSPF на туннельных интерфейсах
+ ip ospf priority 255  ! Hub гарантированно становится DR
+ ip ospf cost 100  ! Увеличиваем стоимость резервного туннеля
+ tunnel source Ethernet0/3
+ tunnel mode gre multipoint
+ ip ipsec profile MP-PROFILE  ! Для IPsec
  tunnel key 20
 !
-! Доп.настройка раздела OSPF
+! Доп.настройка процесса OSPF
 router ospf 1
  network 10.110.0.0 0.0.0.255 area 0
  network 10.220.0.0 0.0.0.255 area 0
@@ -134,7 +133,7 @@ interface Tunnel20
  tunnel mode gre multipoint
  tunnel key 20
 !
-! Доп.настройка раздела OSPF
+! Доп.настройка процесса OSPF
 router ospf 1
  network 10.110.0.0 0.0.0.255 area 0
  network 10.220.0.0 0.0.0.255 area 0
