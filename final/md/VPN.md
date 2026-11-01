@@ -18,7 +18,7 @@ interface Tunnel0
  tunnel source Ethernet0/1
  tunnel destination 172.1.15.2
 !
-! Резервный GRE до R15 через ISP1
+! Резервный GRE до R15 через ISP2
 interface Tunnel1
  description GRE to R15 via ISP2
 tunnel mode gre ip
