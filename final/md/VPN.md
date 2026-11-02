@@ -47,9 +47,7 @@ interface Tunnel1
 ![](../scheme/GRE23-12.PNG) <br>
 ---
 ### DMVPN (Dynamic Multipoint Virtual Private Network)
-DMVPN строится на базе протоколов mGRE (Multipoint GRE) и NHRP (Next Hop Resolution Protocol). Между R15, R31 и R43 поднят DMVPN в 3-ей фазе, где R15 - hub, а R31 и R43 - spoke.
--------как настроить mGRE с одним hub и двумя spoke если у hub два входа в интернет (основной и резервный)-------------
-
+DMVPN строится на базе протоколов mGRE (Multipoint GRE) и NHRP (Next Hop Resolution Protocol). Между R15, R31 и R43 поднят DMVPN в 3-ей фазе, где R15 - hub, а R31 и R43 - spoke.<br>
 Созданы два отдельных mGRE туннеля (по одному под каждого провайдера) и запущен OSPF поверх обоих для обеспечения отказоустойчивости и балансировки.
 Вариант дизайна Single Hub, Dual Cloud: На Hub два туннельных интерфейса. Каждый туннель привязан к конкретному внешнему интерфейсу (tunnel source). На каждом Spoke настраиваются два туннельных интерфейса, которые смотрят на разные внешние IP-адреса Hub. <br>
 Для управления приоритетом каналов назначена разная стоимость интерфейсов в OSPF. <br>
