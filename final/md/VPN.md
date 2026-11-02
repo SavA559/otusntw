@@ -18,7 +18,7 @@ interface Tunnel0
  ip address 10.100.0.2 255.255.255.0
 ! Уменьшаем MTU и MSS для избежания фрагментации пакетов
  ip mtu 1400   ! Размер L3 на интерфейсе туннеля (Ethernet MTU - 1500 байт)
- ip tcp adjust-mss 1360   ! L4 заголовок
+ ip tcp adjust-mss 1360   ! L4 - значение MSS еще на 40 байт меньше
  ip ospf cost 10   ! Стоимость основного туннеля
 ! Указываем внешние интерфейс и адрес маршрутизаторов:
  tunnel source Ethernet0/1
