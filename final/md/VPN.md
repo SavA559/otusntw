@@ -69,7 +69,7 @@ interface Tunnel10
  ip mtu 1400
  ip tcp adjust-mss 1360
  ip nhrp map multicast dynamic   ! Добавили NHRP к туннелю (для динамического добавления spoke в список рассылки multicast по протоколу NHRP)
- ip nhrp network-id 100   ! ID должен совпадать с обеих сторон Hub - Spoke
+ ip nhrp network-id 110   ! ID должен совпадать с обеих сторон Hub - Spoke
 ! Позволяем Hub сообщать Spokes о наличии более оптимального пути spoke-to-spoke для разгрузки центрального узла
  ip nhrp redirect   ! для реализации Phase3
 ! Принудительно установим тип сети OSPF в DMVPN в значение Broadcast (широковещательная многоточечная сеть)
@@ -89,7 +89,7 @@ interface Tunnel20
  ip mtu 1400
  ip tcp adjust-mss 1360
  ip nhrp map multicast dynamic
- ip nhrp network-id 100
+ ip nhrp network-id 220
  ip nhrp redirect
  ip ospf network broadcast   ! тип сети OSPF на туннельных интерфейсах
  ip ospf priority 255  ! Hub гарантированно становится DR
@@ -113,7 +113,7 @@ interface Tunnel10
  no ip redirects
  ip mtu 1400
  ip tcp adjust-mss 1360
- ip nhrp network-id 100
+ ip nhrp network-id 110
 ! Регистрация на Hub (мэппинг внутренний IP туннеля Hub -> Внешний IP Hub)
  ip nhrp nhs 10.110.0.1 nbma 172.1.15.2 multicast
  ip nhrp shortcut   ! для реализации Phase3 технологии DMVPN
@@ -131,7 +131,7 @@ interface Tunnel20
  no ip redirects
  ip mtu 1400
  ip tcp adjust-mss 1360
- ip nhrp network-id 100
+ ip nhrp network-id 220
 ! Регистрация на резервном IP Hub (мэппинг внутренний IP туннеля Hub -> Внешний IP Hub)
  ip nhrp nhs 10.220.0.1 nbma 172.2.15.2 multicast
  ip nhrp shortcut   ! для реализации Phase3
