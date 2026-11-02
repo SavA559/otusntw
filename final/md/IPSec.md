@@ -17,12 +17,22 @@ crypto ikev2 policy GRE-IKEV2-POLICY
  proposal GRE-PROP-PHASE1
 exit
 !
+! Общий ключ (Pre-Shared Key) для удаленной стороны
+crypto ikev2 keyring KEYRING-1
+ peer REMOTE-ROUTER
+  address TR.AR.GE.T_IP  ! IP удаленной стороны
+  pre-shared-key local MYSECRET
+  pre-shared-key remote MYSECRET
+ exit
+exit
+!
 ! Настройка Phase 1.2. Создание и настройка профиля протокола IKEv2 (объединяет в себе все настройки безопасности для VPN-сессии)
 crypto ikev2 profile GRE-IKEV2-PROFILE1
- match address local interface Ethernet0/2   ! Привязка к интерфейсу или IP-адресу (откуда)
+ match address local interface Ethernet0/2   ! Для первого туннеля (для второго создается аналогичный или общий профиль)
  match identity remote address 172.15.21.1 255.255.255.252   ! IP-адрес соседа (куда)
- authentication remote pre-share key MYSECRET   ! Метод проверки PSK
- authentication local pre-share key MYSECRET
+ authentication remote pre-share   ! Метод проверки PSK
+ authentication local pre-share 
+ keyring KEYRING-1   ! сам общий PSK
 exit
 ! ----------------------------------
 ! Настройка Phase2 (IPSec SA туннелей - CHILD SA). Задаем комбинацию протоколов безопасности, Encryption, Hashing и Mode tunnel, которые будут защищать IPsec-трафик внутри VPN-туннеля
@@ -32,8 +42,8 @@ exit
 !
 ! Создаем криптографического профиль, который свяжет настройки безопасности IPsec SA с VTI
 crypto ipsec profile IPSEC-PROFILE-GRE
- set ikev2-profile GRE-IKEV2-PROFILE1
  set transform-set GRE-TS
+ set ikev2-profile GRE-IKEV2-PROFILE1
 exit
 !------------------------------------------
 !
