@@ -22,7 +22,7 @@ crypto ikev2 profile PROFILE1
  authentication remote pre-share key MYSECRET   ! Метод проверки PSK
  authentication local pre-share key MYSECRET
 !
-! Настройка Phase2 (IPSec SA туннелей). Задаем комбинацию протоколов безопасности, Encryption, Hashing и Mode tunnel, которые будут защищать IPsec-трафик внутри VPN-туннеля
+! Настройка Phase2 (IPSec SA туннелей - CHILD SA). Задаем комбинацию протоколов безопасности, Encryption, Hashing и Mode tunnel, которые будут защищать IPsec-трафик внутри VPN-туннеля
 crypto ipsec transform-set IPSEC-TS esp-aes esp-md5-hmac
  mode transport
 !
