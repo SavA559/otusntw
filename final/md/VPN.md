@@ -143,7 +143,7 @@ router ospf 1
 ```
 
 #### Файлы с настройками устройств
-[DMVPN hub на R15](../configs/R15#L262-L298) ; [DMVPN Spoke на R31](../configs/R31#L262-L298)
+[DMVPN hub на R15](../configs/R15#L262-L298) ; [DMVPN spoke на R31](../configs/R31#L262-L298)
 
 
 #### Команды для проверки туннелей
