@@ -32,7 +32,7 @@ crypto ikev2 profile GRE-IKEV2-PROFILE1
  match identity remote address 172.15.21.1 255.255.255.252   ! IP-адрес соседа (куда)
  authentication remote pre-share   ! Метод проверки PSK
  authentication local pre-share 
- keyring KEYRING-1   ! сам общий PSK
+ keyring KEYRING-1   ! сам один общий PSK
 exit
 ! ----------------------------------
 ! Настройка Phase2 (IPSec SA туннелей - CHILD SA). Задаем комбинацию протоколов безопасности, Encryption, Hashing и Mode tunnel, которые будут защищать IPsec-трафик внутри VPN-туннеля
