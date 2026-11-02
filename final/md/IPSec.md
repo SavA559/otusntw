@@ -19,7 +19,7 @@ exit
 !
 ! Общий ключ (Pre-Shared Key) для удаленной стороны
 crypto ikev2 keyring KEYRING-1
- peer REMOTE-ROUTER
+ peer ANY-SPOKE
   address 0.0.0.0 0.0.0.0  ! IP удаленной стороны - Any host
   pre-shared-key local MYSECRET
   pre-shared-key remote MYSECRET
