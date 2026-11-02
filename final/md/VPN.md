@@ -109,14 +109,14 @@ interface Tunnel10
  ip mtu 1400
  ip tcp adjust-mss 1360
  ip nhrp network-id 100
-! Регистрация на Hub (IP туннеля Hub -> Внешний IP Hub)
+! Регистрация на Hub (мэппинг внутренний IP туннеля Hub -> Внешний IP Hub)
  ip nhrp nhs 10.110.0.1 nbma 172.1.15.2 multicast
  ip nhrp shortcut   ! для реализации Phase3 технологии DMVPN
  ip ospf cost 10
  ip ospf network broadcast
  ip ospf priority 0    ! Spoke никогда не станет DR/BDR
  tunnel source Ethernet0/1   ! Внешний интерфейс Spoke
- tunnel mode gre multipoint
+ tunnel mode gre multipoint   ! Вместо tunnel destination
  tunnel key 10
 !
 ! Настройка mGRE туннеля к ISP2 (Hub)
@@ -126,14 +126,14 @@ interface Tunnel20
  ip mtu 1400
  ip tcp adjust-mss 1360
  ip nhrp network-id 100
-! Регистрация на резервном IP Hub
+! Регистрация на резервном IP Hub (мэппинг внутренний IP туннеля Hub -> Внешний IP Hub)
  ip nhrp nhs 10.220.0.1 nbma 172.2.15.2 multicast
  ip nhrp shortcut
  ip ospf cost 100  ! Увеличиваем стоимость резервного туннеля
  ip ospf network broadcast
  ip ospf priority 0    ! Spoke никогда не станет DR/BDR
  tunnel source Ethernet0/1 
- tunnel mode gre multipoint
+ tunnel mode gre multipoint  ! Вместо tunnel destination
  tunnel key 20
 !
 ! Доп.настройка процесса OSPF
