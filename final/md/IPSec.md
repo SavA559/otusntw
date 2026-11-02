@@ -4,7 +4,7 @@ GRE over IPsec, где GRE создает виртуальный туннель 
 
 ####  Пример настройки GRE_over_IPsec на R21
 ```
-! Настройка Phase1 (IKE SA туннель). Для фсех IPSec SA одна настройка.
+! Настройка PHASE 1 (IKE SA туннель). Для фсех IPSec SA одна настройка.
 ! Создаем IKEv2 Proposal
 crypto ikev2 proposal GRE-PROP-PHASE1
  encryption aes-cbc-128   ! Encryption algorithm 
@@ -35,7 +35,7 @@ crypto ikev2 profile GRE-IKEV2-PROFILE1
  keyring KEYRING-1   ! сам один общий PSK
 exit
 ! ----------------------------------
-! Настройка Phase2 (IPSec SA туннелей - CHILD SA). Задаем комбинацию протоколов безопасности, Encryption, Hashing и Mode tunnel, которые будут защищать IPsec-трафик внутри VPN-туннеля
+! Настройка PHASE 2 (IPSec SA туннелей - CHILD SA). Задаем комбинацию протоколов безопасности, Encryption, Hashing и Mode tunnel, которые будут защищать IPsec-трафик внутри VPN-туннеля
 crypto ipsec transform-set GRE-TS esp-aes esp-md5-hmac
  mode transport
 exit
