@@ -23,17 +23,20 @@ interface Tunnel0
 ! Указываем внешние интерфейс и адрес маршрутизаторов:
  tunnel source Ethernet0/1
  tunnel destination 172.1.15.2
+! Автоматическое шифрование всего трафика, проходящего через туннельный интерфейс GRE
+ tunnel protection ipsec profile IPSEC-PROFILE
 !
 ! Резервный GRE до R15 через ISP2
 interface Tunnel1
  description GRE to R15 via ISP2
-tunnel mode gre ip
+ tunnel mode gre ip
  ip address 10.200.0.2 255.255.255.0
  ip mtu 1400
  ip tcp adjust-mss 1360
  ip ospf cost 100    ! Увеличиваем стоимость резервного туннеля
  tunnel source Ethernet0/1
  tunnel destination 172.2.15.2
+ tunnel protection ipsec profile IPSEC-PROFILE
 !
 ```
 
@@ -75,7 +78,8 @@ interface Tunnel10
  ip ospf cost 10   ! Стоимость основного туннеля
  tunnel source Ethernet0/1   ! Указываем внешний интерфейс для туннеля
  tunnel mode gre multipoint   ! Настраиваем многоточечный туннель mGRE
- ip ipsec profile MP-PROFILE  ! для IPsec
+! Автоматическое шифрование всего трафика, проходящего через туннельный интерфейс GRE
+ tunnel protection ipsec profile IPSEC-PROFILE
  tunnel key 10
 ! 
 ! Настройка второго mGRE туннеля через резервного ISP2
@@ -92,7 +96,7 @@ interface Tunnel20
  ip ospf cost 100  ! Увеличиваем стоимость резервного туннеля
  tunnel source Ethernet0/3
  tunnel mode gre multipoint
- ip ipsec profile MP-PROFILE
+ tunnel protection ipsec profile IPSEC-PROFILE
  tunnel key 20
 !
 ! Доп.настройка процесса OSPF
@@ -118,6 +122,7 @@ interface Tunnel10
  ip ospf priority 0    ! Spoke никогда не станет DR/BDR
  tunnel source Ethernet0/1   ! Внешний интерфейс Spoke
  tunnel mode gre multipoint   ! Вместо tunnel destination
+ tunnel protection ipsec profile IPSEC-PROFILE   ! для IPSec
  tunnel key 10
 !
 ! Настройка mGRE туннеля к ISP2 (Hub)
@@ -135,6 +140,7 @@ interface Tunnel20
  ip ospf priority 0    ! Spoke никогда не станет DR/BDR
  tunnel source Ethernet0/1 
  tunnel mode gre multipoint  ! Вместо tunnel destination
+ tunnel protection ipsec profile IPSEC-PROFILE
  tunnel key 20
 !
 ! Доп.настройка процесса OSPF
