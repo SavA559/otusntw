@@ -56,7 +56,7 @@ interface Tunnel0
  ip ospf cost 10
  tunnel source Ethernet0/1
  tunnel destination 172.1.15.2
- tunnel protection ipsec profile IPSEC-PROFILE-GRE0  ! Автоматическое шифрование всего трафика, проходящего через туннельный интерфейс GRE
+ tunnel protection ipsec profile IPSEC-PROFILE-GRE0  ! Автоматическое шифрование всего трафика, проходящего через VTI GRE
 !
 interface Tunnel1
  description GRE to R15 via ISP2
