@@ -41,7 +41,7 @@ crypto ipsec transform-set GRE-TS esp-aes esp-md5-hmac
 exit
 !
 ! Создаем криптографического профиль, который свяжет настройки безопасности IPsec SA с VTI
-crypto ipsec profile IPSEC-PROFILE-GRE
+crypto ipsec profile IPSEC-PROFILE-GRE0
  set transform-set GRE-TS
  set ikev2-profile GRE-IKEV2-PROFILE1
 exit
@@ -56,7 +56,7 @@ interface Tunnel0
  ip ospf cost 10
  tunnel source Ethernet0/1
  tunnel destination 172.1.15.2
- tunnel protection ipsec profile IPSEC-PROFILE-GRE  ! Автоматическое шифрование всего трафика, проходящего через туннельный интерфейс GRE
+ tunnel protection ipsec profile IPSEC-PROFILE-GRE0  ! Автоматическое шифрование всего трафика, проходящего через туннельный интерфейс GRE
 !
 interface Tunnel1
  description GRE to R15 via ISP2
@@ -67,7 +67,7 @@ interface Tunnel1
  ip ospf cost 100  
  tunnel source Ethernet0/1
  tunnel destination 172.2.15.2
- tunnel protection ipsec profile IPSEC-PROFILE-GRE
+ tunnel protection ipsec profile IPSEC-PROFILE-GRE1
 !
 ```
 
