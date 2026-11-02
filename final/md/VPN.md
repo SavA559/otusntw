@@ -67,7 +67,7 @@ interface Tunnel10
  ip nhrp map multicast dynamic   ! Добавили NHRP к туннелю (для динамического добавления spoke в список рассылки multicast по протоколу NHRP)
  ip nhrp network-id 100   ! id должен совпадать с обеих сторон
 ! Позволяем Hub сообщать Spokes о наличии более оптимального пути spoke-to-spoke для разгрузки центрального узла
- ip nhrp redirect   ! Позволяет Spoke общаться напрямую (Spoke-to-Spoke)
+ ip nhrp redirect   ! для реализации Phase3
 ! Принудительно установим тип сети OSPF в DMVPN в значение Broadcast (широковещательная многоточечная сеть)
  ip ospf network broadcast   ! тип сети OSPF
  ip ospf priority 255   ! при broadcast типе Hub гарантированно становится DR
