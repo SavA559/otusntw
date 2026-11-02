@@ -20,7 +20,7 @@ exit
 ! Общий ключ (Pre-Shared Key) для удаленной стороны
 crypto ikev2 keyring KEYRING-1
  peer REMOTE-ROUTER
-  address TR.AR.GE.T_IP  ! IP удаленной стороны
+  address 0.0.0.0 0.0.0.0  ! IP удаленной стороны - Any host
   pre-shared-key local MYSECRET
   pre-shared-key remote MYSECRET
  exit
