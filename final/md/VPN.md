@@ -17,9 +17,9 @@ interface Tunnel0
  tunnel mode gre ip
  ip address 10.100.0.2 255.255.255.0
 ! Уменьшаем MTU и MSS для избежания фрагментации пакетов
- ip mtu 1400   !На интерфейсе туннеля (Ethernet MTU - 1500 байт)
- ip tcp adjust-mss 1360   !L4 заголовок
- ip ospf cost 10
+ ip mtu 1400   ! Размер L3 на интерфейсе туннеля (Ethernet MTU - 1500 байт)
+ ip tcp adjust-mss 1360   ! L4 заголовок
+ ip ospf cost 10   ! Стоимость основного туннеля
 ! Указываем внешние интерфейс и адрес маршрутизаторов:
  tunnel source Ethernet0/1
  tunnel destination 172.1.15.2
@@ -72,9 +72,9 @@ interface Tunnel10
  ip ospf network broadcast   ! тип сети OSPF
  ip ospf priority 255   ! при broadcast типе Hub гарантированно становится DR
  ip ospf cost 10   ! Стоимость основного туннеля
- tunnel source Ethernet0/1
+ tunnel source Ethernet0/1   ! Указываем внешний интерфейс для туннеля
  tunnel mode gre multipoint   ! Настраиваем многоточечный туннель mGRE
- ip ipsec profile MP-PROFILE  ! Для IPsec
+ ip ipsec profile MP-PROFILE  ! для IPsec
  tunnel key 10
 ! 
 ! Настройка второго mGRE туннеля через резервного ISP2
@@ -91,7 +91,7 @@ interface Tunnel20
  ip ospf cost 100  ! Увеличиваем стоимость резервного туннеля
  tunnel source Ethernet0/3
  tunnel mode gre multipoint
- ip ipsec profile MP-PROFILE  ! Для IPsec
+ ip ipsec profile MP-PROFILE
  tunnel key 20
 !
 ! Доп.настройка процесса OSPF
