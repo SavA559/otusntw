@@ -10,10 +10,12 @@ crypto ikev2 proposal GRE-PROP-PHASE1
  encryption aes-cbc-128   ! Encryption algorithm 
  integrity md5   ! Hash algorithm
  group 2   ! Diffie-Hellman Group
+exit
 !
 ! Привязываем Proposal к политике IKEv2 (Policy)
 crypto ikev2 policy GRE-IKEV2-POLICY
  proposal GRE-PROP-PHASE1
+exit
 !
 ! Настройка Phase 1.2. Создание и настройка профиля протокола IKEv2 (объединяет в себе все настройки безопасности для VPN-сессии)
 crypto ikev2 profile GRE-IKEV2-PROFILE1
@@ -21,7 +23,7 @@ crypto ikev2 profile GRE-IKEV2-PROFILE1
  match identity remote address 172.15.21.1 255.255.255.252   ! IP-адрес соседа (куда)
  authentication remote pre-share key MYSECRET   ! Метод проверки PSK
  authentication local pre-share key MYSECRET
-!
+! ----------------------------------
 ! Настройка Phase2 (IPSec SA туннелей - CHILD SA). Задаем комбинацию протоколов безопасности, Encryption, Hashing и Mode tunnel, которые будут защищать IPsec-трафик внутри VPN-туннеля
 crypto ipsec transform-set GRE-TS esp-aes esp-md5-hmac
  mode transport
@@ -30,7 +32,7 @@ crypto ipsec transform-set GRE-TS esp-aes esp-md5-hmac
 crypto ipsec profile IPSEC-PROFILE-GRE
 set ikev2-profile GRE-IKEV2-PROFILE1
 set transform-set GRE-TS
-!
+!------------------------------------------
 !
 interface Tunnel0
  description GRE to R15 via ISP1   
