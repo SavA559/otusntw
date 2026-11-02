@@ -23,15 +23,18 @@ crypto ikev2 profile GRE-IKEV2-PROFILE1
  match identity remote address 172.15.21.1 255.255.255.252   ! IP-адрес соседа (куда)
  authentication remote pre-share key MYSECRET   ! Метод проверки PSK
  authentication local pre-share key MYSECRET
+exit
 ! ----------------------------------
 ! Настройка Phase2 (IPSec SA туннелей - CHILD SA). Задаем комбинацию протоколов безопасности, Encryption, Hashing и Mode tunnel, которые будут защищать IPsec-трафик внутри VPN-туннеля
 crypto ipsec transform-set GRE-TS esp-aes esp-md5-hmac
  mode transport
+exit
 !
 ! Создаем криптографического профиль, который свяжет настройки безопасности IPsec SA с VTI
 crypto ipsec profile IPSEC-PROFILE-GRE
-set ikev2-profile GRE-IKEV2-PROFILE1
-set transform-set GRE-TS
+ set ikev2-profile GRE-IKEV2-PROFILE1
+ set transform-set GRE-TS
+exit
 !------------------------------------------
 !
 interface Tunnel0
