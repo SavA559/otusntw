@@ -31,7 +31,7 @@ tunnel mode gre ip
  ip address 10.200.0.2 255.255.255.0
  ip mtu 1400
  ip tcp adjust-mss 1360
- ip ospf cost 100 
+ ip ospf cost 100    ! Увеличиваем стоимость резервного туннеля
  tunnel source Ethernet0/1
  tunnel destination 172.2.15.2
 !
@@ -64,12 +64,14 @@ interface Tunnel10
  no ip redirects
  ip mtu 1400
  ip tcp adjust-mss 1360
- ip nhrp map multicast dynamic   ! Для динамического добавления spoke в список рассылки multicast по протоколу NHRP
- ip nhrp network-id 100
+ ip nhrp map multicast dynamic   ! Добавили NHRP к туннелю (для динамического добавления spoke в список рассылки multicast по протоколу NHRP)
+ ip nhrp network-id 100   ! id должен совпадать с обеих сторон
+! Позволяем Hub сообщать Spokes о наличии более оптимального пути spoke-to-spoke для разгрузки центрального узла
  ip nhrp redirect   ! Позволяет Spoke общаться напрямую (Spoke-to-Spoke)
- ip ospf network broadcast   ! тип сети OSPF на туннельных интерфейсах
- ip ospf priority 255   ! Hub гарантированно становится DR
- ip ospf cost 10
+! Принудительно установим тип сети OSPF в DMVPN в значение Broadcast (широковещательная многоточечная сеть)
+ ip ospf network broadcast   ! тип сети OSPF
+ ip ospf priority 255   ! при broadcast типе Hub гарантированно становится DR
+ ip ospf cost 10   ! Стоимость основного туннеля
  tunnel source Ethernet0/1
  tunnel mode gre multipoint   ! Настраиваем многоточечный туннель mGRE
  ip ipsec profile MP-PROFILE  ! Для IPsec
