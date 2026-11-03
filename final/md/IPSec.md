@@ -26,16 +26,17 @@ crypto ikev2 keyring KEYRING-1
  exit
 exit
 !
-! Настройка Phase 1.2. Создание и настройка профиля протокола IKEv2 (объединяет в себе все настройки безопасности для VPN-сессии)
+! Настройка Phase 1.2. Создание и настройка профиля протокола IKEv2 (объединяет в себе все настройки безопасности для VPN-сессии).
+! Создание для определенного туннеля или общий профиль
 crypto ikev2 profile GRE-IKEV2-PROFILE1
- match address local interface Ethernet0/2   ! Для первого туннеля (для второго создается аналогичный или общий профиль)
+ match address local interface Ethernet0/2 
  match identity remote address 172.15.21.1 255.255.255.252   ! IP-адрес соседа (куда)
  authentication remote pre-share   ! Метод проверки - PSK
  authentication local pre-share 
  keyring KEYRING-1   ! сам один общий PSK
 exit
 ! ----------------------------------
-! Настройка PHASE 2 (IPSec SA туннелей - CHILD SA). Задаем комбинацию протоколов безопасности, Encryption, Hashing и Mode tunnel, которые будут защищать IPsec-трафик внутри VPN-туннеля
+! Настройка PHASE 2. Задаем комбинацию протоколов безопасности, Encryption, Hashing и Mode tunnel, которые будут защищать IPsec-трафик внутри VPN-туннеля
 crypto ipsec transform-set GRE-TS esp-aes esp-md5-hmac
  mode transport
 exit
