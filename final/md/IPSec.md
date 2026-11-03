@@ -93,3 +93,4 @@ sh crypto ipsec profile - для отображения настроек про�
 
 ![](../scheme/ipsec21.PNG)
 ---
+![](../scheme/ike21.PNG)
