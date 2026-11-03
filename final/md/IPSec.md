@@ -70,7 +70,7 @@ interface Tunnel1
 !
 ```
 
-####  Пример настройки на R15
+####  Пример настройки GRE_over_IPsec и DMVPN_over_IPsec на R15
 ```
 
 ```
