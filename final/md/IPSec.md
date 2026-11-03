@@ -39,7 +39,7 @@ crypto ipsec transform-set GRE-TS esp-aes esp-md5-hmac
  mode transport
 exit
 !
-! Создаем криптографического профиль, который свяжет настройки безопасности IPsec SA с VTI
+! Создаем криптографического профиль, который будет связывать настройки безопасности IPsec SA с VTI GRE
 crypto ipsec profile IPSEC-PROFILE-GRE
  set transform-set GRE-TS
  set ikev2-profile GRE-IKEV2-PROFILE1
