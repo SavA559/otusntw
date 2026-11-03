@@ -17,7 +17,7 @@ crypto ikev2 policy GRE-IKEV2-POLICY
  proposal GRE-PROP-PHASE1
 exit
 !
-! Общий ключ (Pre-Shared Key) для удаленной стороны
+! Общий ключ (Pre-Shared Key) для любого peer
 crypto ikev2 keyring KEYRING-1
  peer ANY-SPOKE
   address 0.0.0.0 0.0.0.0  ! IP удаленной стороны - Any host
