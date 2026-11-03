@@ -158,7 +158,7 @@ show ip nhrp - выводит текущий кэш протокола NHRP
 show dmvpn - используется для проверки текущего состояния и статистики DMVPN
 ```
 
-#### Результат работы DMVPN 
+#### Результат работы DMVPN Phase 3
 ![](../scheme/dmvpn15.PNG)
 ---
 ![](../scheme/traceSPOKES.PNG)
