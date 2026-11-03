@@ -21,8 +21,7 @@ exit
 crypto ikev2 keyring KEYRING-1
  peer ANY-SPOKE
   address 0.0.0.0 0.0.0.0  ! IP удаленной стороны - Any host
-  pre-shared-key local MYSECRET
-  pre-shared-key remote MYSECRET
+  pre-shared-key MYSECRET
  exit
 exit
 !
