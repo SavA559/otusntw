@@ -160,3 +160,5 @@ show dmvpn - используется для проверки текущего �
 
 #### Результат работы DMVPN 
 ![](../scheme/dmvpn15.PNG)
+---
+![](../scheme/traceSPOKES.PNG)
