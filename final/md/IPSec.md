@@ -70,11 +70,6 @@ interface Tunnel1
 !
 ```
 
-####  Пример настройки GRE_over_IPsec и DMVPN_over_IPsec на R15
-```
-
-```
-
 #### Файлы с настройками устройств
 [IPsec на R21](../configs/R21#L262-L298) ;
 [IPsec на R15](../configs/R15#L125-L149)
