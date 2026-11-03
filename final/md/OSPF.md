@@ -103,6 +103,6 @@ clear ip ospf [process-id] process - используется для перез�
 
 ![](../scheme/ospf16.PNG)
 ---
-![](../scheme/ospf17.PNG)
+![](../scheme/ospf.PNG)
 ---
-![](../scheme/ospf31.PNG)
+![](../scheme/trace.PNG)
