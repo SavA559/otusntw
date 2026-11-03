@@ -85,7 +85,7 @@ interface Tunnel1
 sho crypto ikev2 sa [detailed] - отображение текущего состояния Security Associations протокола IKEv2
 sho crypto ikev2 session - состояние сессий или туннелей IKEv2
 sh crypto ipsec sa - для диагностики и вывода информации о Security Associations во второй фазе протокола IPsec
------- смотрим строчку с packet incription и packet description (кол-во зашифрованных и расшифрованных пакетов)-------
+------ смотрим status и строчку с packet incription с packet description (кол-во зашифрованных и расшифрованных пакетов)-------
 sh crypto ipsec sa detail - для проверки состояния и глубокой диагностики установленных IPsec Security Associations
 sh crypto ipsec profile - для отображения настроек профилей IPsec
 ```
