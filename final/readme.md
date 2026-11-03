@@ -33,7 +33,7 @@
  - [eBGP (Exterior Border Gateway Protocol)](md/BGP.md)
  - [iBGP (Interior Border Gateway Protocol)](md/BGP.md#пример-настройки-ibgp-и-ebgp-на-r1)
 
-###  6. Шифрование VPN туннелей
+###  6. Шифрование VPN туннелей (GRE over IPsec)
   - [IPsec (Internet Protocol Security)](md/IPSec.md)
 
 ###  7. Инфраструктурные сервисы 
