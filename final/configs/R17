@@ -1,1 +1,13 @@
-
+!
+interface Loopback0
+ ip address 17.17.17.17 255.255.255.255
+!
+interface Ethernet0/3
+ description TO-R12
+ ip address 10.1.0.30 255.255.255.252
+!
+router ospf 1
+ router-id 1.1.1.17
+ network 10.1.0.28 0.0.0.3 area 17
+ network 17.17.17.17 0.0.0.0 area 17
+!
