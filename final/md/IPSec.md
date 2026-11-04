@@ -71,8 +71,8 @@ interface Tunnel1
 ```
 
 #### Файлы с настройками устройств
-[GRE_over_IPsec на R21](../configs/R21#L262-L298) ;
-[DMVPN_over_IPsec на R15](../configs/R15#L125-L149)
+[GRE_over_IPsec на R21](../configs/R21#L2-L27) ;
+[DMVPN_over_IPsec на R15](../configs/R15#L4-L29)
 
 #### Команды для проверки IPsec
 ```
