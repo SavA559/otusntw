@@ -13,7 +13,7 @@
 7. Настроить инфраструктурные сервисы (DHCP, NTP, NAT)
 
 ### Cхема сети
-![](scheme/schemeIP.PNG)
+![](scheme/schemeip.PNG)
 
 ###  1. Распределение адресного пространства
  - [Адресное пространство проекта](https://github.com/SavA559/otusntw/blob/main/final/md/addresses.md)
