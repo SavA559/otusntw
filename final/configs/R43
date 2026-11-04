@@ -1,1 +1,90 @@
-
+!
+crypto ikev2 proposal GRE-PROP-PHASE1
+ encryption aes-cbc-128
+ integrity md5
+ group 2
+!
+crypto ikev2 policy GRE-IKEV2-POLICY
+ proposal GRE-PROP-PHASE1
+!
+crypto ikev2 keyring KEYRING-1
+ peer ANY-SPOKE
+  address 0.0.0.0 0.0.0.0
+  pre-shared-key MYSECRET
+!
+crypto ikev2 profile GRE-IKEV2-PROFILE1
+ match identity remote address 0.0.0.0
+ authentication remote pre-share
+ authentication local pre-share
+ keyring local KEYRING-1
+!
+crypto ipsec transform-set GRE-TS esp-aes esp-md5-hmac
+ mode transport
+!
+crypto ipsec profile IPSEC-PROFILE-GRE
+ set transform-set GRE-TS
+ set ikev2-profile GRE-IKEV2-PROFILE1
+!
+interface Loopback0
+ ip address 43.43.43.43 255.255.255.255
+!
+interface Tunnel10
+ ip address 10.110.0.3 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp map 10.110.0.1 172.1.15.2
+ ip nhrp map multicast 172.1.15.2
+ ip nhrp network-id 110
+ ip nhrp nhs 10.110.0.1
+ ip nhrp shortcut
+ ip tcp adjust-mss 1360
+ ip ospf network broadcast
+ ip ospf priority 0
+ ip ospf cost 15
+ tunnel source Ethernet0/1
+ tunnel mode gre multipoint
+ tunnel key 10
+ tunnel protection ipsec profile IPSEC-PROFILE-GRE
+!
+interface Tunnel20
+ ip address 10.220.0.3 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp map 10.220.0.1 172.2.15.2
+ ip nhrp map multicast 172.2.15.2
+ ip nhrp network-id 220
+ ip nhrp nhs 10.220.0.1
+ ip nhrp shortcut
+ ip tcp adjust-mss 1360
+ ip ospf network broadcast
+ ip ospf priority 0
+ ip ospf cost 100
+ tunnel source Ethernet0/1
+ tunnel mode gre multipoint
+ tunnel protection ipsec profile IPSEC-PROFILE-GRE
+!
+interface Ethernet0/0
+ description TO-R41
+ ip address 10.4.0.2 255.255.255.252
+!
+interface Ethernet0/1
+ description TO-R2
+ ip address 172.2.43.2 255.255.255.252
+!
+interface Ethernet0/2
+ description TO-R42
+ ip address 10.4.0.6 255.255.255.252
+!
+router ospf 1
+ router-id 1.1.1.43
+ network 10.4.0.0 0.0.0.3 area 40
+ network 10.4.0.4 0.0.0.3 area 40
+ network 10.110.0.0 0.0.0.255 area 0
+ network 10.220.0.0 0.0.0.255 area 0
+ network 43.43.43.43 0.0.0.0 area 0
+!
+router bgp 64501
+ bgp router-id 43.43.43.43
+ bgp log-neighbor-changes
+ neighbor 172.2.43.1 remote-as 64512
+!
