@@ -7,6 +7,7 @@ interface Loopback0
 interface Ethernet0/0
  description TO-R15
  ip address 172.1.15.1 255.255.255.252
+ ip policy route-map TO-SPECIFIC-ROUTER
 !
 interface Ethernet0/1
  description TO-R4
