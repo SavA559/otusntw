@@ -60,8 +60,8 @@ router eigrp BOR-EIGRP
 ```
 
 #### Файлы с настройками устройств
-[EIGRP на R21](../configs/R21#L125-L149) ;
-[EIGRP на R23](../configs/R23#L262-L298)
+[EIGRP на R21](../configs/R21#L68-L100) ;
+[EIGRP на R23](../configs/R23#L19-L38)
 
 #### Команды для проверки работы EIGRP
 ```
