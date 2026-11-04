@@ -1,1 +1,18 @@
-
+!
+interface Loopback0
+ ip address 42.42.42.42 255.255.255.255
+!
+interface Ethernet0/1
+ description TO-R43
+ ip address 10.4.0.5 255.255.255.252
+!
+interface Ethernet0/2
+ description TO-R41
+ ip address 10.4.0.10 255.255.255.252
+!
+router ospf 1
+ router-id 1.1.1.42
+ network 10.4.0.4 0.0.0.3 area 40
+ network 10.4.0.8 0.0.0.3 area 40
+ network 42.42.42.42 0.0.0.0 area 40
+!
