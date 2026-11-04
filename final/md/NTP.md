@@ -53,8 +53,8 @@ ntp update-calendar
 ```
 
 #### Файлы с настройками устройств
-[NTP server/client на R15](../configs/R15#L125-L149) ;
-[NTP client на R11](../configs/R11#L262-L298)
+[NTP server/client на R15](../configs/R15#L138-L151) ;
+[NTP client на R11](../configs/R11#L32-L35)
 
 #### Команды для проверки работы NTP
 ```
