@@ -1,1 +1,152 @@
-
+!
+clock timezone MSK 3 0
+!
+crypto ikev2 proposal GRE-PROP-PHASE1
+ encryption aes-cbc-128
+ integrity md5
+ group 2
+!
+crypto ikev2 policy GRE-IKEV2-POLICY
+ proposal GRE-PROP-PHASE1
+!
+crypto ikev2 keyring KEYRING-1
+ peer ANY-SPOKE
+  address 0.0.0.0 0.0.0.0
+  pre-shared-key MYSECRET
+!
+crypto ikev2 profile GRE-IKEV2-PROFILE1
+ match identity remote address 0.0.0.0
+ authentication remote pre-share
+ authentication local pre-share
+ keyring local KEYRING-1
+!
+crypto ipsec transform-set GRE-TS esp-aes esp-md5-hmac
+ mode transport
+!
+crypto ipsec profile IPSEC-PROFILE-GRE
+ set transform-set GRE-TS
+ set ikev2-profile GRE-IKEV2-PROFILE1
+!
+interface Loopback0
+ ip address 15.15.15.15 255.255.255.255
+!
+interface Tunnel0
+ description GRE over ISP1
+ ip address 10.100.0.1 255.255.255.0
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ ip ospf cost 10
+ tunnel source Ethernet0/1
+ tunnel destination 172.3.21.2
+ tunnel protection ipsec profile IPSEC-PROFILE-GRE
+!
+interface Tunnel1
+ description GRE over ISP2
+ ip address 10.200.0.1 255.255.255.0
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ ip ospf cost 100
+ tunnel source Ethernet0/3
+ tunnel destination 172.3.21.2
+ tunnel protection ipsec profile IPSEC-PROFILE-GRE
+!
+interface Tunnel10
+ ip address 10.110.0.1 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp map multicast dynamic
+ ip nhrp network-id 110
+ ip nhrp redirect
+ ip tcp adjust-mss 1360
+ ip ospf network broadcast
+ ip ospf priority 255
+ ip ospf cost 15
+ tunnel source Ethernet0/1
+ tunnel mode gre multipoint
+ tunnel key 10
+ tunnel protection ipsec profile IPSEC-PROFILE-GRE
+!
+interface Tunnel20
+ ip address 10.220.0.1 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp map multicast dynamic
+ ip nhrp network-id 220
+ ip nhrp redirect
+ ip tcp adjust-mss 1360
+ ip ospf network broadcast
+ ip ospf priority 255
+ ip ospf cost 100
+ tunnel source Ethernet0/3
+ tunnel mode gre multipoint
+ tunnel protection ipsec profile IPSEC-PROFILE-GRE
+!
+interface Ethernet0/0
+ description TO-R12
+ ip address 10.1.0.6 255.255.255.252
+!
+interface Ethernet0/1
+ description TO-R1
+ ip address 172.1.15.2 255.255.255.252
+!
+interface Ethernet0/2
+ description TO-R11
+ ip address 10.1.0.2 255.255.255.252
+!
+interface Ethernet0/3
+ description TO-R2
+ ip address 172.2.15.2 255.255.255.252
+!
+router ospf 1
+ router-id 1.1.1.15
+ network 10.1.0.0 0.0.0.3 area 0
+ network 10.1.0.4 0.0.0.3 area 0
+ network 10.100.0.0 0.0.0.255 area 0
+ network 10.110.0.0 0.0.0.255 area 0
+ network 10.200.0.0 0.0.0.255 area 0
+ network 10.220.0.0 0.0.0.255 area 0
+ network 15.15.15.15 0.0.0.0 area 0
+ default-information originate
+!
+router bgp 64501
+ bgp router-id 15.15.15.15
+ bgp log-neighbor-changes
+ network 101.0.0.0 mask 255.255.255.128
+ neighbor 172.1.15.1 remote-as 64511
+ neighbor 172.1.15.1 route-map PREF-ISP1 in
+ neighbor 172.1.15.1 route-map RM-BGP-OUT-PREFIX out
+ neighbor 172.2.15.1 remote-as 64512
+ neighbor 172.2.15.1 route-map PREPEND-ISP2 out
+!
+ip as-path access-list 3 permit ^$
+!
+ip route 0.0.0.0 0.0.0.0 172.1.15.1
+ip route 0.0.0.0 0.0.0.0 172.2.15.1 5
+ip route 101.0.0.0 255.255.255.128 Null0
+!
+ip prefix-list PL-MY-NETS seq 5 permit 101.0.0.0/25
+!
+route-map PREPEND-ISP2 permit 10
+ match as-path 3
+ set as-path prepend 64501 64501 64501
+!
+route-map RM-BGP-OUT-PREFIX permit 10
+ match ip address prefix-list PL-MY-NETS
+!
+route-map PREF-ISP1 permit 10
+ set local-preference 150
+!
+access-list 1 remark "permit to NTP server access"
+access-list 1 permit 172.1.15.1
+access-list 1 deny   any
+access-list 2 remark "permit to NTP local server"
+access-list 2 permit 10.1.0.0 0.0.255.255
+access-list 2 deny   any
+!
+ntp source Ethernet0/1
+ntp access-group peer 1
+ntp access-group serve-only 2
+ntp master 3
+ntp update-calendar
+ntp server 172.1.15.1
+!
