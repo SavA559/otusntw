@@ -1,1 +1,52 @@
-
+!
+ip dhcp excluded-address 10.1.111.250 10.1.111.254
+ip dhcp excluded-address 10.1.112.250 10.1.112.254
+!
+ip dhcp pool 1
+ network 10.1.111.0 255.255.255.0
+ default-router 10.1.111.254
+ dns-server 8.8.8.8
+!
+ip dhcp pool 2
+ network 10.1.112.0 255.255.255.0
+ default-router 10.1.112.254
+ dns-server 8.8.8.8
+!
+ip dhcp pool HOST-SERVER
+ host 10.1.111.111 255.255.255.0
+ hardware-address 0100.5079.6668.0c
+ client-name VPC111
+!
+interface Loopback0
+ ip address 14.14.14.14 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 10.1.112.253 255.255.255.0
+ standby 2 ip 10.1.112.254
+ standby 2 priority 110
+ standby 2 preempt
+!
+interface Ethernet0/1
+ description TO-R12
+ ip address 10.1.0.26 255.255.255.252
+!
+interface Ethernet0/2
+ description TO-R11
+ ip address 10.1.0.14 255.255.255.252
+!
+interface Ethernet0/3
+ ip address 10.1.111.253 255.255.255.0
+ standby 1 ip 10.1.111.254
+ standby 1 preempt
+!
+router ospf 1
+ router-id 1.1.1.14
+ area 10 nssa
+ passive-interface Ethernet0/0
+ passive-interface Ethernet0/3
+ network 10.1.0.12 0.0.0.3 area 10
+ network 10.1.0.24 0.0.0.3 area 10
+ network 10.1.111.0 0.0.0.255 area 10
+ network 10.1.112.0 0.0.0.255 area 10
+ network 14.14.14.14 0.0.0.0 area 10
+!
