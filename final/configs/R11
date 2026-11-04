@@ -1,1 +1,36 @@
-
+!
+clock timezone MSK 3 0
+!
+interface Loopback0
+ ip address 11.11.11.11 255.255.255.255
+!
+interface Ethernet0/0
+ description TO-R13
+ ip address 10.1.0.9 255.255.255.252
+!
+interface Ethernet0/1
+ description TO-R15
+ ip address 10.1.0.1 255.255.255.252
+!
+interface Ethernet0/2
+ description TO-R14
+ ip address 10.1.0.13 255.255.255.252
+!
+interface Ethernet0/3
+ description TO-R16
+ ip address 10.1.0.17 255.255.255.252
+!
+router ospf 1
+ router-id 1.1.1.11
+ area 10 nssa default-information-originate
+ area 16 nssa no-summary
+ network 10.1.0.0 0.0.0.3 area 0
+ network 10.1.0.8 0.0.0.3 area 10
+ network 10.1.0.12 0.0.0.3 area 10
+ network 10.1.0.16 0.0.0.3 area 16
+ network 11.11.11.11 0.0.0.0 area 0
+!
+ntp source Ethernet0/1
+ntp update-calendar
+ntp server 10.1.0.2
+!
