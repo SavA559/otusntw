@@ -61,8 +61,8 @@ interface Ethernet0/3
 ```
 
 #### Файлы с настройками устройств
-[DHCP server на R22](../configs/R22#L125-L149) ;
-[DHCP server на R23](../configs/R23#L262-L298)
+[DHCP server на R22](../configs/R22#L2-L31) ;
+[DHCP server на R23](../configs/R23#L2-L31)
 
 #### Команды для проверки работы DHCP
 ```
