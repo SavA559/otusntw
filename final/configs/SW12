@@ -1,1 +1,33 @@
-
+!
+interface Port-channel1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/0
+ switchport access vlan 112
+ switchport mode access
+ switchport nonegotiate
+!
+interface Ethernet0/1
+ switchport access vlan 112
+ switchport mode access
+!
+interface Ethernet0/2
+ switchport access vlan 112
+ switchport mode access
+!
+interface Ethernet1/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-protocol lacp
+ channel-group 1 mode passive
+!
+interface Ethernet1/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-protocol lacp
+ channel-group 1 mode passive
+!
+interface Vlan112
+ ip address 10.1.112.250 255.255.255.0
+!
