@@ -11,3 +11,5 @@ interface Ethernet0/1
 interface Vlan131
  ip address 10.3.131.250 255.255.255.0
 !
+ip default-gateway 10.3.131.254
+!
