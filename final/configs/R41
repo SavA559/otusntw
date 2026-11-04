@@ -1,1 +1,30 @@
-
+!
+ip dhcp excluded-address 10.4.141.250 10.4.141.254
+!
+ip dhcp pool 1
+ network 10.4.141.0 255.255.255.0
+ default-router 10.4.141.254
+ dns-server 8.8.8.8
+!
+interface Loopback0
+ ip address 41.41.41.41 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 10.4.141.254 255.255.255.0
+!
+interface Ethernet0/1
+ description TO-R43
+ ip address 10.4.0.1 255.255.255.252
+!
+interface Ethernet0/2
+ description TO-R42
+ ip address 10.4.0.9 255.255.255.252
+!
+router ospf 1
+ router-id 1.1.1.41
+ passive-interface Ethernet0/0
+ network 10.4.0.0 0.0.0.3 area 40
+ network 10.4.0.8 0.0.0.3 area 40
+ network 10.4.141.0 0.0.0.255 area 40
+ network 41.41.41.41 0.0.0.0 area 40
+!
