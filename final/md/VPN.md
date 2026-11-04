@@ -41,7 +41,7 @@ interface Tunnel1
 ```
 
 #### Файлы с настройками устройств
-[GRE на R21](../configs/R21#L125-L149) ; [GRE на R15](../configs/R15#L125-L149) <br>
+[GRE на R21](../configs/R21#L30-L50) ; [GRE на R15](../configs/R15#L32-L52) <br>
 
 #### Результат поднятия GRE-туннелей между Н.Новгород и Бор
 ![](../scheme/GRE23-12.PNG) <br>
