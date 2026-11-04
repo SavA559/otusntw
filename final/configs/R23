@@ -1,1 +1,39 @@
-
+!
+interface Loopback0
+ ip address 23.23.23.23 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 10.2.122.253 255.255.255.0
+ standby 2 ip 10.2.122.254
+ standby 2 priority 110
+ standby 2 preempt
+!
+interface Ethernet0/2
+ description TO-R21
+ ip address 10.2.0.2 255.255.255.252
+!
+interface Ethernet0/3
+ ip address 10.2.121.253 255.255.255.0
+ standby 1 ip 10.2.121.254
+ standby 1 preempt
+!
+router eigrp BOR-EIGRP
+ !
+ address-family ipv4 unicast autonomous-system 100
+  !
+  af-interface default
+   passive-interface
+  exit-af-interface
+  !
+  af-interface Ethernet0/2
+   no passive-interface
+  exit-af-interface
+  !
+  topology base
+  exit-af-topology
+  network 10.2.0.0 0.0.0.3
+  network 10.2.121.0 0.0.0.255
+  network 10.2.122.0 0.0.0.255
+  network 23.23.23.23 0.0.0.0
+ exit-address-family
+!
