@@ -1,1 +1,52 @@
-
+!
+ip dhcp excluded-address 10.2.121.250 10.2.121.254
+ip dhcp excluded-address 10.2.122.250 10.2.122.254
+!
+ip dhcp pool 1
+ network 10.2.121.0 255.255.255.0
+ default-router 10.2.121.254
+ dns-server 8.8.8.8
+!
+ip dhcp pool 2
+ network 10.2.122.0 255.255.255.0
+ default-router 10.2.122.254
+ dns-server 8.8.8.8
+!
+interface Loopback0
+ ip address 22.22.22.22 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 10.2.121.252 255.255.255.0
+ standby 1 ip 10.2.121.254
+ standby 1 priority 110
+ standby 1 preempt
+!
+interface Ethernet0/1
+ description TO-R21
+ ip address 10.2.0.6 255.255.255.252
+!
+interface Ethernet0/3
+ ip address 10.2.122.252 255.255.255.0
+ standby 2 ip 10.2.122.254
+ standby 2 preempt
+!
+router eigrp BOR-EIGRP
+ !
+ address-family ipv4 unicast autonomous-system 100
+  !
+  af-interface default
+   passive-interface
+  exit-af-interface
+  !
+  af-interface Ethernet0/1
+   no passive-interface
+  exit-af-interface
+  !
+  topology base
+  exit-af-topology
+  network 10.2.0.4 0.0.0.3
+  network 10.2.121.0 0.0.0.255
+  network 10.2.122.0 0.0.0.255
+  network 22.22.22.22 0.0.0.0
+ exit-address-family
+!
