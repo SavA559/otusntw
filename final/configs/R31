@@ -1,1 +1,101 @@
-
+!
+ip dhcp excluded-address 10.3.131.250 10.3.131.254
+!
+ip dhcp pool 1
+ network 10.3.131.0 255.255.255.0
+ default-router 10.3.131.254
+ dns-server 8.8.8.8
+!
+multilink bundle-name authenticated
+!
+crypto ikev2 proposal GRE-PROP-PHASE1
+ encryption aes-cbc-128
+ integrity md5
+ group 2
+!
+crypto ikev2 policy GRE-IKEV2-POLICY
+ proposal GRE-PROP-PHASE1
+!
+crypto ikev2 keyring KEYRING-1
+ peer ANY-SPOKE
+  address 0.0.0.0 0.0.0.0
+  pre-shared-key MYSECRET
+!
+crypto ikev2 profile GRE-IKEV2-PROFILE1
+ match identity remote address 0.0.0.0
+ authentication remote pre-share
+ authentication local pre-share
+ keyring local KEYRING-1
+!
+crypto ipsec transform-set GRE-TS esp-aes esp-md5-hmac
+ mode transport
+!
+crypto ipsec profile IPSEC-PROFILE-GRE
+ set transform-set GRE-TS
+ set ikev2-profile GRE-IKEV2-PROFILE1
+!
+interface Loopback0
+ ip address 31.31.31.31 255.255.255.255
+!
+interface Tunnel10
+ ip address 10.110.0.2 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp map 10.110.0.1 172.1.15.2
+ ip nhrp map multicast 172.1.15.2
+ ip nhrp network-id 110
+ ip nhrp nhs 10.110.0.1
+ ip nhrp shortcut
+ ip tcp adjust-mss 1360
+ ip ospf network broadcast
+ ip ospf priority 0
+ ip ospf cost 10
+ tunnel source Ethernet0/1
+ tunnel mode gre multipoint
+ tunnel key 10
+ tunnel protection ipsec profile IPSEC-PROFILE-GRE
+!
+interface Tunnel20
+ ip address 10.220.0.2 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp network-id 220
+ ip nhrp nhs 10.220.0.1 nbma 172.2.15.2 multicast
+ ip nhrp shortcut
+ ip tcp adjust-mss 1360
+ ip ospf network broadcast
+ ip ospf priority 0
+ ip ospf cost 100
+ tunnel source Ethernet0/1
+ tunnel mode gre multipoint
+ tunnel protection ipsec profile IPSEC-PROFILE-GRE
+!
+interface Ethernet0/0
+ ip address 10.3.131.254 255.255.255.0
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface Ethernet0/1
+ description TO-R4
+ ip address 172.4.31.2 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+!
+router ospf 1
+ router-id 1.1.1.31
+ passive-interface Ethernet0/0
+ network 10.3.131.0 0.0.0.255 area 0
+ network 10.110.0.0 0.0.0.255 area 0
+ network 10.220.0.0 0.0.0.255 area 0
+ network 31.31.31.31 0.0.0.0 area 0
+!
+router bgp 64501
+ bgp router-id 31.31.31.31
+ bgp log-neighbor-changes
+ neighbor 172.4.31.1 remote-as 64511
+!
+ip nat pool POOL-NAT 101.0.0.193 101.0.0.197 netmask 255.255.255.192
+ip nat inside source list 18 pool POOL-NAT
+!
+access-list 18 permit 10.3.131.0 0.0.0.255
+!
